@@ -8,7 +8,7 @@ resources, grab a
 then do the following:
 
 ```bash
-$ echo 'github_token = "INSERT TOKEN HERE"' > terraform.tfvars
+$ echo 'github_token = "INSERT TOKEN HERE"' > secrets.tfvars
 $ terraform init
 $ terraform apply
 ```
