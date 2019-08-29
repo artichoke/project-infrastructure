@@ -2,7 +2,7 @@ locals {
   repository = "project-infrastructure"
 }
 
-resource "github_repository" "project-infrastructure" {
+resource "github_repository" "this" {
   name        = local.repository
   description = "🛠 Infrastructure as code for the Artichoke open source project"
 
@@ -19,9 +19,13 @@ resource "github_repository" "project-infrastructure" {
     "terraform",
     "meta",
   ]
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
-module "common_labels" {
-  source     = "./modules/labels/common"
+module "labels" {
+  source     = "../../labels/common"
   repository = local.repository
 }
