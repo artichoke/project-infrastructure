@@ -1,5 +1,9 @@
+locals {
+  repository = "project-infrastructure"
+}
+
 resource "github_repository" "project-infrastructure" {
-  name        = "project-infrastructure"
+  name        = local.repository
   description = "🛠 Infrastructure as code for the Artichoke open source project"
 
   private = false
