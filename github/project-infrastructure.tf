@@ -20,3 +20,8 @@ resource "github_repository" "project-infrastructure" {
     "meta",
   ]
 }
+
+module "common_labels" {
+  source     = "./modules/labels/common"
+  repository = local.repository
+}
