@@ -14,8 +14,8 @@ module "project-infrastructure" {
 resource "github_organization_webhook" "discord" {
   configuration {
     url          = "https://discordapp.com/api/webhooks/608192305341399041/oc9Q3GcyBwJwQz9YIMHg4g4ZL28JAEO7qdRKqVgQUkxXm0kXvvn2WbSspWNyX3TVz8-p/github"
-    content_type = "application/json"
-    insecure_ssl = false
+    content_type = "json"
+    insecure_ssl = 0
   }
 
   active = true
