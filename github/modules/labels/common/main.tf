@@ -4,6 +4,30 @@ module "colors" {
   source = "../../colors"
 }
 
+resource "github_issue_label" "area_build" {
+  repository = var.repository
+  name = "A-build"
+  description = "Area: CI build infrastructure."
+
+  color = module.colors.area
+}
+
+resource "github_issue_label" "area_deps" {
+  repository = var.repository
+  name = "A-deps"
+  description = "Area: Source and library dependencies."
+
+  color = module.colors.area
+}
+
+resource "github_issue_label" "area_project" {
+  repository = var.repository
+  name = "A-project"
+  description = "Area: Infrastructure for creating an open source project."
+
+  color = module.colors.area
+}
+
 resource "github_issue_label" "category_bug" {
   repository = var.repository
   name = "C-bug"
