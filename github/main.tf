@@ -10,7 +10,7 @@ provider "github" {
 
 resource "github_organization_webhook" "discord" {
   configuration {
-    url          = "https://discordapp.com/api/webhooks/608192305341399041/${var.discord_api_secret}/github"
+    url          = "https://discordapp.com/api/webhooks/616536749367099402/${var.discord_api_secret}/github"
     content_type = "json"
     insecure_ssl = 0
   }
