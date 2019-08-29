@@ -16,10 +16,12 @@ pjv
 
 # Terraform sources
 
+pushd github
 ## Validate with terraform validate
-terraform validate github
+terraform validate
 ## Format with terraform fmt
-terraform fmt github
+terraform fmt
+popd
 
 # Shell sources
 

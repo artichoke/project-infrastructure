@@ -22,7 +22,7 @@ format() {
     -and -not -path '*vendor*' \
     -and -not -path '*target*' \
     -and -not -path '*node_modules*' \
-    -and -not -path '*spec/ruby*' -print0 |
+    -and -not -path '*.terraform*' -print0 |
     xargs -0 yarn run prettier --write $(wrap "$1")
 }
 
@@ -33,7 +33,7 @@ check() {
     -and -not -path '*vendor*' \
     -and -not -path '*target*' \
     -and -not -path '*node_modules*' \
-    -and -not -path '*spec/ruby*' -print0 |
+    -and -not -path '*.terraform*' -print0 |
     xargs -0 yarn run prettier --check $(wrap "$1")
 }
 
