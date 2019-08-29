@@ -1,4 +1,5 @@
 variable "github_token" {}
+variable "discord_api_secret" {}
 
 provider "github" {
   version = "~> 2.2"
@@ -9,7 +10,7 @@ provider "github" {
 
 resource "github_organization_webhook" "discord" {
   configuration {
-    url          = "https://discordapp.com/api/webhooks/608192305341399041/oc9Q3GcyBwJwQz9YIMHg4g4ZL28JAEO7qdRKqVgQUkxXm0kXvvn2WbSspWNyX3TVz8-p/github"
+    url          = "https://discordapp.com/api/webhooks/608192305341399041/${var.discord_api_secret}/github"
     content_type = "json"
     insecure_ssl = 0
   }
