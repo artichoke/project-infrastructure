@@ -1,17 +1,15 @@
 {
-  "name": "artichoke-site",
+  "name": "artichoke-project-infrastructure",
   "version": "0.1.0",
   "private": true,
-  "description": "Artichoke Site",
+  "description": "Artichoke Project Infrastructure",
   "keywords": [
-    "programming language",
-    "scripting",
-    "ruby",
-    "rust",
-    "wasm"
+    "infrastructure as code",
+    "terraform",
+    "automation"
   ],
   "homepage": "https://www.artichoke-ruby.org",
-  "bugs": "https://github.com/artichoke/artichoke.github.io/issues",
+  "bugs": "https://github.com/artichoke/project-infrastructure/issues",
   "license": "MIT",
   "author": {
     "name": "Ryan Lopopolo",
@@ -27,7 +25,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/artichoke/artichoke.github.io.git"
+    "url": "https://github.com/artichoke/project-infrastructure.git"
   },
   "devDependencies": {
     "@artichoke/logo": "git://github.com/artichoke/logo#master",
