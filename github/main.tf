@@ -29,6 +29,10 @@ resource "github_organization_webhook" "discord" {
   ]
 }
 
+module "bubblebabble" {
+  source = "./modules/repos/bubblebabble"
+}
+
 module "jasper" {
   source = "./modules/repos/jasper"
 }
