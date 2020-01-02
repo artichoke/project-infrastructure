@@ -52,6 +52,14 @@ resource "github_issue_label" "category_enhancement" {
   color = module.colors.category
 }
 
+resource "github_issue_label" "category_quality" {
+  repository = var.repository
+  name = "C-quality"
+  description = "Category: Refactoring, cleanup, and quality improvements."
+
+  color = module.colors.category
+}
+
 resource "github_issue_label" "category_question" {
   repository = var.repository
   name = "C-question"
