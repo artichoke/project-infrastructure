@@ -1,0 +1,47 @@
+name: CI
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+  schedule:
+    - cron: "0 0 * * TUE"
+jobs:
+  terraform:
+    name: Lint and format terraform
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+    # https://www.terraform.io/docs/github-actions/getting-started.html
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: 'Terraform Format'
+        uses: hashicorp/terraform-github-actions@master
+        with:
+          tf_actions_version: 0.12.13
+          tf_actions_subcommand: 'fmt'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  text:
+    name: Lint and format text
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install Node toolchain
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12.x"
+
+      - name: Lint and check formatting with prettier
+        run: npx prettier --check '**/*'
+
+      - name: Format markdown with prettier
+        run: npx prettier --prose-wrap always --check '**/*.md' '*.md'
