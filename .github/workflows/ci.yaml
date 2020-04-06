@@ -19,6 +19,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
       - name: "Terraform Format"
+        working-directory: "github"
         uses: hashicorp/terraform-github-actions@master
         with:
           tf_actions_version: 0.12.13
