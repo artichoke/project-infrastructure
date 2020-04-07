@@ -25,7 +25,7 @@ data "aws_iam_policy_document" "admin" {
 
     effect = "Allow"
 
-    actions =   ["*"]
+    actions   = ["*"]
     resources = ["*"]
   }
 }
