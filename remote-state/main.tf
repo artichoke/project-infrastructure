@@ -15,7 +15,8 @@ resource "aws_s3_bucket" "this" {
   acl    = "private"
 
   versioning {
-    enabled = true
+    enabled    = true
+    mfa_delete = false
   }
 
   server_side_encryption_configuration {
@@ -52,6 +53,10 @@ resource "aws_dynamodb_table" "terraform_statelock" {
   read_capacity  = 20
   write_capacity = 20
   hash_key       = "LockID"
+
+  server_side_encryption {
+    enabled = true
+  }
 
   attribute {
     name = "LockID"
