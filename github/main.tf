@@ -1,5 +1,22 @@
-variable "github_token" {}
-variable "discord_api_secret" {}
+terraform {
+  backend "s3" {
+    bucket         = "artichoke-terraform-state"
+    region         = "us-west-2"
+    key            = "github/terraform.tfstate"
+    encrypt        = true
+    dynamodb_table = "terraform_statelock"
+
+    profile = "artichokeruby"
+  }
+}
+
+variable "github_token" {
+  type = string
+}
+
+variable "discord_api_secret" {
+  type = string
+}
 
 provider "github" {
   version = "~> 2.3"

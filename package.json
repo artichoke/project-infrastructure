@@ -27,6 +27,7 @@
   },
   "scripts": {
     "fmt": "npx prettier --write '**/*'",
-    "fmt:md": "npx prettier --prose-wrap always --write '**/*.md' '*.md'"
+    "fmt:md": "npx prettier --prose-wrap always --write '**/*.md' '*.md'",
+    "fmt:tf": "terraform fmt aws && terraform fmt github && terraform fmt remote-state"
   }
 }
