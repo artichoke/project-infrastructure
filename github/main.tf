@@ -45,3 +45,12 @@ resource "github_organization_webhook" "discord" {
     "pull_request_review_comment",
   ]
 }
+
+module "team_ci" {
+  source = "./modules/team"
+
+  team        = "ci"
+  description = "Builds"
+  admins      = ["lopopolo"]
+  members     = ["artichoke-ci"]
+}
