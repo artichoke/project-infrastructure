@@ -17,32 +17,44 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: "Terraform Format"
-        uses: hashicorp/terraform-github-actions@master
-        with:
-          tf_actions_version: 0.13.0
-          tf_actions_subcommand: "fmt"
-          tf_actions_working_dir: "aws"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: "Setup Terraform"
+        uses: hashicorp/setup-terraform@v1
 
-      - name: "Terraform Format"
-        uses: hashicorp/terraform-github-actions@master
-        with:
-          tf_actions_version: 0.13.0
-          tf_actions_subcommand: "fmt"
-          tf_actions_working_dir: "github"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: "Format aws module"
+        run: terraform fmt -check -diff
+        working-directory: "aws"
 
-      - name: "Terraform Format"
-        uses: hashicorp/terraform-github-actions@master
-        with:
-          tf_actions_version: 0.13.0
-          tf_actions_subcommand: "fmt"
-          tf_actions_working_dir: "remote-state"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: "Initialize aws module"
+        run: terraform init
+        working-directory: "aws"
+
+      - name: "Validate aws module"
+        run: terraform validate -no-color
+        working-directory: "aws"
+
+      - name: "Format github module"
+        run: terraform fmt -check -diff
+        working-directory: "github"
+
+      - name: "Initialize github module"
+        run: terraform init
+        working-directory: "github"
+
+      - name: "Validate github module"
+        run: terraform validate -no-color
+        working-directory: "github"
+
+      - name: "Format remote-state module"
+        run: terraform fmt -check -diff
+        working-directory: "remote-state"
+
+      - name: "Initialize remote-state module"
+        run: terraform init
+        working-directory: "remote-state"
+
+      - name: "Validate remote-state module"
+        run: terraform validate -no-color
+        working-directory: "remote-state"
 
   text:
     name: Lint and format text
