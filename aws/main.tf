@@ -19,6 +19,10 @@ variable "iam_admins" {
   default = ["lopopolo"]
 }
 
+variable "github_actions_runners" {
+  default = ["github-actions-repo-project-infrastructure"]
+}
+
 data "aws_iam_policy_document" "admin" {
   statement {
     sid = 1
@@ -39,6 +43,39 @@ module "iam_admin" {
   policy = data.aws_iam_policy_document.admin.json
 }
 
+data "aws_iam_policy_document" "github_actions_runner_terraform_state_read_only" {
+  statement {
+    sid = 1
+
+    effect = "Allow"
+
+    actions = [
+      "s3:ListBucket"
+    ]
+    resources = ["arn:aws:s3:::artichoke-terraform-state"]
+  }
+
+  statement {
+    sid = 2
+
+    effect = "Allow"
+
+    actions = [
+      "s3:GetObject",
+    ]
+    resources = ["arn:aws:s3:::artichoke-terraform-state/*"]
+  }
+}
+
+module "github_actions_runner_read_only" {
+  source = "./modules/util/iam"
+
+  name  = "${var.name}-github-actions-readonly"
+  users = var.github_actions_runners
+
+  policy = data.aws_iam_policy_document.github_actions_runner_terraform_state_read_only.json
+}
+
 output "config" {
   value = <<CONFIG
 
@@ -56,6 +93,22 @@ Admin IAM:
   Secret Keys: ${join(
   "\n               ",
   formatlist("%s", module.iam_admin.secret_keys),
+  )}
+
+GitHub Actions IAM:
+  Admin Users: ${join(
+  "\n               ",
+  formatlist("%s", module.github_actions_runner_read_only.users),
+  )}
+
+  Access IDs: ${join(
+  "\n              ",
+  formatlist("%s", module.github_actions_runner_read_only.access_ids),
+  )}
+
+  Secret Keys: ${join(
+  "\n               ",
+  formatlist("%s", module.github_actions_runner_read_only.secret_keys),
 )}
 
 CONFIG

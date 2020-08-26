@@ -27,6 +27,9 @@ jobs:
       - name: "Initialize aws module"
         run: terraform init
         working-directory: "aws"
+        env:
+          AWS_ACCESS_KEY: ${{ secrets.TF_AWS_ACCESS_KEY }}
+          AWS_SECRET_KEY: ${{ secrets.TF_AWS_SECRET_KEY }}
 
       - name: "Validate aws module"
         run: terraform validate -no-color
@@ -39,6 +42,9 @@ jobs:
       - name: "Initialize github module"
         run: terraform init
         working-directory: "github"
+        env:
+          AWS_ACCESS_KEY: ${{ secrets.TF_AWS_ACCESS_KEY }}
+          AWS_SECRET_KEY: ${{ secrets.TF_AWS_SECRET_KEY }}
 
       - name: "Validate github module"
         run: terraform validate -no-color
@@ -51,6 +57,9 @@ jobs:
       - name: "Initialize remote-state module"
         run: terraform init
         working-directory: "remote-state"
+        env:
+          AWS_ACCESS_KEY: ${{ secrets.TF_AWS_ACCESS_KEY }}
+          AWS_SECRET_KEY: ${{ secrets.TF_AWS_SECRET_KEY }}
 
       - name: "Validate remote-state module"
         run: terraform validate -no-color
