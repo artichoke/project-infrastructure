@@ -1,1 +1,1 @@
-# DNS is managed by Google Domains (registrar of Artichoke domains)
+# DNS is managed by Google Domains (registrar of Artichoke domains).

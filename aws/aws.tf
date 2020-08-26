@@ -4,6 +4,5 @@ variable "region" {
 
 provider "aws" {
   region  = var.region
-  version = "~> 2.17"
   profile = "artichokeruby"
 }

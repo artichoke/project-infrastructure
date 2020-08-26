@@ -19,8 +19,6 @@ variable "discord_api_secret" {
 }
 
 provider "github" {
-  version = "~> 2.3"
-
   token        = var.github_token
   organization = "artichoke"
 }
