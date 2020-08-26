@@ -29,7 +29,7 @@ resource "github_repository" "boba" {
 
 resource "github_repository" "jasper" {
   name        = "jasper"
-  description = "🧳Single-binary packaging for Ruby applications that supports native and Wasm targets"
+  description = "🧳 Single-binary packaging for Ruby applications that supports native and Wasm targets"
 
   private = false
 
