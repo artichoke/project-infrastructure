@@ -30,6 +30,11 @@
     "description": "Area: Google Domains infrastructure as code."
   },
   {
+    "name": "A-packaging",
+    "color": "f7e101",
+    "description": "Area: Packaging and publish permissions."
+  },
+  {
     "name": "A-project",
     "color": "f7e101",
     "description": "Area: Infrastructure for running an open source project."
