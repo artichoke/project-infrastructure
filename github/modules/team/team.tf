@@ -14,10 +14,15 @@ variable "members" {
   type = list(string)
 }
 
+variable "is_secret_team" {
+  type    = bool
+  default = true
+}
+
 resource "github_team" "this" {
   name        = var.team
   description = var.description
-  privacy     = "secret"
+  privacy     = var.is_secret_team ? "secret" : "closed"
 }
 
 resource "github_team_membership" "admins" {
