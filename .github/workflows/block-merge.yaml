@@ -4,8 +4,8 @@ name: Merge
   pull_request:
     types: [opened, labeled, unlabeled, synchronize]
 jobs:
-  blocked:
-    name: Blocked by label
+  labels:
+    name: Labels
     runs-on: ubuntu-latest
 
     steps:
