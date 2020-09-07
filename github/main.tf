@@ -52,3 +52,14 @@ module "team_ci" {
   admins      = ["lopopolo"]
   members     = ["artichoke-ci"]
 }
+
+module "team_cratesio_publishers" {
+  source = "./modules/team"
+
+  team        = "crates.io publishers"
+  description = "Core team with perissions for publishing packages to crates.io"
+  admins      = ["lopopolo"]
+  members     = []
+
+  is_secret_team = false
+}
