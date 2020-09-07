@@ -7,7 +7,7 @@ resource "github_repository" "boba" {
 
   has_downloads = true
   has_issues    = true
-  has_projects  = true
+  has_projects  = false
   has_wiki      = true
 
   delete_branch_on_merge = true
@@ -35,7 +35,7 @@ resource "github_repository" "jasper" {
 
   has_downloads = true
   has_issues    = true
-  has_projects  = true
+  has_projects  = false
   has_wiki      = true
 
   delete_branch_on_merge = true
@@ -62,7 +62,7 @@ resource "github_repository" "project_infrastructure" {
 
   has_downloads = true
   has_issues    = true
-  has_projects  = true
+  has_projects  = false
   has_wiki      = true
 
   delete_branch_on_merge = true
