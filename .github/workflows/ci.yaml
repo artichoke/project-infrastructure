@@ -18,8 +18,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.TF_AWS_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.TF_AWS_SECRET_KEY }}
+          aws-region: us-west-2
+
       - name: "Setup Terraform"
         uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 0.13.x
 
       - name: "Format aws module"
         run: terraform fmt -check -diff
@@ -28,9 +37,6 @@ jobs:
       - name: "Initialize aws module"
         run: terraform init
         working-directory: "aws"
-        env:
-          AWS_ACCESS_KEY: ${{ secrets.TF_AWS_ACCESS_KEY }}
-          AWS_SECRET_KEY: ${{ secrets.TF_AWS_SECRET_KEY }}
 
       - name: "Validate aws module"
         run: terraform validate -no-color
@@ -43,9 +49,6 @@ jobs:
       - name: "Initialize github module"
         run: terraform init
         working-directory: "github"
-        env:
-          AWS_ACCESS_KEY: ${{ secrets.TF_AWS_ACCESS_KEY }}
-          AWS_SECRET_KEY: ${{ secrets.TF_AWS_SECRET_KEY }}
 
       - name: "Validate github module"
         run: terraform validate -no-color
@@ -58,9 +61,6 @@ jobs:
       - name: "Initialize remote-state module"
         run: terraform init
         working-directory: "remote-state"
-        env:
-          AWS_ACCESS_KEY: ${{ secrets.TF_AWS_ACCESS_KEY }}
-          AWS_SECRET_KEY: ${{ secrets.TF_AWS_SECRET_KEY }}
 
       - name: "Validate remote-state module"
         run: terraform validate -no-color
