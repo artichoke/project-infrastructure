@@ -3,7 +3,7 @@ resource "github_repository" "boba" {
   description  = "💦 Rust implementation of the Bubble Babble binary data encoding"
   homepage_url = "https://crates.io/crates/boba"
 
-  private = false
+  visibility = "public"
 
   has_downloads = true
   has_issues    = true
@@ -31,7 +31,7 @@ resource "github_repository" "jasper" {
   name        = "jasper"
   description = "🧳 Single-binary packaging for Ruby applications that supports native and Wasm targets"
 
-  private = false
+  visibility = "public"
 
   has_downloads = true
   has_issues    = true
@@ -58,7 +58,7 @@ resource "github_repository" "project_infrastructure" {
   name        = "project-infrastructure"
   description = "🛠 Infrastructure as code for the Artichoke open source project"
 
-  private = false
+  visibility = "public"
 
   has_downloads = true
   has_issues    = true

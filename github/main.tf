@@ -11,11 +11,13 @@ terraform {
 }
 
 variable "github_token" {
-  type = string
+  type      = string
+  sensitive = true
 }
 
 variable "discord_api_secret" {
-  type = string
+  type      = string
+  sensitive = true
 }
 
 provider "github" {
