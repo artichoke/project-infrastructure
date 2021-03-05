@@ -1,6 +1,6 @@
 # Artichoke remote Terraform state
 
-The terraform configuration in this directory creates the infrastructure
+The Terraform configuration in this directory creates the infrastructure
 necessary to store Terraform state in S3.
 
 The state for this infra is stored in the S3 bucket created by this code.

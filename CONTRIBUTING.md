@@ -1,124 +1,111 @@
-# Contributing to Artichoke
+# Contributing to Artichoke – Project Infrastructure
 
-👋 Hi and welcome to [Artichoke](https://github.com/artichoke). Thanks for
-taking the time to contribute! 💪💎🙌
+👋 Hi and welcome to [Artichoke]. Thanks for taking the time to contribute!
+💪💎🙌
 
-The Artichoke project infrastructure is the infrastructure as code for the
-[Artichoke Ruby](https://github.com/artichoke/artichoke) project.
-[There is lots to do](https://github.com/artichoke/artichoke/issues).
+Artichoke aspires to be a Ruby 2.6.3-compatible implementation of the Ruby
+programming language. [There is lots to do].
 
-If the Artichoke does not run Ruby source code in the same way that MRI does, it
-is a bug and we would appreciate if you
-[filed an issue so we can fix it](https://github.com/artichoke/artichoke/issues/new).
+project-infrastructure is infrastructure as code configuration for Artichoke on
+GitHub, AWS, and other platforms.
 
-If you would like to contribute code 👩‍💻👨‍💻, find an issue that looks interesting
-and leave a comment that you're beginning to investigate. If there is no issue,
-please file one before beginning to work on a PR.
+If Artichoke does not run Ruby source code in the same way that MRI does, it is
+a bug and we would appreciate if you [filed an issue so we can fix it]. [File
+bugs specific to project-infrastructure in this repository].
+
+If you would like to contribute code to project-infrastructure 👩‍💻👨‍💻, find an
+issue that looks interesting and leave a comment that you're beginning to
+investigate. If there is no issue, please file one before beginning to work on a
+PR. [Good first issues are labeled `E-easy`].
 
 ## Discussion
 
-If you'd like to engage in a discussion outside of GitHub, you can
-[join Artichoke's public Discord server](https://discord.gg/QCe2tp2).
+If you'd like to engage in a discussion outside of GitHub, you can [join
+Artichoke's public Discord server].
 
 ## Setup
 
-The Artichoke project infrastructure includes Terraform, Shell, and Text
-sources. Developing on the Artichoke project infrastructure requires configuring
-several dependencies, which are orchestrated by [Yarn](https://yarnpkg.com/).
+project-infrastructure includes Ruby, Terraform, and Text sources. Developing on
+project-infrastructure requires configuring several dependencies.
 
 ### Terraform
 
-The Artichoke project infrastructure depends on
-[Terraform](https://www.terraform.io/downloads.html) 0.12.
+The Artichoke project infrastructure depends on [Terraform] 0.14.
 
-On macOS, you can install Terraform with
-[Homebrew](https://docs.brew.sh/Installation):
+On macOS, you can install Terraform with [Homebrew]:
 
-```shell
-brew install terraform
+```console
+$ brew install terraform@0.14
+```
+
+### Ruby
+
+project-infrastructure requires a recent Ruby 2.x and [bundler] 2.x. The
+[`.ruby-version`](.ruby-version) file in this repository specifies Ruby 2.6.6.
+
+project-infrastructure uses [`rake`](Rakefile) as a task runner. You can see the
+available tasks by running:
+
+```console
+$ bundle exec rake --tasks
+rake fmt                          # Format sources
+rake fmt:terraform                # Format Terraform sources with terraform fmt
+rake fmt:text                     # Format text, YAML, and Markdown sources with prettier
+rake format                       # Format sources
+rake format:terraform             # Format Terraform sources with terraform fmt
+rake format:text                  # Format text, YAML, and Markdown sources with prettier
+rake lint                         # Lint sources
+rake lint:rubocop                 # Run RuboCop
+rake lint:rubocop:auto_correct    # Auto-correct RuboCop offenses
+rake lint:terraform               # Lint Terraform sources
+rake release:markdown_link_check  # Check for broken links in markdown files
+```
+
+To lint Ruby sources, project-infrastructure uses [RuboCop]. RuboCop runs as
+part of the `lint` task. To run RuboCop by itself, invoke the `lint:rubocop`
+task.
+
+```console
+$ bundle exec rake lint
+$ bundle exec rake lint:rubocop
 ```
 
 ### Node.js
 
-The Artichoke project infrastructure uses Yarn and Node.js for linting and
-orchestration.
+Node.js is an optional dependency that is used for formatting text sources with
+[prettier].
 
-You will need to install
-[Node.js](https://nodejs.org/en/download/package-manager/) and
-[Yarn](https://yarnpkg.com/en/docs/install).
+Node.js is only required for formatting if modifying the following filetypes:
 
-On macOS, you can install Node.js and Yarn with
-[Homebrew](https://docs.brew.sh/Installation):
+- `md`
+- `yaml`
+- `yml`
 
-```shell
-brew install node yarn
+You will need to install [Node.js].
+
+On macOS, you can install Node.js with [Homebrew]:
+
+```sh
+brew install node
 ```
-
-### Node.js Packages
-
-Once you have Yarn installed, you can install the packages specified in
-[`package.json`](/package.json) by running:
-
-```shell
-yarn install
-```
-
-You can check to see that this worked by running `yarn lint` and observing no
-errors.
-
-### Shell
-
-The Artichoke project infrastructure uses [shfmt](https://github.com/mvdan/sh)
-for formatting and [shellcheck](https://github.com/koalaman/shellcheck) for
-linting Shell scripts.
-
-On macOS, you can install shfmt and shellcheck with
-[Homebrew](https://docs.brew.sh/Installation):
-
-```shell
-brew install shfmt shellcheck
-```
-
-## Code Quality
-
-### Linting
-
-Once you [configure a development environment](#setup), run the following to
-lint sources:
-
-```shell
-yarn lint
-```
-
-Merges will be blocked by CI if there are lint errors.
 
 ## Updating Dependencies
 
-### Node.js Packages
+Regular dependency bumps are handled by [@dependabot].
 
-To see what packages are outdated, you can run `yarn outdated`.
-
-To update Node.js package dependencies run the following command and check in
-the updated `yarn.lock` file:
-
-```shell
-yarn upgrade
-```
-
-If after running `yarn upgrade` there are still outdated packages reported by
-`yarn outdated`, there has likely been a major release of a dependency. If you
-would like to update the dependency and deal with any breakage, please do;
-otherwise, please
-[file an issue](https://github.com/artichoke/project-infrastructure/issues/new).
-
-## Code Analysis
-
-### Source Code Statistics
-
-To view statistics about the source code in the Artichoke project
-infrastructure, you can run `yarn loc`, which depends on
-[loc](https://github.com/cgag/loc). You can install loc by running:
-
-```shell
-cargo install loc
-```
+[artichoke]: https://github.com/artichoke
+[there is lots to do]: https://github.com/artichoke/artichoke/issues
+[filed an issue so we can fix it]:
+  https://github.com/artichoke/artichoke/issues/new
+[file bugs specific to project-infrastructure in this repository]:
+  https://github.com/artichoke/project-infrastructure/issues/new
+[good first issues are labeled `e-easy`]:
+  https://github.com/artichoke/project-infrastructure/labels/E-easy
+[join artichoke's public discord server]: https://discord.gg/QCe2tp2
+[terraform]: https://www.terraform.io/downloads.html
+[homebrew]: https://docs.brew.sh/Installation
+[bundler]: https://bundler.io/
+[rubocop]: https://github.com/rubocop-hq/rubocop
+[prettier]: https://prettier.io/
+[node.js]: https://nodejs.org/en/download/package-manager/
+[@dependabot]: https://dependabot.com/

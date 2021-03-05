@@ -28,8 +28,6 @@
     }
   },
   "scripts": {
-    "fmt": "npx prettier --write '**/*'",
-    "fmt:all": "npm run fmt && npm run fmt:tf",
-    "fmt:tf": "terraform -chdir=aws fmt && terraform -chdir=github fmt && terraform -chdir=remote-state fmt"
+    "fmt": "npx prettier --write '**/*'"
   }
 }
