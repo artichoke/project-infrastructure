@@ -134,3 +134,11 @@ output "iam_admin_access_ids" {
 output "iam_admin_secret_keys" {
   value = module.iam_admin.secret_keys
 }
+
+output "github_actions_iam_access_id" {
+  value = module.github_actions_runner_read_only.access_ids[0]
+}
+
+output "github_actions_iam_secret_key" {
+  value = module.github_actions_runner_read_only.secret_keys[0]
+}
