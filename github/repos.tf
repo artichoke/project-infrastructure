@@ -22,6 +22,8 @@ resource "github_repository" "artichoke" {
     "rust",
     "rust-application",
     "rust-crate",
+    "wasm",
+    "webassembly",
   ]
 
   pages {
