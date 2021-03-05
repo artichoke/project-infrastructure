@@ -1,6 +1,6 @@
 resource "github_repository" "mruby" {
-  name         = "mruby"
-  description  = "Artichoke fork of mruby 2.x, a Lightweight Ruby"
+  name        = "mruby"
+  description = "Artichoke fork of mruby 2.x, a Lightweight Ruby"
 
   visibility = "public"
 
@@ -66,8 +66,8 @@ resource "github_branch_default" "mspec" {
 }
 
 resource "github_repository" "onigmo" {
-  name         = "Onigmo"
-  description  = "Artichoke fork of Onigmo, a regular expressions library forked from Oniguruma."
+  name        = "Onigmo"
+  description = "Artichoke fork of Onigmo, a regular expressions library forked from Oniguruma."
 
   visibility = "public"
 
@@ -94,8 +94,8 @@ resource "github_repository" "onigmo" {
 }
 
 resource "github_repository" "oniguruma" {
-  name         = "oniguruma"
-  description  = "Artichoke fork of oniguruma, a regular expression library"
+  name        = "oniguruma"
+  description = "Artichoke fork of oniguruma, a regular expression library"
 
   visibility = "public"
 
@@ -192,8 +192,8 @@ resource "github_branch_default" "rust_onig" {
 }
 
 resource "github_repository" "spec" {
-  name         = "spec"
-  description  = "Artichoke fork of the Ruby Spec Suite aka ruby/spec"
+  name        = "spec"
+  description = "Artichoke fork of the Ruby Spec Suite aka ruby/spec"
 
   visibility = "public"
 

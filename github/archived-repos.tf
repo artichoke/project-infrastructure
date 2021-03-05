@@ -1,6 +1,6 @@
 resource "github_repository" "artichoke_ci" {
-  name         = "artichoke-ci"
-  description  = "🏗 CI infrastructure and images for Artichoke"
+  name        = "artichoke-ci"
+  description = "🏗 CI infrastructure and images for Artichoke"
 
   archived   = true
   visibility = "public"
