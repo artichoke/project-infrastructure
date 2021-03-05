@@ -7,11 +7,11 @@ variable "description" {
 }
 
 variable "admins" {
-  type = list(string)
+  type = map
 }
 
 variable "members" {
-  type = list(string)
+  type = map
 }
 
 variable "is_secret_team" {
@@ -26,15 +26,17 @@ resource "github_team" "this" {
 }
 
 resource "github_team_membership" "admins" {
-  count    = length(var.admins)
+  for_each = var.admins
+
   team_id  = github_team.this.id
-  username = element(var.admins, count.index)
+  username = each.value
   role     = "maintainer"
 }
 
 resource "github_team_membership" "members" {
-  count    = length(var.members)
+  for_each = var.members
+
   team_id  = github_team.this.id
-  username = element(var.members, count.index)
+  username = each.value
   role     = "member"
 }
