@@ -7,7 +7,7 @@ variable "name" {
 }
 
 variable "users" {
-  type = map
+  type = map(string)
 }
 
 variable "policy" {

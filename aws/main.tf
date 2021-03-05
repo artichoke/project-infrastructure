@@ -16,14 +16,16 @@ variable "name" {
 }
 
 variable "iam_admins" {
-  type    = map
+  type = map(string)
+
   default = {
     lopopolo = "lopopolo"
   }
 }
 
 variable "github_actions_runners" {
-  type    = map
+  type = map(string)
+
   default = {
     github-actions-repo-project-infrastructure = "github-actions-repo-project-infrastructure"
   }
