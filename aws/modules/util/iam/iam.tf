@@ -7,7 +7,7 @@ variable "name" {
 }
 
 variable "users" {
-  type = list(string)
+  type = map(string)
 }
 
 variable "policy" {
@@ -25,9 +25,9 @@ resource "aws_iam_group_policy" "policy" {
 }
 
 resource "aws_iam_user" "user" {
-  count = length(var.users)
-  name  = element(var.users, count.index)
+  for_each = var.users
 
+  name = each.value
   tags = {
     project    = "aws"
     managed_by = "terraform"
@@ -35,24 +35,25 @@ resource "aws_iam_user" "user" {
 }
 
 resource "aws_iam_access_key" "key" {
-  count = length(var.users)
-  user  = element(aws_iam_user.user.*.name, count.index)
+  for_each = var.users
+
+  user = aws_iam_user.user[each.key].name
 }
 
 resource "aws_iam_group_membership" "membership" {
   name  = var.name
   group = aws_iam_group.group.name
-  users = aws_iam_user.user.*.name
+  users = [for user in aws_iam_user.user : user.name]
 }
 
 output "users" {
-  value = aws_iam_access_key.key.*.user
+  value = [for key in aws_iam_access_key.key : key.user]
 }
 
 output "access_ids" {
-  value = aws_iam_access_key.key.*.id
+  value = [for key in aws_iam_access_key.key : key.id]
 }
 
 output "secret_keys" {
-  value = aws_iam_access_key.key.*.secret
+  value = [for key in aws_iam_access_key.key : key.secret]
 }

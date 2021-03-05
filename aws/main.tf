@@ -16,11 +16,19 @@ variable "name" {
 }
 
 variable "iam_admins" {
-  default = ["lopopolo"]
+  type = map(string)
+
+  default = {
+    lopopolo = "lopopolo"
+  }
 }
 
 variable "github_actions_runners" {
-  default = ["github-actions-repo-project-infrastructure"]
+  type = map(string)
+
+  default = {
+    github-actions-repo-project-infrastructure = "github-actions-repo-project-infrastructure"
+  }
 }
 
 data "aws_iam_policy_document" "admin" {

@@ -7,11 +7,11 @@ variable "description" {
 }
 
 variable "admins" {
-  type = map
+  type = map(string)
 }
 
 variable "members" {
-  type = map
+  type = map(string)
 }
 
 variable "is_secret_team" {
