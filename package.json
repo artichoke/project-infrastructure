@@ -1,12 +1,14 @@
 {
-  "name": "@artichoke/project-infrastructure",
-  "version": "0.1.0",
+  "name": "@artichokeruby/project-infrastructure",
+  "version": "0.2.0",
   "private": true,
   "description": "Artichoke project infrastructure",
   "keywords": [
+    "artichoke",
+    "automation",
+    "IaC",
     "infrastructure as code",
-    "terraform",
-    "automation"
+    "terraform"
   ],
   "homepage": "https://www.artichokeruby.org",
   "bugs": "https://github.com/artichoke/project-infrastructure/issues",
@@ -28,6 +30,6 @@
   "scripts": {
     "fmt": "npx prettier --write '**/*'",
     "fmt:all": "npm run fmt && npm run fmt:tf",
-    "fmt:tf": "terraform fmt aws && terraform fmt github && terraform fmt remote-state"
+    "fmt:tf": "terraform -chdir=aws fmt && terraform -chdir=github fmt && terraform -chdir=remote-state fmt"
   }
 }
