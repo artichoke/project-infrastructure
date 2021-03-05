@@ -4,5 +4,9 @@
 [![Discord](https://img.shields.io/discord/607683947496734760)](https://discord.gg/QCe2tp2)
 [![Twitter](https://img.shields.io/twitter/follow/artichokeruby?label=Follow&style=social)](https://twitter.com/artichokeruby)
 
-Infrastructure as code for the [Artichoke](https://github.com/artichoke) open
-source project.
+Infrastructure as code for the [Artichoke] open source project.
+
+This repository stores terraform configuration for Artichoke AWS resources and
+the @artichoke GitHub organization.
+
+[artichoke]: https://github.com/artichoke
