@@ -1,17 +1,16 @@
 resource "github_repository" "artichoke_ci" {
   name         = "artichoke-ci"
-  description  = "🏗 Archived CI infrastructure and images for Artichoke, migrated to GitHub Actions"
-  homepage_url = "https://github.com/artichoke/artichoke/tree/trunk/.github/workflows"
+  description  = "🏗 CI infrastructure and images for Artichoke"
 
   archived   = true
   visibility = "public"
 
-  has_downloads = false
+  has_downloads = true
   has_issues    = true
   has_projects  = false
-  has_wiki      = false
+  has_wiki      = true
 
-  delete_branch_on_merge = true
+  delete_branch_on_merge = false
 
   topics = [
     "artichoke",
@@ -30,16 +29,16 @@ resource "github_repository" "artichoke_ci" {
 
 resource "github_repository" "cactusref" {
   name         = "cactusref"
-  description  = "🌵 Archived experimental cycle-aware reference counting crate"
+  description  = "🌵 Cycle-Aware Reference Counting in Rust"
   homepage_url = "https://artichoke.github.io/cactusref/cactusref/"
 
   archived   = true
   visibility = "public"
 
-  has_downloads = false
+  has_downloads = true
   has_issues    = true
   has_projects  = false
-  has_wiki      = false
+  has_wiki      = true
 
   delete_branch_on_merge = true
 
@@ -47,12 +46,10 @@ resource "github_repository" "cactusref" {
     "artichoke",
     "garbage-collection",
     "garbage-collector",
-    "gc",
     "memory-management",
     "reference-counting",
     "rust",
     "rust-crate",
-    "smart-pointer",
   ]
 
   pages {
@@ -69,27 +66,26 @@ resource "github_repository" "cactusref" {
 
 resource "github_repository" "ferrocarril" {
   name         = "ferrocarril"
-  description  = "🚆 Archived experiments to embed Ruby on Rails in Rust with mruby, migrated to artichoke/artichoke repository"
-  homepage_url = "https://www.artichokeruby.org/"
+  description  = "🚆 Experiments to embed Ruby on Rails in Rust with mruby"
+  homepage_url = "https://artichoke.github.io/ferrocarril/mruby/"
 
+  archived   = true
   visibility = "public"
 
   has_downloads = true
   has_issues    = true
   has_projects  = false
-  has_wiki      = false
+  has_wiki      = true
 
-  delete_branch_on_merge = true
+  delete_branch_on_merge = false
 
   topics = [
     "artichoke",
-    "language",
-    "programming-language",
+    "rack",
     "ruby",
-    "ruby-language",
     "rust",
-    "rust-application",
-    "rust-crate",
+    "sinatra",
+    "unicorn",
   ]
 
   pages {
@@ -106,29 +102,20 @@ resource "github_repository" "ferrocarril" {
 
 resource "github_repository" "rust_mersenne_twister" {
   name         = "rust-mersenne-twister"
-  description  = "Archived fork of mersenne-twister crate, migrated to artichoke/rand_mt repository"
+  description  = "Fork migrated to artichoke/rand_mt"
   homepage_url = "https://github.com/artichoke/rand_mt"
 
   archived   = true
   visibility = "public"
 
-  has_downloads = false
+  has_downloads = true
   has_issues    = false
   has_projects  = false
-  has_wiki      = false
+  has_wiki      = true
 
   delete_branch_on_merge = true
 
-  topics = [
-    "archived",
-    "artichoke",
-    "mersenne-twister",
-    "rand",
-    "random",
-    "rng",
-    "rust",
-    "rust-crate",
-  ]
+  topics = []
 
   pages {
     source {
