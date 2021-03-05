@@ -51,8 +51,14 @@ module "team_ci" {
 
   team        = "ci"
   description = "Builds"
-  admins      = ["lopopolo"]
-  members     = ["artichoke-ci"]
+
+  admins = {
+    lopopolo = "lopopolo"
+  }
+
+  members = {
+    artichoke-ci = "artichoke-ci"
+  }
 }
 
 module "team_cratesio_publishers" {
@@ -60,8 +66,12 @@ module "team_cratesio_publishers" {
 
   team        = "crates.io publishers"
   description = "Core team with perissions for publishing packages to crates.io"
-  admins      = ["lopopolo"]
-  members     = []
+
+  admins = {
+    lopopolo = "lopopolo"
+  }
+
+  members = {}
 
   is_secret_team = false
 }
