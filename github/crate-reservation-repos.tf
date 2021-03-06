@@ -12,8 +12,8 @@ resource "github_repository" "private_crate_reservation" {
   for_each = local.crate_reservations
 
   name         = each.value
-  description  = format("📦 This repo was used to reserve the %s crate on crates.io", each.key)
-  homepage_url = format("https://crates.io/crates/%s", each.key)
+  description  = "📦 This repo was used to reserve the ${each.key} crate on crates.io"
+  homepage_url = "https://crates.io/crates/${each.key}"
 
   visibility = "private"
 
