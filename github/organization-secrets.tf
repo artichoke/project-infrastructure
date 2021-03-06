@@ -19,7 +19,7 @@ locals {
 resource "github_actions_organization_secret" "cargo_deny_version" {
   secret_name     = "CARGO_DENY_VERSION"
   visibility      = "all"
-  plaintext_value = format("version=%s", local.cargo_deny_version)
+  plaintext_value = "version=${local.cargo_deny_version}"
 }
 
 resource "github_actions_organization_secret" "terraform_aws_access_key" {
