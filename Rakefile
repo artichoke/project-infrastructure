@@ -43,9 +43,9 @@ task fmt: %i[fmt:terraform fmt:text]
 namespace :fmt do
   desc 'Format Terraform sources with terraform fmt'
   task :terraform do
-    sh 'terraform -chdir aws fmt'
-    sh 'terraform -chdir github fmt'
-    sh 'terraform -chdir remote-state fmt'
+    sh 'terraform -chdir=aws fmt'
+    sh 'terraform -chdir=github fmt'
+    sh 'terraform -chdir=remote-state fmt'
   end
 
   desc 'Format text, YAML, and Markdown sources with prettier'
