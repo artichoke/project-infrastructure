@@ -25,6 +25,20 @@ provider "github" {
   organization = "artichoke"
 }
 
+provider "github" {
+  token        = var.github_token
+  organization = "artichokeruby"
+
+  alias = "artichokeruby"
+}
+
+provider "github" {
+  token        = var.github_token
+  organization = "artichoke-ruby"
+
+  alias = "artichoke_ruby"
+}
+
 resource "github_organization_webhook" "discord" {
   configuration {
     url          = "https://discordapp.com/api/webhooks/616536749367099402/${var.discord_api_secret}/github"
@@ -44,6 +58,18 @@ resource "github_organization_webhook" "discord" {
     "pull_request_review",
     "pull_request_review_comment",
   ]
+}
+
+module "artichoke_users" {
+  source = "./modules/users"
+
+  admins = {
+    lopopolo = "lopopolo"
+  }
+
+  members = {
+    artichoke-ci = "artichoke-ci"
+  }
 }
 
 module "team_ci" {
@@ -74,4 +100,36 @@ module "team_cratesio_publishers" {
   members = {}
 
   is_secret_team = false
+}
+
+// Secondary organizations
+
+module "artichokeruby_users" {
+  source = "./modules/users"
+  providers = {
+    github = github.artichokeruby
+  }
+
+  admins = {
+    lopopolo = "lopopolo"
+  }
+
+  members = {
+    artichoke-ci = "artichoke-ci"
+  }
+}
+
+module "artichoke_ruby_users" {
+  source = "./modules/users"
+  providers = {
+    github = github.artichoke_ruby
+  }
+
+  admins = {
+    lopopolo = "lopopolo"
+  }
+
+  members = {
+    artichoke-ci = "artichoke-ci"
+  }
 }
