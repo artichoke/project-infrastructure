@@ -12,16 +12,6 @@ data "terraform_remote_state" "aws" {
   }
 }
 
-locals {
-  cargo_deny_version = "0.8.8"
-}
-
-resource "github_actions_organization_secret" "cargo_deny_version" {
-  secret_name     = "CARGO_DENY_VERSION"
-  visibility      = "all"
-  plaintext_value = "version=${local.cargo_deny_version}"
-}
-
 resource "github_actions_organization_secret" "terraform_aws_access_key" {
   secret_name     = "TF_AWS_ACCESS_KEY"
   visibility      = "selected"

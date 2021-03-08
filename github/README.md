@@ -14,4 +14,4 @@ $ terraform apply
 [terraform]: https://www.terraform.io
 [artichoke]: https://github.com/artichoke
 [github access token]:
-  https://github.com/settings/tokens/new?scopes=repo,admin:org,admin:org_hook
+  https://github.com/settings/tokens/new?scopes=repo,admin:org,admin:org_hook,workflow
