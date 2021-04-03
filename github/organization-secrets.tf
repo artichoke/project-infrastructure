@@ -2,13 +2,13 @@ data "terraform_remote_state" "aws" {
   backend = "s3"
 
   config = {
-    bucket         = "artichoke-terraform-state"
+    bucket         = "artichoke-forge-project-infrastructure-terraform-state"
     region         = "us-west-2"
     key            = "aws/terraform.tfstate"
     encrypt        = true
     dynamodb_table = "terraform_statelock"
 
-    profile = "artichokeruby"
+    profile = "artichoke-forge-project-infrastructure"
   }
 }
 

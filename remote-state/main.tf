@@ -1,17 +1,17 @@
 terraform {
   backend "s3" {
-    bucket         = "artichoke-terraform-state"
+    bucket         = "artichoke-forge-project-infrastructure-terraform-state"
     region         = "us-west-2"
     key            = "remote-state/terraform.tfstate"
     encrypt        = true
     dynamodb_table = "terraform_statelock"
 
-    profile = "artichokeruby"
+    profile = "artichoke-forge-project-infrastructure"
   }
 }
 
 resource "aws_s3_bucket" "this" {
-  bucket = "artichoke-terraform-state"
+  bucket = "artichoke-forge-project-infrastructure-terraform-state"
   acl    = "private"
 
   versioning {
