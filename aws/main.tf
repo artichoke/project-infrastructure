@@ -59,7 +59,7 @@ data "aws_iam_policy_document" "github_actions_runner_terraform_state_read_only"
     actions = [
       "s3:ListBucket"
     ]
-    resources = ["arn:aws:s3:::artichoke-terraform-state"]
+    resources = ["arn:aws:s3:::artichoke-forge-project-infrastructure-terraform-state"]
   }
 
   statement {
@@ -70,7 +70,7 @@ data "aws_iam_policy_document" "github_actions_runner_terraform_state_read_only"
     actions = [
       "s3:GetObject",
     ]
-    resources = ["arn:aws:s3:::artichoke-terraform-state/*"]
+    resources = ["arn:aws:s3:::artichoke-forge-project-infrastructure-terraform-state/*"]
   }
 }
 
