@@ -8,7 +8,3 @@ resource "aws_iam_account_password_policy" "this" {
 
   allow_users_to_change_password = true
 }
-
-resource "aws_iam_account_alias" "this" {
-  account_alias = "artichokeruby"
-}

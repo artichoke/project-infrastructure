@@ -4,5 +4,5 @@ variable "region" {
 
 provider "aws" {
   region  = var.region
-  profile = "artichokeruby"
+  profile = "artichoke-forge-project-infrastructure"
 }

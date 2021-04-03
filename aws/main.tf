@@ -1,18 +1,17 @@
 terraform {
   backend "s3" {
-    bucket         = "artichoke-terraform-state"
+    bucket         = "artichoke-forge-project-infrastructure-terraform-state"
     region         = "us-west-2"
     key            = "aws/terraform.tfstate"
     encrypt        = true
     dynamodb_table = "terraform_statelock"
 
-    profile = "artichokeruby"
+    profile = "artichoke-forge-project-infrastructure"
   }
 }
 
-
 variable "name" {
-  default = "artichokeruby"
+  default = "artichoke-forge"
 }
 
 variable "iam_admins" {
@@ -60,7 +59,7 @@ data "aws_iam_policy_document" "github_actions_runner_terraform_state_read_only"
     actions = [
       "s3:ListBucket"
     ]
-    resources = ["arn:aws:s3:::artichoke-terraform-state"]
+    resources = ["arn:aws:s3:::artichoke-forge-project-infrastructure-terraform-state"]
   }
 
   statement {
@@ -71,7 +70,7 @@ data "aws_iam_policy_document" "github_actions_runner_terraform_state_read_only"
     actions = [
       "s3:GetObject",
     ]
-    resources = ["arn:aws:s3:::artichoke-terraform-state/*"]
+    resources = ["arn:aws:s3:::artichoke-forge-project-infrastructure-terraform-state/*"]
   }
 }
 
