@@ -56,4 +56,6 @@ output "access_ids" {
 
 output "secret_keys" {
   value = {for user, access_key in aws_iam_access_key.key : user => access_key.secret}
+
+  sensitive = true
 }
