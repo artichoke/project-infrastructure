@@ -28,43 +28,34 @@ jobs:
       - name: "Setup Terraform"
         uses: hashicorp/setup-terraform@v1
         with:
-          terraform_version: 0.14.x
+          terraform_version: 0.15.x
 
       - name: "Format aws module"
-        run: terraform fmt -check -diff
-        working-directory: "aws"
+        run: terraform -chdir=aws fmt -check -diff
 
       - name: "Initialize aws module"
-        run: terraform init
-        working-directory: "aws"
+        run: terraform -chdir=aws init
 
       - name: "Validate aws module"
-        run: terraform validate -no-color
-        working-directory: "aws"
+        run: terraform -chdir=aws validate -no-color
 
       - name: "Format github module"
-        run: terraform fmt -check -diff
-        working-directory: "github"
+        run: terraform -chdir=github fmt -check -diff
 
       - name: "Initialize github module"
-        run: terraform init
-        working-directory: "github"
+        run: terraform -chdir=github init
 
       - name: "Validate github module"
-        run: terraform validate -no-color
-        working-directory: "github"
+        run: terraform -chdir=github validate -no-color
 
       - name: "Format remote-state module"
-        run: terraform fmt -check -diff
-        working-directory: "remote-state"
+        run: terraform -chdir=remote-state fmt -check -diff
 
       - name: "Initialize remote-state module"
-        run: terraform init
-        working-directory: "remote-state"
+        run: terraform -chdir=remote-state init
 
       - name: "Validate remote-state module"
-        run: terraform validate -no-color
-        working-directory: "remote-state"
+        run: terraform -chdir=remote-state validate -no-color
 
   ruby:
     name: Lint and format Ruby

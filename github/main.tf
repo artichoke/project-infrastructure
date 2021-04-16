@@ -21,20 +21,20 @@ variable "discord_api_secret" {
 }
 
 provider "github" {
-  token        = var.github_token
-  organization = "artichoke"
+  token = var.github_token
+  owner = "artichoke"
 }
 
 provider "github" {
-  token        = var.github_token
-  organization = "artichokeruby"
+  token = var.github_token
+  owner = "artichokeruby"
 
   alias = "artichokeruby"
 }
 
 provider "github" {
-  token        = var.github_token
-  organization = "artichoke-ruby"
+  token = var.github_token
+  owner = "artichoke-ruby"
 
   alias = "artichoke_ruby"
 }

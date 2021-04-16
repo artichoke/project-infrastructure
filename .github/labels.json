@@ -45,6 +45,11 @@
     "description": "Area: crates.io releases and version bumps."
   },
   {
+    "name": "A-terraform",
+    "color": "f7e101",
+    "description": "Area: terraform infra, providers, and version bumps."
+  },
+  {
     "name": "C-bug",
     "color": "c1c8ff",
     "description": "Category: This is a bug."
