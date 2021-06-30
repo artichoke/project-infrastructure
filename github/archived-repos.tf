@@ -27,43 +27,6 @@ resource "github_repository" "artichoke_ci" {
   }
 }
 
-resource "github_repository" "cactusref" {
-  name         = "cactusref"
-  description  = "🌵 Cycle-Aware Reference Counting in Rust"
-  homepage_url = "https://artichoke.github.io/cactusref/cactusref/"
-
-  archived   = true
-  visibility = "public"
-
-  has_downloads = true
-  has_issues    = true
-  has_projects  = false
-  has_wiki      = true
-
-  delete_branch_on_merge = true
-
-  topics = [
-    "artichoke",
-    "garbage-collection",
-    "garbage-collector",
-    "memory-management",
-    "reference-counting",
-    "rust",
-    "rust-crate",
-  ]
-
-  pages {
-    source {
-      branch = "gh-pages"
-      path   = "/"
-    }
-  }
-
-  lifecycle {
-    prevent_destroy = true
-  }
-}
-
 resource "github_repository" "ferrocarril" {
   name         = "ferrocarril"
   description  = "🚆 Experiments to embed Ruby on Rails in Rust with mruby"

@@ -109,6 +109,44 @@ resource "github_repository" "boba" {
   }
 }
 
+resource "github_repository" "cactusref" {
+  name         = "cactusref"
+  description  = "🌵 Cycle-Aware Reference Counting in Rust"
+  homepage_url = "https://artichoke.github.io/cactusref/cactusref/"
+
+  archived   = false
+  visibility = "public"
+
+  has_downloads = true
+  has_issues    = true
+  has_projects  = false
+  has_wiki      = false
+
+  delete_branch_on_merge = true
+  vulnerability_alerts   = true
+
+  topics = [
+    "artichoke",
+    "garbage-collection",
+    "garbage-collector",
+    "memory-management",
+    "reference-counting",
+    "rust",
+    "rust-crate",
+  ]
+
+  pages {
+    source {
+      branch = "gh-pages"
+      path   = "/"
+    }
+  }
+
+  lifecycle {
+    prevent_destroy = true
+  }
+}
+
 resource "github_repository" "clang_format" {
   name         = "clang-format"
   description  = "✏️ clang-format runner for CI"
