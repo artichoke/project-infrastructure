@@ -28,7 +28,7 @@ jobs:
       - name: "Setup Terraform"
         uses: hashicorp/setup-terraform@v1
         with:
-          terraform_version: 0.15.x
+          terraform_version: 1.x
 
       - name: "Format aws module"
         run: terraform -chdir=aws fmt -check -diff
