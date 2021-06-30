@@ -28,10 +28,6 @@ resource "aws_iam_user" "user" {
   for_each = var.users
 
   name = each.value
-  tags = {
-    project    = "aws"
-    managed_by = "terraform"
-  }
 }
 
 resource "aws_iam_access_key" "key" {

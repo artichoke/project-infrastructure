@@ -30,11 +30,6 @@ resource "aws_s3_bucket" "this" {
   lifecycle {
     prevent_destroy = true
   }
-
-  tags = {
-    project    = "remote-state"
-    managed_by = "terraform"
-  }
 }
 
 resource "aws_s3_bucket_public_access_block" "this" {
@@ -65,10 +60,5 @@ resource "aws_dynamodb_table" "terraform_statelock" {
 
   lifecycle {
     prevent_destroy = true
-  }
-
-  tags = {
-    project    = "remote-state"
-    managed_by = "terraform"
   }
 }
