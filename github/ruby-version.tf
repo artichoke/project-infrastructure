@@ -113,11 +113,11 @@ resource "github_repository_pull_request" "ruby_version" {
   ]
 }
 
-output "prs" {
+output "ruby_version_pull_requests" {
   value = <<CONFIG
 
 Pull Requests:
-${join(
+${local.ruby_version_force_bump ? join(
   "\n",
   formatlist(
     "%s",
@@ -129,7 +129,7 @@ ${join(
         github_repository_pull_request.ruby_version[repo].number,
       ])
     ]
-))}
+)) : "none"}
 
 CONFIG
 }
