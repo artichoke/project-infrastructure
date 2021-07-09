@@ -2,11 +2,12 @@ locals {
   // Set `cargo_deny_force_bump` to true to create branches for PRs that update
   // the `cargo-deny` version used in the `Audit` workflow.
   cargo_deny_force_bump = false
-  // https://github.com/EmbarkStudios/cargo-deny/releases/tag/0.8.9
-  cargo_deny_version = "0.8.9"
+  // https://github.com/EmbarkStudios/cargo-deny/releases/tag/0.9.1
+  cargo_deny_version = "0.9.1"
   rust_audit_repos = {
     artichoke  = "artichoke"  // https://github.com/artichoke/artichoke
     boba       = "boba"       // https://github.com/artichoke/boba
+    boba       = "cactusref"  // https://github.com/artichoke/cactusref
     focaccia   = "focaccia"   // https://github.com/artichoke/focaccia
     intaglio   = "intaglio"   // https://github.com/artichoke/intaglio
     playground = "playground" // https://github.com/artichoke/playground
@@ -32,6 +33,7 @@ data "github_branch" "github_actions_workflow_rust_audit_sync_base" {
   depends_on = [
     github_repository.artichoke,
     github_repository.boba,
+    github_repository.cactusref,
     github_repository.focaccia,
     github_repository.intaglio,
     github_repository.playground,
@@ -50,7 +52,7 @@ resource "github_branch" "github_actions_workflows_rust_audit_pr_branch" {
   source_sha    = data.github_branch.github_actions_workflow_rust_audit_sync_base[each.key].sha
 }
 
-resource "github_repository_file" "github_actions_workflows_sync_rust_audit" {
+resource "github_repository_file" "github_actions_workflows_rust_audit" {
   for_each = local.cargo_deny_force_bump ? local.rust_audit_repos : {}
 
   repository          = each.value
@@ -65,6 +67,7 @@ resource "github_repository_file" "github_actions_workflows_sync_rust_audit" {
   depends_on = [
     github_branch.github_actions_workflows_rust_audit_pr_branch["artichoke"],
     github_branch.github_actions_workflows_rust_audit_pr_branch["boba"],
+    github_branch.github_actions_workflows_rust_audit_pr_branch["cactusref"],
     github_branch.github_actions_workflows_rust_audit_pr_branch["focaccia"],
     github_branch.github_actions_workflows_rust_audit_pr_branch["intaglio"],
     github_branch.github_actions_workflows_rust_audit_pr_branch["playground"],
@@ -72,4 +75,49 @@ resource "github_repository_file" "github_actions_workflows_sync_rust_audit" {
     github_branch.github_actions_workflows_rust_audit_pr_branch["roe"],
     github_branch.github_actions_workflows_rust_audit_pr_branch["strudel"],
   ]
+}
+
+resource "github_repository_pull_request" "github_actions_workflow_rust_audit" {
+  for_each = local.cargo_deny_force_bump ? local.rust_audit_repos : {}
+
+  base_repository = each.value
+  base_ref        = data.github_branch.github_actions_workflow_rust_audit_sync_base[each.key].ref
+  head_ref        = github_branch.github_actions_workflows_rust_audit_pr_branch[each.key].ref
+  title           = "Update cargo-deny version to ${local.cargo_deny_version} in audit workflow"
+  body            = "Managed by terraform."
+
+  maintainer_can_modify = true
+
+  depends_on = [
+    github_repository_file.github_actions_workflows_rust_audit["artichoke"],
+    github_repository_file.github_actions_workflows_rust_audit["boba"],
+    github_repository_file.github_actions_workflows_rust_audit["cactusref"],
+    github_repository_file.github_actions_workflows_rust_audit["focaccia"],
+    github_repository_file.github_actions_workflows_rust_audit["intaglio"],
+    github_repository_file.github_actions_workflows_rust_audit["playground"],
+    github_repository_file.github_actions_workflows_rust_audit["rand_mt"],
+    github_repository_file.github_actions_workflows_rust_audit["roe"],
+    github_repository_file.github_actions_workflows_rust_audit["strudel"],
+  ]
+}
+
+output "github_actions_workflows_rust_audit_pull_requests" {
+  value = <<CONFIG
+
+Pull Requests:
+${local.cargo_deny_force_bump ? join(
+  "\n",
+  formatlist(
+    "%s",
+    [for repo in keys(local.rust_audit_repos) :
+      join("/", [
+        "https://github.com/artichoke",
+        local.rust_audit_repos[repo],
+        "pull",
+        github_repository_pull_request.github_actions_workflow_rust_audit[repo].number,
+      ])
+    ]
+)) : "none"}
+
+CONFIG
 }
