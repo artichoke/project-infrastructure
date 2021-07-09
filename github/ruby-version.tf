@@ -1,7 +1,7 @@
 locals {
   // Set `ruby_version_force_bump` to true to create branches for PRs that
   // update the `.ruby-version` version used in each repository.
-  ruby_version_force_bump = false
+  ruby_version_force_bump = true
   // https://github.com/ruby/ruby/tree/v3_0_2
   ruby_version = "3.0.2"
   ruby_version_repos = {
@@ -93,7 +93,7 @@ resource "github_repository_pull_request" "ruby_version" {
   base_ref        = "trunk"
   head_ref        = github_branch.github_actions_workflows_rust_audit_pr_branch[each.key]
   title           = "Update Ruby toolchain version to ${local.ruby_version} in .ruby-version"
-  body            = "Managed by terraform"
+  body            = "Managed by terraform.\n\nRuby 2.6.x has entered security maintenance mode.\n\nhttps://www.ruby-lang.org/en/news/2021/07/07/ruby-2-6-8-released/"
 
   maintainer_can_modify = true
 }
