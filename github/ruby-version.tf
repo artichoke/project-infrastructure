@@ -96,4 +96,19 @@ resource "github_repository_pull_request" "ruby_version" {
   body            = "Managed by terraform."
 
   maintainer_can_modify = true
+
+  depends_on = [
+    github_repository_file.ruby_version["artichoke"],
+    github_repository_file.ruby_version["artichoke_github_io"],
+    github_repository_file.ruby_version["boba"],
+    github_repository_file.ruby_version["cactusref"],
+    github_repository_file.ruby_version["focaccia"],
+    github_repository_file.ruby_version["intaglio"],
+    github_repository_file.ruby_version["playground"],
+    github_repository_file.ruby_version["project_infrastructure"],
+    github_repository_file.ruby_version["rand_mt"],
+    github_repository_file.ruby_version["roe"],
+    github_repository_file.ruby_version["rubyconf"],
+    github_repository_file.ruby_version["strudel"],
+  ]
 }
