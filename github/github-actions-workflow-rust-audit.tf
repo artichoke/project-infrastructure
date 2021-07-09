@@ -1,7 +1,7 @@
 locals {
   // Set `cargo_deny_force_bump` to true to create branches for PRs that update
   // the `cargo-deny` version used in the `Audit` workflow.
-  cargo_deny_force_bump = true
+  cargo_deny_force_bump = false
   // https://github.com/EmbarkStudios/cargo-deny/releases/tag/0.9.1
   cargo_deny_version = "0.9.1"
   rust_audit_repos = {
