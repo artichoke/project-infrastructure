@@ -117,7 +117,7 @@ ${local.cargo_deny_force_bump ? join(
         github_repository_pull_request.github_actions_workflow_rust_audit[repo].number,
       ])
     ]
-  )) : "none"}
+)) : "none"}
 
 CONFIG
 }
