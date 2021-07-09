@@ -52,7 +52,7 @@ resource "github_branch" "github_actions_workflows_rust_audit_pr_branch" {
   source_sha    = data.github_branch.github_actions_workflow_rust_audit_sync_base[each.key].sha
 }
 
-resource "github_repository_file" "github_actions_workflows_sync_rust_audit" {
+resource "github_repository_file" "github_actions_workflows_rust_audit" {
   for_each = local.cargo_deny_force_bump ? local.rust_audit_repos : {}
 
   repository          = each.value
@@ -87,6 +87,18 @@ resource "github_repository_pull_request" "github_actions_workflow_rust_audit" {
   body            = "Managed by terraform."
 
   maintainer_can_modify = true
+
+  depends_on = [
+    github_repository_file.github_actions_workflows_rust_audit["artichoke"],
+    github_repository_file.github_actions_workflows_rust_audit["boba"],
+    github_repository_file.github_actions_workflows_rust_audit["cactusref"],
+    github_repository_file.github_actions_workflows_rust_audit["focaccia"],
+    github_repository_file.github_actions_workflows_rust_audit["intaglio"],
+    github_repository_file.github_actions_workflows_rust_audit["playground"],
+    github_repository_file.github_actions_workflows_rust_audit["rand_mt"],
+    github_repository_file.github_actions_workflows_rust_audit["roe"],
+    github_repository_file.github_actions_workflows_rust_audit["strudel"],
+  ]
 }
 
 output "prs" {
