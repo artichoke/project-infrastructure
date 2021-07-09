@@ -112,3 +112,24 @@ resource "github_repository_pull_request" "ruby_version" {
     github_repository_file.ruby_version["strudel"],
   ]
 }
+
+output "prs" {
+  value = <<CONFIG
+
+Pull Requests:
+${join(
+  "\n",
+  formatlist(
+    "%s",
+    [for repo in keys(local.ruby_version_repos) :
+      join("/", [
+        "https://github.com/artichoke",
+        local.ruby_version_repos[repo],
+        "pull",
+        github_repository_pull_request.ruby_version[repo].number,
+      ])
+    ]
+))}
+
+CONFIG
+}
