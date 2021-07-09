@@ -1,7 +1,7 @@
 locals {
   // Set `cargo_deny_force_bump` to true to create branches for PRs that update
   // the `cargo-deny` version used in the `Audit` workflow.
-  cargo_deny_force_bump = false
+  cargo_deny_force_bump = true
   // https://github.com/EmbarkStudios/cargo-deny/releases/tag/0.9.1
   cargo_deny_version = "0.9.1"
   rust_audit_repos = {
@@ -87,4 +87,25 @@ resource "github_repository_pull_request" "github_actions_workflow_rust_audit" {
   body            = "Managed by terraform."
 
   maintainer_can_modify = true
+}
+
+output "prs" {
+  value = <<CONFIG
+
+Pull Requests:
+${join(
+  "\n",
+  formatlist(
+    "%s",
+    [for repo in keys(local.rust_audit_repos) :
+      join("/", [
+        "https://github.com/artichoke",
+        local.rust_audit_repos[repo],
+        "pull",
+        github_repository_pull_request.github_actions_workflow_rust_audit[repo].number,
+      ])
+    ]
+))}
+
+CONFIG
 }
