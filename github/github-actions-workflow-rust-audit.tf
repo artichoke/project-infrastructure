@@ -7,6 +7,7 @@ locals {
   rust_audit_repos = {
     artichoke  = "artichoke"  // https://github.com/artichoke/artichoke
     boba       = "boba"       // https://github.com/artichoke/boba
+    boba       = "cactusref"  // https://github.com/artichoke/cactusref
     focaccia   = "focaccia"   // https://github.com/artichoke/focaccia
     intaglio   = "intaglio"   // https://github.com/artichoke/intaglio
     playground = "playground" // https://github.com/artichoke/playground
@@ -32,6 +33,7 @@ data "github_branch" "github_actions_workflow_rust_audit_sync_base" {
   depends_on = [
     github_repository.artichoke,
     github_repository.boba,
+    github_repository.cactusref,
     github_repository.focaccia,
     github_repository.intaglio,
     github_repository.playground,
@@ -65,6 +67,7 @@ resource "github_repository_file" "github_actions_workflows_sync_rust_audit" {
   depends_on = [
     github_branch.github_actions_workflows_rust_audit_pr_branch["artichoke"],
     github_branch.github_actions_workflows_rust_audit_pr_branch["boba"],
+    github_branch.github_actions_workflows_rust_audit_pr_branch["cactusref"],
     github_branch.github_actions_workflows_rust_audit_pr_branch["focaccia"],
     github_branch.github_actions_workflows_rust_audit_pr_branch["intaglio"],
     github_branch.github_actions_workflows_rust_audit_pr_branch["playground"],
