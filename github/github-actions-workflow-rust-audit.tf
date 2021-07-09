@@ -2,8 +2,8 @@ locals {
   // Set `cargo_deny_force_bump` to true to create branches for PRs that update
   // the `cargo-deny` version used in the `Audit` workflow.
   cargo_deny_force_bump = false
-  // https://github.com/EmbarkStudios/cargo-deny/releases/tag/0.8.9
-  cargo_deny_version = "0.8.9"
+  // https://github.com/EmbarkStudios/cargo-deny/releases/tag/0.9.1
+  cargo_deny_version = "0.9.1"
   rust_audit_repos = {
     artichoke  = "artichoke"  // https://github.com/artichoke/artichoke
     boba       = "boba"       // https://github.com/artichoke/boba
@@ -75,4 +75,16 @@ resource "github_repository_file" "github_actions_workflows_sync_rust_audit" {
     github_branch.github_actions_workflows_rust_audit_pr_branch["roe"],
     github_branch.github_actions_workflows_rust_audit_pr_branch["strudel"],
   ]
+}
+
+resource "github_repository_pull_request" "github_actions_workflow_rust_audit" {
+  for_each = local.cargo_deny_force_bump ? local.rust_audit_repos : {}
+
+  base_repository = each.value
+  base_ref        = data.github_branch.github_actions_workflow_rust_audit_sync_base[each.key].ref
+  head_ref        = github_branch.github_actions_workflows_rust_audit_pr_branch[each.key].ref
+  title           = "Update cargo-deny version to ${local.cargo_deny_version} in audit workflow"
+  body            = "Managed by terraform."
+
+  maintainer_can_modify = true
 }
