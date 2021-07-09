@@ -1,7 +1,7 @@
 locals {
   // Set `ruby_version_force_bump` to true to create branches for PRs that
   // update the `.ruby-version` version used in each repository.
-  ruby_version_force_bump = true
+  ruby_version_force_bump = false
   // https://github.com/ruby/ruby/tree/v3_0_2
   ruby_version = "3.0.2"
   ruby_version_repos = {
@@ -63,7 +63,7 @@ resource "github_repository_file" "ruby_version" {
 
   repository          = each.value
   branch              = "terraform/ruby_version_bump"
-  file                = ".github/workflows/audit.yaml"
+  file                = ".ruby-version"
   content             = data.template_file.ruby_version.rendered
   commit_message      = "Update Ruby toolchain version to ${local.ruby_version} in .ruby-version\n\nManaged by Terraform"
   commit_author       = "artichoke-ci"
@@ -71,18 +71,18 @@ resource "github_repository_file" "ruby_version" {
   overwrite_on_create = true
 
   depends_on = [
-    github_branch.github_actions_workflows_rust_audit_pr_branch["artichoke"],
-    github_branch.github_actions_workflows_rust_audit_pr_branch["artichoke_github_io"],
-    github_branch.github_actions_workflows_rust_audit_pr_branch["boba"],
-    github_branch.github_actions_workflows_rust_audit_pr_branch["cactusref"],
-    github_branch.github_actions_workflows_rust_audit_pr_branch["focaccia"],
-    github_branch.github_actions_workflows_rust_audit_pr_branch["intaglio"],
-    github_branch.github_actions_workflows_rust_audit_pr_branch["playground"],
-    github_branch.github_actions_workflows_rust_audit_pr_branch["project_infrastructure"],
-    github_branch.github_actions_workflows_rust_audit_pr_branch["rand_mt"],
-    github_branch.github_actions_workflows_rust_audit_pr_branch["roe"],
-    github_branch.github_actions_workflows_rust_audit_pr_branch["rubyconf"],
-    github_branch.github_actions_workflows_rust_audit_pr_branch["strudel"],
+    github_branch.ruby_version_pr_branch["artichoke"],
+    github_branch.ruby_version_pr_branch["artichoke_github_io"],
+    github_branch.ruby_version_pr_branch["boba"],
+    github_branch.ruby_version_pr_branch["cactusref"],
+    github_branch.ruby_version_pr_branch["focaccia"],
+    github_branch.ruby_version_pr_branch["intaglio"],
+    github_branch.ruby_version_pr_branch["playground"],
+    github_branch.ruby_version_pr_branch["project_infrastructure"],
+    github_branch.ruby_version_pr_branch["rand_mt"],
+    github_branch.ruby_version_pr_branch["roe"],
+    github_branch.ruby_version_pr_branch["rubyconf"],
+    github_branch.ruby_version_pr_branch["strudel"],
   ]
 }
 
@@ -90,10 +90,10 @@ resource "github_repository_pull_request" "ruby_version" {
   for_each = local.ruby_version_force_bump ? local.ruby_version_repos : {}
 
   base_repository = each.value
-  base_ref        = "trunk"
-  head_ref        = github_branch.github_actions_workflows_rust_audit_pr_branch[each.key]
+  base_ref        = data.github_branch.ruby_version_sync_base[each.key].ref
+  head_ref        = github_branch.ruby_version_pr_branch[each.key].ref
   title           = "Update Ruby toolchain version to ${local.ruby_version} in .ruby-version"
-  body            = "Managed by terraform.\n\nRuby 2.6.x has entered security maintenance mode.\n\nhttps://www.ruby-lang.org/en/news/2021/07/07/ruby-2-6-8-released/"
+  body            = "Managed by terraform."
 
   maintainer_can_modify = true
 }
