@@ -101,11 +101,11 @@ resource "github_repository_pull_request" "github_actions_workflow_rust_audit" {
   ]
 }
 
-output "prs" {
+output "github_actions_workflows_rust_audit_pull_requests" {
   value = <<CONFIG
 
 Pull Requests:
-${join(
+${local.cargo_deny_force_bump ? join(
   "\n",
   formatlist(
     "%s",
@@ -117,7 +117,7 @@ ${join(
         github_repository_pull_request.github_actions_workflow_rust_audit[repo].number,
       ])
     ]
-))}
+  )) : "none"}
 
 CONFIG
 }
