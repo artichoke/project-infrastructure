@@ -5,7 +5,7 @@ resource "github_repository" "mruby" {
   visibility = "public"
 
   has_downloads = false
-  has_issues    = false
+  has_issues    = true
   has_projects  = false
   has_wiki      = false
 
