@@ -5,18 +5,20 @@ locals {
   // https://github.com/ruby/ruby/tree/v3_0_2
   ruby_version = "3.0.2"
   ruby_version_repos = {
-    artichoke              = "artichoke"              // https://github.com/artichoke/artichoke
-    artichoke_github_io    = "artichoke.github.io"    // https://github.com/artichoke/artichoke.github.io
-    boba                   = "boba"                   // https://github.com/artichoke/boba
-    cactusref              = "cactusref"              // https://github.com/artichoke/cactusref
-    focaccia               = "focaccia"               // https://github.com/artichoke/focaccia
-    intaglio               = "intaglio"               // https://github.com/artichoke/intaglio
-    playground             = "playground"             // https://github.com/artichoke/playground
-    project_infrastructure = "project-infrastructure" // https://github.com/artichoke/project-infrastructure
-    rand_mt                = "rand_mt"                // https://github.com/artichoke/rand_mt
-    roe                    = "roe"                    // https://github.com/artichoke/roe
-    rubyconf               = "rubyconf"               // https://github.com/artichoke/rubyconf
-    strudel                = "strudel"                // https://github.com/artichoke/strudel
+    artichoke                = "artichoke"                // https://github.com/artichoke/artichoke
+    artichoke_github_io      = "artichoke.github.io"      // https://github.com/artichoke/artichoke.github.io
+    boba                     = "boba"                     // https://github.com/artichoke/boba
+    cactusref                = "cactusref"                // https://github.com/artichoke/cactusref
+    docker_artichoke_nightly = "docker-artichoke-nightly" // https://github.com/artichoke/docker-artichoke-nightly
+    focaccia                 = "focaccia"                 // https://github.com/artichoke/focaccia
+    intaglio                 = "intaglio"                 // https://github.com/artichoke/intaglio
+    nightly                  = "nightly"                  // https://github.com/artichoke/nightly
+    playground               = "playground"               // https://github.com/artichoke/playground
+    project_infrastructure   = "project-infrastructure"   // https://github.com/artichoke/project-infrastructure
+    rand_mt                  = "rand_mt"                  // https://github.com/artichoke/rand_mt
+    roe                      = "roe"                      // https://github.com/artichoke/roe
+    rubyconf                 = "rubyconf"                 // https://github.com/artichoke/rubyconf
+    strudel                  = "strudel"                  // https://github.com/artichoke/strudel
   }
 }
 
