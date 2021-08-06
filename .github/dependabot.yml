@@ -30,6 +30,7 @@ updates:
       - lopopolo
     labels:
       - A-deps
+      - A-terraform
   - package-ecosystem: terraform
     directory: "/github"
     schedule:
@@ -39,6 +40,7 @@ updates:
       - lopopolo
     labels:
       - A-deps
+      - A-terraform
   - package-ecosystem: terraform
     directory: "/remote-state"
     schedule:
@@ -48,3 +50,4 @@ updates:
       - lopopolo
     labels:
       - A-deps
+      - A-terraform
