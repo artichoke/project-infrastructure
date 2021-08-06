@@ -18,6 +18,7 @@ locals {
     rand_mt                  = "rand_mt"                  // https://github.com/artichoke/rand_mt
     roe                      = "roe"                      // https://github.com/artichoke/roe
     rubyconf                 = "rubyconf"                 // https://github.com/artichoke/rubyconf
+    ruby_file_expand_path    = "ruby-file-expand-path"    // https://github.com/artichoke/ruby-file-expand-path
     strudel                  = "strudel"                  // https://github.com/artichoke/strudel
   }
 }

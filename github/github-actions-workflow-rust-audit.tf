@@ -5,15 +5,16 @@ locals {
   // https://github.com/EmbarkStudios/cargo-deny/releases/tag/0.9.1
   cargo_deny_version = "0.9.1"
   rust_audit_repos = {
-    artichoke  = "artichoke"  // https://github.com/artichoke/artichoke
-    boba       = "boba"       // https://github.com/artichoke/boba
-    boba       = "cactusref"  // https://github.com/artichoke/cactusref
-    focaccia   = "focaccia"   // https://github.com/artichoke/focaccia
-    intaglio   = "intaglio"   // https://github.com/artichoke/intaglio
-    playground = "playground" // https://github.com/artichoke/playground
-    rand_mt    = "rand_mt"    // https://github.com/artichoke/rand_mt
-    roe        = "roe"        // https://github.com/artichoke/roe
-    strudel    = "strudel"    // https://github.com/artichoke/strudel
+    artichoke             = "artichoke"             // https://github.com/artichoke/artichoke
+    boba                  = "boba"                  // https://github.com/artichoke/boba
+    boba                  = "cactusref"             // https://github.com/artichoke/cactusref
+    focaccia              = "focaccia"              // https://github.com/artichoke/focaccia
+    intaglio              = "intaglio"              // https://github.com/artichoke/intaglio
+    playground            = "playground"            // https://github.com/artichoke/playground
+    rand_mt               = "rand_mt"               // https://github.com/artichoke/rand_mt
+    roe                   = "roe"                   // https://github.com/artichoke/roe
+    ruby_file_expand_path = "ruby-file-expand-path" // https://github.com/artichoke/ruby-file-expand-path
+    strudel               = "strudel"               // https://github.com/artichoke/strudel
   }
 }
 

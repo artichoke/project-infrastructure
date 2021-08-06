@@ -607,6 +607,44 @@ resource "github_repository" "rubyconf2019_artichoke_run" {
   }
 }
 
+resource "github_repository" "ruby_file_expand_path" {
+  name         = "ruby-file-expand-path"
+  description  = "📂 Rust port of path normalization from MRI Ruby."
+  homepage_url = "https://artichoke.github.io/ruby-file-expand-path/ruby_file_expand_path/"
+
+  visibility = "public"
+
+  has_downloads = true
+  has_issues    = true
+  has_projects  = false
+  has_wiki      = false
+
+  delete_branch_on_merge = true
+  vulnerability_alerts   = true
+
+  topics = [
+    "artichoke",
+    "ffi",
+    "filesystem",
+    "ruby",
+    "ruby-language",
+    "rust",
+    "rust-crate",
+    "windows",
+  ]
+
+  pages {
+    source {
+      branch = "gh-pages"
+      path   = "/"
+    }
+  }
+
+  lifecycle {
+    prevent_destroy = true
+  }
+}
+
 resource "github_repository" "strudel" {
   name         = "strudel"
   description  = "🥐 🥮 Rust port and drop-in replacement for the `st_hash` C hash table library"
