@@ -4,7 +4,7 @@ updates:
   - package-ecosystem: bundler
     directory: "/"
     schedule:
-      interval: daily
+      interval: monthly
     allow:
       - dependency-type: "all"
     open-pull-requests-limit: 10
@@ -15,7 +15,34 @@ updates:
   - package-ecosystem: npm
     directory: "/"
     schedule:
-      interval: daily
+      interval: monthly
+    open-pull-requests-limit: 10
+    assignees:
+      - lopopolo
+    labels:
+      - A-deps
+  - package-ecosystem: terraform
+    directory: "/aws"
+    schedule:
+      interval: monthly
+    open-pull-requests-limit: 10
+    assignees:
+      - lopopolo
+    labels:
+      - A-deps
+  - package-ecosystem: terraform
+    directory: "/github"
+    schedule:
+      interval: monthly
+    open-pull-requests-limit: 10
+    assignees:
+      - lopopolo
+    labels:
+      - A-deps
+  - package-ecosystem: terraform
+    directory: "/remote-state"
+    schedule:
+      interval: monthly
     open-pull-requests-limit: 10
     assignees:
       - lopopolo
