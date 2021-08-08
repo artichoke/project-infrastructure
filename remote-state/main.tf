@@ -49,6 +49,10 @@ resource "aws_dynamodb_table" "terraform_statelock" {
   write_capacity = 20
   hash_key       = "LockID"
 
+  point_in_time_recovery {
+    enabled = true
+  }
+
   server_side_encryption {
     enabled = true
   }
