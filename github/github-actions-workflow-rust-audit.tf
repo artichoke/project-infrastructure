@@ -40,6 +40,7 @@ data "github_branch" "github_actions_workflow_rust_audit_sync_base" {
     github_repository.playground,
     github_repository.rand_mt,
     github_repository.roe,
+    github_repository.ruby_file_expand_path,
     github_repository.strudel,
   ]
 }
@@ -74,6 +75,7 @@ resource "github_repository_file" "github_actions_workflows_rust_audit" {
     github_branch.github_actions_workflows_rust_audit_pr_branch["playground"],
     github_branch.github_actions_workflows_rust_audit_pr_branch["rand_mt"],
     github_branch.github_actions_workflows_rust_audit_pr_branch["roe"],
+    github_branch.github_actions_workflows_rust_audit_pr_branch["ruby_file_expand_path"],
     github_branch.github_actions_workflows_rust_audit_pr_branch["strudel"],
   ]
 }
@@ -98,6 +100,7 @@ resource "github_repository_pull_request" "github_actions_workflow_rust_audit" {
     github_repository_file.github_actions_workflows_rust_audit["playground"],
     github_repository_file.github_actions_workflows_rust_audit["rand_mt"],
     github_repository_file.github_actions_workflows_rust_audit["roe"],
+    github_repository_file.github_actions_workflows_rust_audit["ruby_file_expand_path"],
     github_repository_file.github_actions_workflows_rust_audit["strudel"],
   ]
 }

@@ -48,6 +48,7 @@ data "github_branch" "ruby_version_sync_base" {
     github_repository.rand_mt,
     github_repository.roe,
     github_repository.rubyconf,
+    github_repository.ruby_file_expand_path,
     github_repository.strudel,
   ]
 }
@@ -85,6 +86,7 @@ resource "github_repository_file" "ruby_version" {
     github_branch.ruby_version_pr_branch["rand_mt"],
     github_branch.ruby_version_pr_branch["roe"],
     github_branch.ruby_version_pr_branch["rubyconf"],
+    github_branch.ruby_version_pr_branch["ruby_file_expand_path"],
     github_branch.ruby_version_pr_branch["strudel"],
   ]
 }
@@ -112,6 +114,7 @@ resource "github_repository_pull_request" "ruby_version" {
     github_repository_file.ruby_version["rand_mt"],
     github_repository_file.ruby_version["roe"],
     github_repository_file.ruby_version["rubyconf"],
+    github_repository_file.ruby_version["ruby_file_expand_path"],
     github_repository_file.ruby_version["strudel"],
   ]
 }
