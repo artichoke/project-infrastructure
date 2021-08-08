@@ -23,3 +23,17 @@ jobs:
 
       - name: npm audit
         run: npm audit
+
+  terraform:
+    name: Audit Terraform Infrastructure as Code
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: tfsec
+        uses: docker://tfsec/tfsec:latest
+        with:
+          entrypoint: tfsec
+          args: .
