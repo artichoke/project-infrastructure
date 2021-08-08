@@ -24,6 +24,23 @@ jobs:
       - name: npm audit
         run: npm audit
 
+  ruby:
+    name: Audit Ruby Dependencies
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install Ruby toolchain
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ".ruby-version"
+          bundler-cache: true
+
+      - name: bundler-audit
+        run: bundle exec bundle-audit check --update
+
   terraform:
     name: Audit Terraform Infrastructure as Code
     runs-on: ubuntu-latest
