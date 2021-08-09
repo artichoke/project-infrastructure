@@ -12,6 +12,7 @@ name: Audit
 jobs:
   js:
     name: Audit JS Dependencies
+    if: true
     runs-on: ubuntu-latest
 
     steps:
@@ -26,6 +27,7 @@ jobs:
 
   ruby:
     name: Audit Ruby Dependencies
+    if: true
     runs-on: ubuntu-latest
 
     steps:
@@ -41,71 +43,25 @@ jobs:
       - name: bundler-audit
         run: bundle exec bundle-audit check --update
 
-  terraform:
-    name: Audit Terraform Infrastructure as Code
+  rust:
+    name: Audit Rust Dependencies
+    if: false
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.TF_AWS_ACCESS_KEY }}
-          aws-secret-access-key: ${{ secrets.TF_AWS_SECRET_KEY }}
-          aws-region: us-west-2
-
-      - name: "Setup Terraform"
-        uses: hashicorp/setup-terraform@v1
-        with:
-          terraform_version: 1.x
-
-      - name: "terraform init"
+      - name: Setup cargo-deny
         run: |
-          terraform -chdir=aws init
-          terraform -chdir=github init
-          terraform -chdir=remote-state init
+          release_base="https://github.com/EmbarkStudios/cargo-deny/releases/download"
+          version="0.9.1"
+          cargo_deny_tarball="$release_base/$version/cargo-deny-$version-x86_64-unknown-linux-musl.tar.gz"
+          echo "Downloading cargo-deny $version from $cargo_deny_tarball."
+          curl -sL "$cargo_deny_tarball" | sudo tar xvz -C /usr/local/bin/ --strip-components=1
 
-      - name: "tfsec aws"
-        uses: docker://tfsec/tfsec:latest
-        id: tfsec_aws
-        continue-on-error: true
-        with:
-          entrypoint: tfsec
-          args: aws
+      - name: cargo-deny version
+        run: cargo-deny --version
 
-      - name: "tfsec github"
-        uses: docker://tfsec/tfsec:latest
-        id: tfsec_github
-        continue-on-error: true
-        with:
-          entrypoint: tfsec
-          args: github
-
-      - name: "tfsec remote-state"
-        uses: docker://tfsec/tfsec:latest
-        id: tfsec_remote_state
-        continue-on-error: true
-        with:
-          entrypoint: tfsec
-          args: remote-state
-
-      - name: "Check on failures"
-        run: |
-          failed=""
-          if [[ ${{ steps.tfsec_aws.outcome }} != "success" ]]; then
-            failed="y"
-            echo >&2 "tfsec aws failed"
-          fi
-          if [[ ${{ steps.tfsec_github.outcome }} != "success" ]]; then
-            failed="y"
-            echo >&2 "tfsec github failed"
-          fi
-          if [[ ${{ steps.tfsec_remote_state.outcome }} != "success" ]]; then
-            failed="y"
-            echo >&2 "tfsec remote-state failed"
-          fi
-          if [[ -n "$failed" ]]; then
-            exit 1
-          fi
+      - name: Run cargo-deny
+        run: cargo-deny check --show-stats
