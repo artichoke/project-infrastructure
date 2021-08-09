@@ -1,13 +1,14 @@
 locals {
-  // Set `cargo_deny_force_bump` to true to create branches for PRs that update
-  // the `cargo-deny` version used in the `Audit` workflow.
-  cargo_deny_force_bump = false
+  // Set `force_bump` to true to create branches for PRs that update the Audit
+  // workflow organization-wide.
+  force_bump = false
+
   // https://github.com/EmbarkStudios/cargo-deny/releases/tag/0.9.1
   cargo_deny_version = "0.9.1"
-  rust_audit_repos = {
+  cargo_deny_audit_repos = {
     artichoke             = "artichoke"             // https://github.com/artichoke/artichoke
     boba                  = "boba"                  // https://github.com/artichoke/boba
-    boba                  = "cactusref"             // https://github.com/artichoke/cactusref
+    cactusref             = "cactusref"             // https://github.com/artichoke/cactusref
     focaccia              = "focaccia"              // https://github.com/artichoke/focaccia
     intaglio              = "intaglio"              // https://github.com/artichoke/intaglio
     playground            = "playground"            // https://github.com/artichoke/playground
@@ -16,112 +17,161 @@ locals {
     ruby_file_expand_path = "ruby-file-expand-path" // https://github.com/artichoke/ruby-file-expand-path
     strudel               = "strudel"               // https://github.com/artichoke/strudel
   }
-}
 
-data "template_file" "github_actions_workflow_rust_audit" {
-  template = file("${path.module}/files/workflows/rust-audit.yaml.tpl")
-  vars = {
-    cargo_deny_version = local.cargo_deny_version
+  npm_audit_repos = {
+    artichoke_github_io    = "artichoke.github.io"    // https://github.com/artichoke/artichoke.github.io
+    clang_format           = "clang-format"           // https://github.com/artichoke/clang-format
+    jasper                 = "jasper"                 // https://github.com/artichoke/jasper
+    logo                   = "logo"                   // https://github.com/artichoke/logo
+    playground             = "playground"             // https://github.com/artichoke/playground
+    project_infrastructure = "project-infrastructure" // https://github.com/artichoke/project-infrastructure
+    rubyconf               = "rubyconf"               // https://github.com/artichoke/rubyconf
+    www_artichokeruby_org  = "www.artichokeruby.org"  // https://github.com/artichoke/www.artichokeruby.org
+  }
+
+  bundler_audit_repos = {
+    artichoke                = "artichoke"                // https://github.com/artichoke/artichoke
+    artichoke_github_io      = "artichoke.github.io"      // https://github.com/artichoke/artichoke.github.io
+    boba                     = "boba"                     // https://github.com/artichoke/boba
+    cactusref                = "cactusref"                // https://github.com/artichoke/cactusref
+    docker_artichoke_nightly = "docker-artichoke-nightly" // https://github.com/artichoke/docker-artichoke-nightly
+    focaccia                 = "focaccia"                 // https://github.com/artichoke/focaccia
+    intaglio                 = "intaglio"                 // https://github.com/artichoke/intaglio
+    nightly                  = "nightly"                  // https://github.com/artichoke/nightly
+    playground               = "playground"               // https://github.com/artichoke/playground
+    project_infrastructure   = "project-infrastructure"   // https://github.com/artichoke/project-infrastructure
+    rand_mt                  = "rand_mt"                  // https://github.com/artichoke/rand_mt
+    roe                      = "roe"                      // https://github.com/artichoke/roe
+    rubyconf                 = "rubyconf"                 // https://github.com/artichoke/rubyconf
+    ruby_file_expand_path    = "ruby-file-expand-path"    // https://github.com/artichoke/ruby-file-expand-path
+    strudel                  = "strudel"                  // https://github.com/artichoke/strudel
+  }
+
+  audit_managed_repos = {
+    artichoke                = "artichoke"                // https://github.com/artichoke/artichoke
+    artichoke_github_io      = "artichoke.github.io"      // https://github.com/artichoke/artichoke.github.io
+    boba                     = "boba"                     // https://github.com/artichoke/boba
+    cactusref                = "cactusref"                // https://github.com/artichoke/cactusref
+    clang_format             = "clang-format"             // https://github.com/artichoke/clang-format
+    docker_artichoke_nightly = "docker-artichoke-nightly" // https://github.com/artichoke/docker-artichoke-nightly
+    focaccia                 = "focaccia"                 // https://github.com/artichoke/focaccia
+    intaglio                 = "intaglio"                 // https://github.com/artichoke/intaglio
+    jasper                   = "jasper"                   // https://github.com/artichoke/jasper
+    logo                     = "logo"                     // https://github.com/artichoke/logo
+    nightly                  = "nightly"                  // https://github.com/artichoke/nightly
+    playground               = "playground"               // https://github.com/artichoke/playground
+    project_infrastructure   = "project-infrastructure"   // https://github.com/artichoke/project-infrastructure
+    rand_mt                  = "rand_mt"                  // https://github.com/artichoke/rand_mt
+    roe                      = "roe"                      // https://github.com/artichoke/roe
+    rubyconf                 = "rubyconf"                 // https://github.com/artichoke/rubyconf
+    ruby_file_expand_path    = "ruby-file-expand-path"    // https://github.com/artichoke/ruby-file-expand-path
+    strudel                  = "strudel"                  // https://github.com/artichoke/strudel
+    www_artichokeruby_org    = "www.artichokeruby.org"    // https://github.com/artichoke/www.artichokeruby.org
   }
 }
 
-data "github_branch" "github_actions_workflow_rust_audit_sync_base" {
-  for_each = local.rust_audit_repos
+data "template_file" "github_actions_workflows_audit" {
+  for_each = local.audit_managed_repos
+
+  template = file("${path.module}/files/workflows/audit.yaml.tpl")
+  vars = {
+    cargo_deny_version = local.cargo_deny_version
+    has_cargo_deny     = lookup(local.cargo_deny_audit_repos, each.key, "n/a") == each.value
+    has_npm_audit      = lookup(local.npm_audit_repos, each.key, "n/a") == each.value
+    has_bundler_audit  = lookup(local.bundler_audit_repos, each.key, "n/a") == each.value
+  }
+}
+
+data "github_branch" "github_actions_workflows_audit_base" {
+  for_each = local.audit_managed_repos
 
   repository = each.value
   branch     = "trunk"
 
   depends_on = [
     github_repository.artichoke,
+    github_repository.artichoke_github_io,
     github_repository.boba,
     github_repository.cactusref,
+    github_repository.clang_format,
+    github_repository.docker_artichoke_nightly,
     github_repository.focaccia,
     github_repository.intaglio,
+    github_repository.jasper,
+    github_repository.logo,
+    github_repository.nightly,
     github_repository.playground,
+    github_repository.project_infrastructure,
     github_repository.rand_mt,
     github_repository.roe,
+    github_repository.rubyconf,
     github_repository.ruby_file_expand_path,
     github_repository.strudel,
+    github_repository.www_artichokeruby_org,
   ]
 }
 
-resource "github_branch" "github_actions_workflows_rust_audit_pr_branch" {
-  for_each = local.cargo_deny_force_bump ? local.rust_audit_repos : {}
+resource "github_branch" "github_actions_workflows_audit" {
+  for_each = local.force_bump ? local.audit_managed_repos : {}
 
   repository    = each.value
-  branch        = "terraform/github_actions_workflows_sync_rust_audit"
+  branch        = "terraform/github_actions_workflows_audit"
   source_branch = "trunk"
-  source_sha    = data.github_branch.github_actions_workflow_rust_audit_sync_base[each.key].sha
+  source_sha    = data.github_branch.github_actions_workflows_audit_base[each.key].sha
 }
 
-resource "github_repository_file" "github_actions_workflows_rust_audit" {
-  for_each = local.cargo_deny_force_bump ? local.rust_audit_repos : {}
+resource "github_repository_file" "github_actions_workflows_audit" {
+  for_each = local.force_bump ? local.audit_managed_repos : {}
 
   repository          = each.value
-  branch              = "terraform/github_actions_workflows_sync_rust_audit"
+  branch              = github_branch.github_actions_workflows_audit[each.key]
   file                = ".github/workflows/audit.yaml"
-  content             = data.template_file.github_actions_workflow_rust_audit.rendered
-  commit_message      = "Update cargo-deny version to ${local.cargo_deny_version} in audit workflow\n\nManaged by Terraform"
+  content             = data.template_file.github_actions_workflows_audit[each.key].rendered
+  commit_message      = <<-MESSAGE
+    Update Audit GitHub Actions workflow
+
+    Managed by Terraform
+
+    The cargo-deny version is ${local.cargo_deny_version}.
+  MESSAGE
   commit_author       = "artichoke-ci"
   commit_email        = "ci@artichokeruby.org"
   overwrite_on_create = true
-
-  depends_on = [
-    github_branch.github_actions_workflows_rust_audit_pr_branch["artichoke"],
-    github_branch.github_actions_workflows_rust_audit_pr_branch["boba"],
-    github_branch.github_actions_workflows_rust_audit_pr_branch["cactusref"],
-    github_branch.github_actions_workflows_rust_audit_pr_branch["focaccia"],
-    github_branch.github_actions_workflows_rust_audit_pr_branch["intaglio"],
-    github_branch.github_actions_workflows_rust_audit_pr_branch["playground"],
-    github_branch.github_actions_workflows_rust_audit_pr_branch["rand_mt"],
-    github_branch.github_actions_workflows_rust_audit_pr_branch["roe"],
-    github_branch.github_actions_workflows_rust_audit_pr_branch["ruby_file_expand_path"],
-    github_branch.github_actions_workflows_rust_audit_pr_branch["strudel"],
-  ]
 }
 
-resource "github_repository_pull_request" "github_actions_workflow_rust_audit" {
-  for_each = local.cargo_deny_force_bump ? local.rust_audit_repos : {}
+resource "github_repository_pull_request" "github_actions_workflow_audit" {
+  for_each = local.force_bump ? local.audit_managed_repos : {}
 
   base_repository = each.value
-  base_ref        = data.github_branch.github_actions_workflow_rust_audit_sync_base[each.key].ref
-  head_ref        = github_branch.github_actions_workflows_rust_audit_pr_branch[each.key].ref
-  title           = "Update cargo-deny version to ${local.cargo_deny_version} in audit workflow"
-  body            = "Managed by terraform."
+  base_ref        = data.github_branch.github_actions_workflows_audit_base[each.key].ref
+  head_ref        = github_branch.github_actions_workflows_audit[each.key].ref
+  title           = "Update Audit GitHub Actions workflow"
+  body            = <<-BODY
+    Managed by Terraform.
+
+    The cargo-deny version is ${local.cargo_deny_version}.
+
+    Pushed commit ${github_repository_file.github_actions_workflows_audit[each.key]}.
+  BODY
 
   maintainer_can_modify = true
-
-  depends_on = [
-    github_repository_file.github_actions_workflows_rust_audit["artichoke"],
-    github_repository_file.github_actions_workflows_rust_audit["boba"],
-    github_repository_file.github_actions_workflows_rust_audit["cactusref"],
-    github_repository_file.github_actions_workflows_rust_audit["focaccia"],
-    github_repository_file.github_actions_workflows_rust_audit["intaglio"],
-    github_repository_file.github_actions_workflows_rust_audit["playground"],
-    github_repository_file.github_actions_workflows_rust_audit["rand_mt"],
-    github_repository_file.github_actions_workflows_rust_audit["roe"],
-    github_repository_file.github_actions_workflows_rust_audit["ruby_file_expand_path"],
-    github_repository_file.github_actions_workflows_rust_audit["strudel"],
-  ]
 }
 
-output "github_actions_workflows_rust_audit_pull_requests" {
-  value = <<CONFIG
-
-Pull Requests:
-${local.cargo_deny_force_bump ? join(
+output "github_actions_workflows_audit_pull_requests" {
+  value = <<-CONFIG
+    Pull Requests:
+    ${local.force_bump ? join(
   "\n",
   formatlist(
     "%s",
-    [for repo in keys(local.rust_audit_repos) :
+    [for slug, repo in local.audit_managed_repos :
       join("/", [
         "https://github.com/artichoke",
-        local.rust_audit_repos[repo],
+        repo,
         "pull",
-        github_repository_pull_request.github_actions_workflow_rust_audit[repo].number,
+        github_repository_pull_request.github_actions_workflow_audit[slug].number,
       ])
     ]
 )) : "none"}
-
-CONFIG
+  CONFIG
 }
