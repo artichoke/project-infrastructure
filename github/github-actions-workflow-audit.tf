@@ -1,7 +1,7 @@
 locals {
   // Set `force_bump` to true to create branches for PRs that update the Audit
   // workflow organization-wide.
-  force_bump = false
+  force_bump = true
 
   // https://github.com/EmbarkStudios/cargo-deny/releases/tag/0.9.1
   cargo_deny_version = "0.9.1"
@@ -124,13 +124,13 @@ resource "github_repository_file" "github_actions_workflows_audit" {
   for_each = local.force_bump ? local.audit_managed_repos : {}
 
   repository          = each.value
-  branch              = github_branch.github_actions_workflows_audit[each.key]
+  branch              = github_branch.github_actions_workflows_audit[each.key].ref
   file                = ".github/workflows/audit.yaml"
   content             = data.template_file.github_actions_workflows_audit[each.key].rendered
   commit_message      = <<-MESSAGE
     Update Audit GitHub Actions workflow
 
-    Managed by Terraform
+    Managed by Terraform.
 
     The cargo-deny version is ${local.cargo_deny_version}.
   MESSAGE
@@ -151,7 +151,7 @@ resource "github_repository_pull_request" "github_actions_workflow_audit" {
 
     The cargo-deny version is ${local.cargo_deny_version}.
 
-    Pushed commit ${github_repository_file.github_actions_workflows_audit[each.key]}.
+    Pushed commit ${github_repository_file.github_actions_workflows_audit[each.key].commit_sha}.
   BODY
 
   maintainer_can_modify = true
