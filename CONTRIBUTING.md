@@ -48,7 +48,8 @@ available tasks by running:
 
 ```console
 $ bundle exec rake --tasks
-rake bundle:audit                 # Checks the Gemfile.lock for insecure dependencies
+rake bundle:audit:check           # Checks the Gemfile.lock for insecure dependencies
+rake bundle:audit:update          # Updates the bundler-audit vulnerability database
 rake fmt                          # Format sources
 rake fmt:terraform                # Format Terraform sources with terraform fmt
 rake fmt:text                     # Format text, YAML, and Markdown sources with prettier
