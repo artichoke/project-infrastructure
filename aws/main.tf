@@ -30,24 +30,10 @@ variable "github_actions_runners" {
   }
 }
 
-data "aws_iam_policy_document" "admin" {
-  statement {
-    sid = 1
+module "administrator_access" {
+  source = "./modules/util/iam-admin"
 
-    effect = "Allow"
-
-    actions   = ["*"]
-    resources = ["*"]
-  }
-}
-
-module "iam_admin" {
-  source = "./modules/util/iam"
-
-  name  = "${var.name}-admin"
   users = var.iam_admins
-
-  policy = data.aws_iam_policy_document.admin.json
 }
 
 data "aws_iam_policy_document" "github_actions_runner_terraform_state_read_only" {
@@ -91,11 +77,11 @@ ${join(
   "\n\n",
   formatlist(
     "%s",
-    [for user in keys(module.iam_admin.users) :
+    [for user in keys(module.administrator_access.users) :
       join("\n", [
-        "  user: ${module.iam_admin.users[user]}",
-        "    access id: ${module.iam_admin.access_ids[user]}",
-        "    secret key: ${module.iam_admin.secret_keys[user]}"
+        "  user: ${module.administrator_access.users[user]}",
+        "    access id: ${module.administrator_access.access_ids[user]}",
+        "    secret key: ${module.administrator_access.secret_keys[user]}"
       ])
     ]
   ))}
@@ -120,15 +106,15 @@ sensitive = true
 }
 
 output "iam_admin_users" {
-  value = module.iam_admin.users
+  value = module.administrator_access.users
 }
 
 output "iam_admin_access_ids" {
-  value = module.iam_admin.access_ids
+  value = module.administrator_access.access_ids
 }
 
 output "iam_admin_secret_keys" {
-  value = module.iam_admin.secret_keys
+  value = module.administrator_access.secret_keys
 
   sensitive = true
 }
