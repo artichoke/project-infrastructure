@@ -23,6 +23,7 @@ resource "github_repository" "private_crate_reservation" {
   has_wiki      = false
 
   delete_branch_on_merge = true
+  vulnerability_alerts   = true
 
   topics = [
     "artichoke",

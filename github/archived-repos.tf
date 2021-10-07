@@ -1,3 +1,4 @@
+#tfsec:ignore:github-repositories-vulnerability-alerts
 resource "github_repository" "artichoke_ci" {
   name        = "artichoke-ci"
   description = "🏗 CI infrastructure and images for Artichoke"
@@ -27,6 +28,7 @@ resource "github_repository" "artichoke_ci" {
   }
 }
 
+#tfsec:ignore:github-repositories-vulnerability-alerts
 resource "github_repository" "ferrocarril" {
   name         = "ferrocarril"
   description  = "🚆 Experiments to embed Ruby on Rails in Rust with mruby"
@@ -63,6 +65,7 @@ resource "github_repository" "ferrocarril" {
   }
 }
 
+#tfsec:ignore:github-repositories-vulnerability-alerts
 resource "github_repository" "rust_mersenne_twister" {
   name         = "rust-mersenne-twister"
   description  = "Fork migrated to artichoke/rand_mt"
