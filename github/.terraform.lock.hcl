@@ -22,6 +22,7 @@ provider "registry.terraform.io/integrations/github" {
   version     = "4.17.0"
   constraints = "~> 4.12"
   hashes = [
+    "h1:ajOW0+0lMfvfv79gSdf+s4ligqSCwIFmwGz/11u2GX0=",
     "h1:sZeGxNQ/Xt9hbAPiH3s+JPFtdYA5fH3GwdgzuPf6uJ0=",
     "zh:172fc888630839a4e2097fa2e5fc490ca2e5c5639b8c0ed8cd8aa4656382a270",
     "zh:18d7a0e7c9083516a9ed03eab31d29d625ffc9ba2364ecb8669b6a1c4a6f5154",
