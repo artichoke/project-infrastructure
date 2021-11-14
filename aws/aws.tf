@@ -3,8 +3,7 @@ variable "region" {
 }
 
 provider "aws" {
-  region  = var.region
-  profile = "artichoke-forge-project-infrastructure"
+  region = var.region
 
   default_tags {
     tags = {

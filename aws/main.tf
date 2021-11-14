@@ -5,21 +5,11 @@ terraform {
     key            = "aws/terraform.tfstate"
     encrypt        = true
     dynamodb_table = "terraform_statelock"
-
-    profile = "artichoke-forge-project-infrastructure"
   }
 }
 
 variable "name" {
   default = "artichoke-forge"
-}
-
-variable "iam_admins" {
-  type = map(string)
-
-  default = {
-    lopopolo = "lopopolo"
-  }
 }
 
 variable "github_actions_runners" {
@@ -28,12 +18,6 @@ variable "github_actions_runners" {
   default = {
     project-infrastructure = "github-actions-repo-project-infrastructure"
   }
-}
-
-module "administrator_access" {
-  source = "./modules/util/iam-admin"
-
-  users = var.iam_admins
 }
 
 data "aws_iam_policy_document" "github_actions_runner_terraform_state_read_only" {
@@ -72,20 +56,6 @@ module "github_actions_runner_read_only" {
 output "config" {
   value = <<CONFIG
 
-Admin IAM:
-${join(
-  "\n\n",
-  formatlist(
-    "%s",
-    [for user in keys(module.administrator_access.users) :
-      join("\n", [
-        "  user: ${module.administrator_access.users[user]}",
-        "    access id: ${module.administrator_access.access_ids[user]}",
-        "    secret key: ${module.administrator_access.secret_keys[user]}"
-      ])
-    ]
-  ))}
-
 GitHub Actions IAM:
 ${join(
   "\n\n",
@@ -103,20 +73,6 @@ ${join(
 CONFIG
 
 sensitive = true
-}
-
-output "iam_admin_users" {
-  value = module.administrator_access.users
-}
-
-output "iam_admin_access_ids" {
-  value = module.administrator_access.access_ids
-}
-
-output "iam_admin_secret_keys" {
-  value = module.administrator_access.secret_keys
-
-  sensitive = true
 }
 
 output "github_actions_iam_access_ids" {
