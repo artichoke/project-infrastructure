@@ -7,8 +7,6 @@ data "terraform_remote_state" "aws" {
     key            = "aws/terraform.tfstate"
     encrypt        = true
     dynamodb_table = "terraform_statelock"
-
-    profile = "artichoke-forge-project-infrastructure"
   }
 }
 

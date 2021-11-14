@@ -5,8 +5,6 @@ terraform {
     key            = "github/terraform.tfstate"
     encrypt        = true
     dynamodb_table = "terraform_statelock"
-
-    profile = "artichoke-forge-project-infrastructure"
   }
 }
 
