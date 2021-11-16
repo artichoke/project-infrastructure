@@ -77,4 +77,4 @@ jobs:
         run: cargo-deny --version
 
       - name: Run cargo-deny
-        run: cargo-deny check --show-stats
+        run: cargo-deny --locked check --show-stats
