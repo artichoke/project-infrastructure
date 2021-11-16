@@ -106,6 +106,7 @@ data "github_branch" "github_actions_workflows_audit_base" {
     github_repository.playground,
     github_repository.project_infrastructure,
     github_repository.rand_mt,
+    github_repository.raw_parts,
     github_repository.roe,
     github_repository.rubyconf,
     github_repository.ruby_file_expand_path,
@@ -153,7 +154,8 @@ output "github_actions_workflows_audit_pull_requests" {
       join("/", [
         "https://github.com/artichoke",
         repo,
-        "tree/terraform/github_actions_workflows_audit",
+        "tree",
+        "terraform/github_actions_workflows_audit",
       ])
     ]
 )) : "none"}

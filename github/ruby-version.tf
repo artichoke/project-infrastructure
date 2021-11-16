@@ -54,7 +54,7 @@ data "github_branch" "ruby_version_sync_base" {
   ]
 }
 
-resource "github_branch" "ruby_version_pr_branch" {
+resource "github_branch" "ruby_version" {
   for_each = local.ruby_version_force_bump ? local.ruby_version_repos : {}
 
   repository    = each.value
@@ -67,57 +67,13 @@ resource "github_repository_file" "ruby_version" {
   for_each = local.ruby_version_force_bump ? local.ruby_version_repos : {}
 
   repository          = each.value
-  branch              = "terraform/ruby_version_bump"
+  branch              = github_branch.ruby_version[each.key].ref
   file                = ".ruby-version"
   content             = data.template_file.ruby_version.rendered
   commit_message      = "Update Ruby toolchain version to ${local.ruby_version} in .ruby-version\n\nManaged by Terraform"
   commit_author       = "artichoke-ci"
   commit_email        = "ci@artichokeruby.org"
   overwrite_on_create = true
-
-  depends_on = [
-    github_branch.ruby_version_pr_branch["artichoke"],
-    github_branch.ruby_version_pr_branch["artichoke_github_io"],
-    github_branch.ruby_version_pr_branch["boba"],
-    github_branch.ruby_version_pr_branch["cactusref"],
-    github_branch.ruby_version_pr_branch["focaccia"],
-    github_branch.ruby_version_pr_branch["intaglio"],
-    github_branch.ruby_version_pr_branch["playground"],
-    github_branch.ruby_version_pr_branch["project_infrastructure"],
-    github_branch.ruby_version_pr_branch["rand_mt"],
-    github_branch.ruby_version_pr_branch["roe"],
-    github_branch.ruby_version_pr_branch["rubyconf"],
-    github_branch.ruby_version_pr_branch["ruby_file_expand_path"],
-    github_branch.ruby_version_pr_branch["strudel"],
-  ]
-}
-
-resource "github_repository_pull_request" "ruby_version" {
-  for_each = local.ruby_version_force_bump ? local.ruby_version_repos : {}
-
-  base_repository = each.value
-  base_ref        = data.github_branch.ruby_version_sync_base[each.key].ref
-  head_ref        = github_branch.ruby_version_pr_branch[each.key].ref
-  title           = "Update Ruby toolchain version to ${local.ruby_version} in .ruby-version"
-  body            = "Managed by terraform."
-
-  maintainer_can_modify = true
-
-  depends_on = [
-    github_repository_file.ruby_version["artichoke"],
-    github_repository_file.ruby_version["artichoke_github_io"],
-    github_repository_file.ruby_version["boba"],
-    github_repository_file.ruby_version["cactusref"],
-    github_repository_file.ruby_version["focaccia"],
-    github_repository_file.ruby_version["intaglio"],
-    github_repository_file.ruby_version["playground"],
-    github_repository_file.ruby_version["project_infrastructure"],
-    github_repository_file.ruby_version["rand_mt"],
-    github_repository_file.ruby_version["roe"],
-    github_repository_file.ruby_version["rubyconf"],
-    github_repository_file.ruby_version["ruby_file_expand_path"],
-    github_repository_file.ruby_version["strudel"],
-  ]
 }
 
 output "ruby_version_pull_requests" {
@@ -132,8 +88,8 @@ ${local.ruby_version_force_bump ? join(
       join("/", [
         "https://github.com/artichoke",
         local.ruby_version_repos[repo],
-        "pull",
-        github_repository_pull_request.ruby_version[repo].number,
+        "tree",
+        "terraform/ruby_version_bump",
       ])
     ]
 )) : "none"}
