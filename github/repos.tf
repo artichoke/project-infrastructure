@@ -484,6 +484,43 @@ resource "github_repository" "rand_mt" {
   }
 }
 
+resource "github_repository" "raw_parts" {
+  name         = "raw-parts"
+  description  = "🪣 Types for a `Vec`'s raw parts"
+  homepage_url = "https://crates.io/crates/raw-parts"
+
+  visibility = "public"
+
+  has_downloads = true
+  has_issues    = true
+  has_projects  = false
+  has_wiki      = false
+
+  delete_branch_on_merge = true
+  vulnerability_alerts   = true
+
+  topics = [
+    "artichoke",
+    "ffi",
+    "no-std",
+    "pointers",
+    "rust",
+    "rust-crate",
+    "vector",
+  ]
+
+  pages {
+    source {
+      branch = "gh-pages"
+      path   = "/"
+    }
+  }
+
+  lifecycle {
+    prevent_destroy = true
+  }
+}
+
 resource "github_repository" "roe" {
   name         = "roe"
   description  = "🍣 Unicode case converters"

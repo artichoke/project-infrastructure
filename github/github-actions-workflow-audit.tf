@@ -13,6 +13,7 @@ locals {
     intaglio              = "intaglio"              // https://github.com/artichoke/intaglio
     playground            = "playground"            // https://github.com/artichoke/playground
     rand_mt               = "rand_mt"               // https://github.com/artichoke/rand_mt
+    raw_parts             = "raw-parts"             // https://github.com/artichoke/raw-parts
     roe                   = "roe"                   // https://github.com/artichoke/roe
     ruby_file_expand_path = "ruby-file-expand-path" // https://github.com/artichoke/ruby-file-expand-path
     strudel               = "strudel"               // https://github.com/artichoke/strudel
@@ -41,6 +42,7 @@ locals {
     playground               = "playground"               // https://github.com/artichoke/playground
     project_infrastructure   = "project-infrastructure"   // https://github.com/artichoke/project-infrastructure
     rand_mt                  = "rand_mt"                  // https://github.com/artichoke/rand_mt
+    raw_parts                = "raw-parts"                // https://github.com/artichoke/raw-parts
     roe                      = "roe"                      // https://github.com/artichoke/roe
     rubyconf                 = "rubyconf"                 // https://github.com/artichoke/rubyconf
     ruby_file_expand_path    = "ruby-file-expand-path"    // https://github.com/artichoke/ruby-file-expand-path
@@ -62,6 +64,7 @@ locals {
     playground               = "playground"               // https://github.com/artichoke/playground
     project_infrastructure   = "project-infrastructure"   // https://github.com/artichoke/project-infrastructure
     rand_mt                  = "rand_mt"                  // https://github.com/artichoke/rand_mt
+    raw_parts                = "raw-parts"                // https://github.com/artichoke/raw-parts
     roe                      = "roe"                      // https://github.com/artichoke/roe
     rubyconf                 = "rubyconf"                 // https://github.com/artichoke/rubyconf
     ruby_file_expand_path    = "ruby-file-expand-path"    // https://github.com/artichoke/ruby-file-expand-path
