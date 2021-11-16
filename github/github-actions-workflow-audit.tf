@@ -1,7 +1,7 @@
 locals {
   // Set `force_bump` to true to create branches for PRs that update the Audit
   // workflow organization-wide.
-  force_bump = false
+  force_bump = true
 
   // https://github.com/EmbarkStudios/cargo-deny/releases/tag/0.10.1
   cargo_deny_version = "0.10.1"
