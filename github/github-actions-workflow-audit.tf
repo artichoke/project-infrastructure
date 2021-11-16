@@ -142,24 +142,6 @@ resource "github_repository_file" "github_actions_workflows_audit" {
   overwrite_on_create = true
 }
 
-resource "github_repository_pull_request" "github_actions_workflow_audit" {
-  for_each = local.force_bump ? local.audit_managed_repos : {}
-
-  base_repository = each.value
-  base_ref        = data.github_branch.github_actions_workflows_audit_base[each.key].ref
-  head_ref        = github_branch.github_actions_workflows_audit[each.key].ref
-  title           = "Update Audit GitHub Actions workflow"
-  body            = <<-BODY
-    Managed by Terraform.
-
-    The cargo-deny version is ${local.cargo_deny_version}.
-
-    Pushed commit ${github_repository_file.github_actions_workflows_audit[each.key].commit_sha}.
-  BODY
-
-  maintainer_can_modify = true
-}
-
 output "github_actions_workflows_audit_pull_requests" {
   value = <<-CONFIG
     Pull Requests:
@@ -171,8 +153,7 @@ output "github_actions_workflows_audit_pull_requests" {
       join("/", [
         "https://github.com/artichoke",
         repo,
-        "pull",
-        github_repository_pull_request.github_actions_workflow_audit[slug].number,
+        "pulls",
       ])
     ]
 )) : "none"}
