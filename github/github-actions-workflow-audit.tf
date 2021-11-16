@@ -153,7 +153,7 @@ output "github_actions_workflows_audit_pull_requests" {
       join("/", [
         "https://github.com/artichoke",
         repo,
-        "pulls",
+        "tree/terraform/github_actions_workflows_audit",
       ])
     ]
 )) : "none"}
