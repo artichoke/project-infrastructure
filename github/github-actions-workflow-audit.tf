@@ -3,8 +3,8 @@ locals {
   // workflow organization-wide.
   force_bump = false
 
-  // https://github.com/EmbarkStudios/cargo-deny/releases/tag/0.9.1
-  cargo_deny_version = "0.9.1"
+  // https://github.com/EmbarkStudios/cargo-deny/releases/tag/0.10.1
+  cargo_deny_version = "0.10.1"
   cargo_deny_audit_repos = {
     artichoke             = "artichoke"             // https://github.com/artichoke/artichoke
     boba                  = "boba"                  // https://github.com/artichoke/boba
