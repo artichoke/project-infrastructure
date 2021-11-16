@@ -3,8 +3,8 @@ locals {
   // workflow organization-wide.
   force_bump = false
 
-  // https://github.com/EmbarkStudios/cargo-deny/releases/tag/0.9.1
-  cargo_deny_version = "0.9.1"
+  // https://github.com/EmbarkStudios/cargo-deny/releases/tag/0.10.1
+  cargo_deny_version = "0.10.1"
   cargo_deny_audit_repos = {
     artichoke             = "artichoke"             // https://github.com/artichoke/artichoke
     boba                  = "boba"                  // https://github.com/artichoke/boba
@@ -106,6 +106,7 @@ data "github_branch" "github_actions_workflows_audit_base" {
     github_repository.playground,
     github_repository.project_infrastructure,
     github_repository.rand_mt,
+    github_repository.raw_parts,
     github_repository.roe,
     github_repository.rubyconf,
     github_repository.ruby_file_expand_path,
@@ -142,24 +143,6 @@ resource "github_repository_file" "github_actions_workflows_audit" {
   overwrite_on_create = true
 }
 
-resource "github_repository_pull_request" "github_actions_workflow_audit" {
-  for_each = local.force_bump ? local.audit_managed_repos : {}
-
-  base_repository = each.value
-  base_ref        = data.github_branch.github_actions_workflows_audit_base[each.key].ref
-  head_ref        = github_branch.github_actions_workflows_audit[each.key].ref
-  title           = "Update Audit GitHub Actions workflow"
-  body            = <<-BODY
-    Managed by Terraform.
-
-    The cargo-deny version is ${local.cargo_deny_version}.
-
-    Pushed commit ${github_repository_file.github_actions_workflows_audit[each.key].commit_sha}.
-  BODY
-
-  maintainer_can_modify = true
-}
-
 output "github_actions_workflows_audit_pull_requests" {
   value = <<-CONFIG
     Pull Requests:
@@ -171,8 +154,8 @@ output "github_actions_workflows_audit_pull_requests" {
       join("/", [
         "https://github.com/artichoke",
         repo,
-        "pull",
-        github_repository_pull_request.github_actions_workflow_audit[slug].number,
+        "tree",
+        "terraform/github_actions_workflows_audit",
       ])
     ]
 )) : "none"}
