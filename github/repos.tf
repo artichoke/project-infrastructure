@@ -604,46 +604,6 @@ resource "github_repository" "rubyconf" {
   }
 }
 
-resource "github_repository" "rubyconf2019_artichoke_run" {
-  name         = "rubyconf2019.artichoke.run"
-  description  = "📸 A snapshot of artichoke.run that runs the playground as of RubyConf 2019"
-  homepage_url = "https://rubyconf2019.artichoke.run/"
-
-  visibility = "public"
-
-  has_downloads = true
-  has_issues    = true
-  has_projects  = false
-  has_wiki      = false
-
-  delete_branch_on_merge = true
-  vulnerability_alerts   = true
-
-  topics = [
-    "artichoke",
-    "playground",
-    "programming-language",
-    "ruby",
-    "rust",
-    "rust-application",
-    "snapshot",
-    "wasm",
-    "webassembly",
-  ]
-
-  pages {
-    cname = "rubyconf2019.artichoke.run"
-    source {
-      branch = "gh-pages"
-      path   = "/"
-    }
-  }
-
-  lifecycle {
-    prevent_destroy = true
-  }
-}
-
 resource "github_repository" "ruby_file_expand_path" {
   name         = "ruby-file-expand-path"
   description  = "📂 Rust port of path normalization from MRI Ruby."
