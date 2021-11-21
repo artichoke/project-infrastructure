@@ -112,7 +112,7 @@ resource "github_repository" "boba" {
 resource "github_repository" "cactusref" {
   name         = "cactusref"
   description  = "🌵 Cycle-Aware Reference Counting in Rust"
-  homepage_url = "https://artichoke.github.io/cactusref/cactusref/"
+  homepage_url = "https://crates.io/crates/cactusref"
 
   archived   = false
   visibility = "public"
