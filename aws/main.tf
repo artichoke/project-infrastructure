@@ -53,6 +53,14 @@ module "github_actions_runner_read_only" {
   policy = data.aws_iam_policy_document.github_actions_runner_terraform_state_read_only.json
 }
 
+module "github_actions_project_infrastructure_assume_role" {
+  source = "./modules/repository-assume-role"
+}
+
+output "github_actions_project_infrastructure_assume_role_arn" {
+  value = module.github_actions_project_infrastructure_assume_role.role_arn
+}
+
 output "config" {
   value = <<CONFIG
 
