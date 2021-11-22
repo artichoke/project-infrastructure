@@ -10,7 +10,7 @@ resource "aws_iam_openid_connect_provider" "github" {
    "sts.amazonaws.com"
  ]
 
- thumbprint_list = ["66bdd7c74d920085f0a986fb5ae3ab4faccaf635"]
+ thumbprint_list = ["a031c46782e6e6c662c2c87c76da9aa62ccabd8e"]
 }
 
 data "aws_iam_policy_document" "github_allow" {
