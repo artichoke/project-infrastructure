@@ -22,7 +22,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@master
         with:
           role-to-assume: arn:aws:iam::447522982029:role/github-actions-artichoke-project-infrastructure-role
           aws-region: us-west-2
