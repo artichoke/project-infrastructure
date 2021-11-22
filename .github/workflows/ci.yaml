@@ -21,9 +21,11 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-access-key-id: ${{ secrets.TF_AWS_ACCESS_KEY }}
-          aws-secret-access-key: ${{ secrets.TF_AWS_SECRET_KEY }}
+          role-to-assume: arn:aws:iam::447522982029:role/github-actions-artichoke-project-infrastructure-role
           aws-region: us-west-2
+
+      - name: Show AWS caller identity
+        run: aws sts get-caller-identity
 
       - name: "Setup Terraform"
         uses: hashicorp/setup-terraform@v1
