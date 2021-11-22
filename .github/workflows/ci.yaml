@@ -12,6 +12,9 @@ name: CI
 jobs:
   terraform:
     name: Lint and format terraform
+    permissions:
+      id-token: write
+      contents: write
     runs-on: ubuntu-latest
     # https://www.terraform.io/docs/github-actions/getting-started.html
     steps:
