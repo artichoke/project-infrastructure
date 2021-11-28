@@ -250,7 +250,7 @@ resource "github_repository" "focaccia" {
 
 resource "github_repository" "intaglio" {
   name         = "intaglio"
-  description  = "🗃 UTF-8 string and bytestring interner"
+  description  = "🗃 UTF-8 string, byte string, and C string interner"
   homepage_url = "https://crates.io/crates/intaglio"
 
   visibility = "public"
