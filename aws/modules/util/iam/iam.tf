@@ -43,15 +43,15 @@ resource "aws_iam_group_membership" "membership" {
 }
 
 output "users" {
-  value = {for user, access_key in aws_iam_access_key.key : user => access_key.user}
+  value = { for user, access_key in aws_iam_access_key.key : user => access_key.user }
 }
 
 output "access_ids" {
-  value = {for user, access_key in aws_iam_access_key.key : user => access_key.id}
+  value = { for user, access_key in aws_iam_access_key.key : user => access_key.id }
 }
 
 output "secret_keys" {
-  value = {for user, access_key in aws_iam_access_key.key : user => access_key.secret}
+  value = { for user, access_key in aws_iam_access_key.key : user => access_key.secret }
 
   sensitive = true
 }
