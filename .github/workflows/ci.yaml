@@ -36,8 +36,8 @@ jobs:
         with:
           terraform_version: 1.x
 
-      - name: "Format aws module"
-        run: terraform -chdir=aws fmt -check -diff
+      - name: "Format terraform sources"
+        run: terraform fmt -recursive -check -diff
 
       - name: "Initialize aws module"
         run: terraform -chdir=aws init
@@ -45,17 +45,11 @@ jobs:
       - name: "Validate aws module"
         run: terraform -chdir=aws validate -no-color
 
-      - name: "Format github module"
-        run: terraform -chdir=github fmt -check -diff
-
       - name: "Initialize github module"
         run: terraform -chdir=github init
 
       - name: "Validate github module"
         run: terraform -chdir=github validate -no-color
-
-      - name: "Format remote-state module"
-        run: terraform -chdir=remote-state fmt -check -diff
 
       - name: "Initialize remote-state module"
         run: terraform -chdir=remote-state init

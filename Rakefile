@@ -27,9 +27,7 @@ task format: %i[format:terraform format:text]
 namespace :format do
   desc 'Format Terraform sources with terraform fmt'
   task :terraform do
-    sh 'terraform -chdir=aws fmt'
-    sh 'terraform -chdir=github fmt'
-    sh 'terraform -chdir=remote-state fmt'
+    sh 'terraform fmt -recursive'
   end
 
   desc 'Format text, YAML, and Markdown sources with prettier'
@@ -44,9 +42,7 @@ task fmt: %i[fmt:terraform fmt:text]
 namespace :fmt do
   desc 'Format Terraform sources with terraform fmt'
   task :terraform do
-    sh 'terraform -chdir=aws fmt'
-    sh 'terraform -chdir=github fmt'
-    sh 'terraform -chdir=remote-state fmt'
+    sh 'terraform fmt -recursive'
   end
 
   desc 'Format text, YAML, and Markdown sources with prettier'
