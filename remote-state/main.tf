@@ -112,6 +112,10 @@ resource "aws_s3_bucket_public_access_block" "state_access_logs" {
   restrict_public_buckets = true
 }
 
+resource "aws_kms_key" "terraform_statelock" {
+  enable_key_rotation = true
+}
+
 resource "aws_dynamodb_table" "terraform_statelock" {
   name           = "terraform_statelock"
   read_capacity  = 20
@@ -123,7 +127,8 @@ resource "aws_dynamodb_table" "terraform_statelock" {
   }
 
   server_side_encryption {
-    enabled = true
+    enabled     = true
+    kms_key_arn = aws_kms_key.terraform_statelock.arn
   }
 
   attribute {
