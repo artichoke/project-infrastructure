@@ -13,7 +13,7 @@ variable "name" {
 }
 
 module "github_actions_project_infrastructure_assume_role" {
-  source = "./modules/repository-assume-role"
+  source = "../modules/aws/repository-assume-role"
 }
 
 output "github_actions_project_infrastructure_assume_role_arn" {

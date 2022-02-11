@@ -59,7 +59,7 @@ resource "github_organization_webhook" "discord" {
 }
 
 module "artichoke_users" {
-  source = "./modules/users"
+  source = "../modules/github/users"
 
   admins = {
     lopopolo = "lopopolo"
@@ -71,7 +71,7 @@ module "artichoke_users" {
 }
 
 module "team_ci" {
-  source = "./modules/team"
+  source = "../modules/github/team"
 
   team        = "ci"
   description = "Builds"
@@ -86,7 +86,7 @@ module "team_ci" {
 }
 
 module "team_cratesio_publishers" {
-  source = "./modules/team"
+  source = "../modules/github/team"
 
   team        = "crates.io publishers"
   description = "Core team with perissions for publishing packages to crates.io"
@@ -103,10 +103,7 @@ module "team_cratesio_publishers" {
 // Secondary organizations
 
 module "artichokeruby_users" {
-  source = "./modules/users"
-  providers = {
-    github = github.artichokeruby
-  }
+  source = "../modules/github/users"
 
   admins = {
     lopopolo = "lopopolo"
@@ -114,14 +111,15 @@ module "artichokeruby_users" {
 
   members = {
     artichoke-ci = "artichoke-ci"
+  }
+
+  providers = {
+    github = github.artichokeruby
   }
 }
 
 module "artichoke_ruby_users" {
-  source = "./modules/users"
-  providers = {
-    github = github.artichoke_ruby
-  }
+  source = "../modules/github/users"
 
   admins = {
     lopopolo = "lopopolo"
@@ -129,5 +127,9 @@ module "artichoke_ruby_users" {
 
   members = {
     artichoke-ci = "artichoke-ci"
+  }
+
+  providers = {
+    github = github.artichoke_ruby
   }
 }
