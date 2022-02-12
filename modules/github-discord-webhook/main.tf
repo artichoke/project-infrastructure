@@ -9,7 +9,7 @@ terraform {
 
 resource "github_organization_webhook" "discord" {
   configuration {
-    url          = "https://discordapp.com/api/webhooks/${var.webhook_id}/${var.webhook_token}/github"
+    url          = "https://discord.com/api/webhooks/${var.webhook_id}/${var.webhook_token}/github"
     content_type = "json"
     insecure_ssl = false
   }
