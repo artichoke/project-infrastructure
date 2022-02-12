@@ -25,13 +25,6 @@ provider "github" {
 
 provider "github" {
   token = var.github_token
-  owner = "artichokeruby"
-
-  alias = "artichokeruby"
-}
-
-provider "github" {
-  token = var.github_token
   owner = "artichoke-ruby"
 
   alias = "artichoke_ruby"
@@ -58,16 +51,16 @@ resource "github_organization_webhook" "discord" {
   ]
 }
 
-module "artichoke_users" {
-  source = "../modules/github/users"
+module "org_members" {
+  source = "../modules/github-organization-members"
 
-  admins = {
-    lopopolo = "lopopolo"
-  }
+  admins = toset([
+    "lopopolo",
+  ])
 
-  members = {
-    artichoke-ci = "artichoke-ci"
-  }
+  members = toset([
+    "artichoke-ci",
+  ])
 }
 
 module "team_ci" {
@@ -102,32 +95,16 @@ module "team_cratesio_publishers" {
 
 // Secondary organizations
 
-module "artichokeruby_users" {
-  source = "../modules/github/users"
+module "artichoke_ruby_org_members" {
+  source = "../modules/github-organization-members"
 
-  admins = {
-    lopopolo = "lopopolo"
-  }
+  admins = toset([
+    "lopopolo",
+  ])
 
-  members = {
-    artichoke-ci = "artichoke-ci"
-  }
-
-  providers = {
-    github = github.artichokeruby
-  }
-}
-
-module "artichoke_ruby_users" {
-  source = "../modules/github/users"
-
-  admins = {
-    lopopolo = "lopopolo"
-  }
-
-  members = {
-    artichoke-ci = "artichoke-ci"
-  }
+  members = toset([
+    "artichoke-ci",
+  ])
 
   providers = {
     github = github.artichoke_ruby
