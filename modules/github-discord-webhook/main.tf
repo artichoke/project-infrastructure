@@ -16,5 +16,5 @@ resource "github_organization_webhook" "discord" {
 
   active = true
 
-  events = var.events
+  events = var.github_events
 }
