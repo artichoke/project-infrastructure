@@ -25,7 +25,6 @@ locals {
     jasper                 = "jasper"                 // https://github.com/artichoke/jasper
     logo                   = "logo"                   // https://github.com/artichoke/logo
     playground             = "playground"             // https://github.com/artichoke/playground
-    project_infrastructure = "project-infrastructure" // https://github.com/artichoke/project-infrastructure
     rubyconf               = "rubyconf"               // https://github.com/artichoke/rubyconf
     www_artichokeruby_org  = "www.artichokeruby.org"  // https://github.com/artichoke/www.artichokeruby.org
   }
