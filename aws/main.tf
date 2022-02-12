@@ -9,7 +9,7 @@ terraform {
 }
 
 module "github_actions_project_infrastructure_assume_role" {
-  source = "../modules/aws/github-actions-s3-bucket-read-only-access"
+  source = "../modules/github-actions-s3-bucket-read-only-access"
 
   github_organization = "artichoke"
   github_repository   = "project-infrastructure"
