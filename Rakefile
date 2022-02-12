@@ -17,6 +17,7 @@ namespace :lint do
   task :terraform do
     sh 'terraform -chdir=aws validate'
     sh 'terraform -chdir=github validate'
+    sh 'terraform -chdir=github-org-artichokeruby validate'
     sh 'terraform -chdir=remote-state validate'
   end
 end

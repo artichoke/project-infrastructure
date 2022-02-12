@@ -51,6 +51,12 @@ jobs:
       - name: "Validate github module"
         run: terraform -chdir=github validate -no-color
 
+      - name: "Initialize github-org-artichokeruby environment"
+        run: terraform -chdir=github-org-artichokeruby init
+
+      - name: "Validate github-org-artichokeruby environment"
+        run: terraform -chdir=github-org-artichokeruby validate -no-color
+
       - name: "Initialize remote-state module"
         run: terraform -chdir=remote-state init
 
