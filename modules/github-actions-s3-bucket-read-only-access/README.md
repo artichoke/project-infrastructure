@@ -1,6 +1,6 @@
 # GitHub OIDC S3 Bucket Read-Only Access
 
-This folder contains a Terraform module to provision and OpenID Connect provider
+This folder contains a Terraform module to provision an OpenID Connect provider
 in AWS and an IAM role to allow GitHub Actions in a specific repository read
 access to an S3 bucket.
 
