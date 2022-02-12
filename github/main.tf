@@ -23,13 +23,6 @@ provider "github" {
   owner = "artichoke"
 }
 
-provider "github" {
-  token = var.github_token
-  owner = "artichoke-ruby"
-
-  alias = "artichoke_ruby"
-}
-
 resource "github_organization_webhook" "discord" {
   configuration {
     url          = "https://discordapp.com/api/webhooks/616536749367099402/${var.discord_api_secret}/github"
@@ -91,22 +84,4 @@ module "team_cratesio_publishers" {
   members = {}
 
   is_secret_team = false
-}
-
-// Secondary organizations
-
-module "artichoke_ruby_org_members" {
-  source = "../modules/github-organization-members"
-
-  admins = toset([
-    "lopopolo",
-  ])
-
-  members = toset([
-    "artichoke-ci",
-  ])
-
-  providers = {
-    github = github.artichoke_ruby
-  }
 }
