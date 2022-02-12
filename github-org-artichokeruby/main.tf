@@ -32,3 +32,15 @@ module "security_events_webhook" {
     "team_add",
   ]
 }
+
+module "org_members" {
+  source = "../modules/github-organization-members"
+
+  admins = toset([
+    "lopopolo",
+  ])
+
+  members = toset([
+    "artichoke-ci",
+  ])
+}

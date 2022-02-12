@@ -1,9 +1,10 @@
-variable "admins" {
-  type = map(string)
-}
-
-variable "members" {
-  type = map(string)
+terraform {
+  required_providers {
+    github = {
+      source  = "integrations/github"
+      version = "~> 4.20"
+    }
+  }
 }
 
 resource "github_membership" "admins" {
