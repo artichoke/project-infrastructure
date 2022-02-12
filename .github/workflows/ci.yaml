@@ -25,7 +25,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@master
         with:
           aws-region: us-west-2
-          role-to-assume: arn:aws:iam::447522982029:role/github-actions-artichoke-project-infrastructure-role
+          role-to-assume: arn:aws:iam::447522982029:role/gha-project-infrastructure-s3-ro-20220212013048188700000001
           role-session-name: GitHubActionsSession@ci-terraform
 
       - name: Show AWS caller identity

@@ -8,14 +8,11 @@ terraform {
   }
 }
 
-variable "name" {
-  default = "artichoke-forge"
-}
-
 module "github_actions_project_infrastructure_assume_role" {
-  source = "../modules/aws/repository-assume-role"
-}
+  source = "../modules/aws/github-actions-s3-bucket-read-only-access"
 
-output "github_actions_project_infrastructure_assume_role_arn" {
-  value = module.github_actions_project_infrastructure_assume_role.role_arn
+  github_organization = "artichoke"
+  github_repository   = "project-infrastructure"
+
+  s3_bucket_name = "artichoke-forge-project-infrastructure-terraform-state"
 }
