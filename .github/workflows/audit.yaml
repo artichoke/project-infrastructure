@@ -12,7 +12,7 @@ name: Audit
 jobs:
   js:
     name: Audit JS Dependencies
-    if: true
+    if: false
     runs-on: ubuntu-latest
 
     steps:

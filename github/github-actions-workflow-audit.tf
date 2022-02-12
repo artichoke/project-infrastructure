@@ -20,14 +20,13 @@ locals {
   }
 
   npm_audit_repos = {
-    artichoke_github_io    = "artichoke.github.io"    // https://github.com/artichoke/artichoke.github.io
-    clang_format           = "clang-format"           // https://github.com/artichoke/clang-format
-    jasper                 = "jasper"                 // https://github.com/artichoke/jasper
-    logo                   = "logo"                   // https://github.com/artichoke/logo
-    playground             = "playground"             // https://github.com/artichoke/playground
-    project_infrastructure = "project-infrastructure" // https://github.com/artichoke/project-infrastructure
-    rubyconf               = "rubyconf"               // https://github.com/artichoke/rubyconf
-    www_artichokeruby_org  = "www.artichokeruby.org"  // https://github.com/artichoke/www.artichokeruby.org
+    artichoke_github_io   = "artichoke.github.io"   // https://github.com/artichoke/artichoke.github.io
+    clang_format          = "clang-format"          // https://github.com/artichoke/clang-format
+    jasper                = "jasper"                // https://github.com/artichoke/jasper
+    logo                  = "logo"                  // https://github.com/artichoke/logo
+    playground            = "playground"            // https://github.com/artichoke/playground
+    rubyconf              = "rubyconf"              // https://github.com/artichoke/rubyconf
+    www_artichokeruby_org = "www.artichokeruby.org" // https://github.com/artichoke/www.artichokeruby.org
   }
 
   bundler_audit_repos = {
