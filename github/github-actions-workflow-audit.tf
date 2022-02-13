@@ -74,7 +74,7 @@ module "audit_workflow_ruby" {
   file_contents = file("${path.module}/templates/audit-workflow-ruby.yaml")
 }
 
-output "audit_workflow_node_ruby_branches" {
+output "audit_workflow_ruby_branches" {
   value = <<-HREFS
 
   ## Branch URLs:
