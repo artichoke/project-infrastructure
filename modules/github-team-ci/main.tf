@@ -2,8 +2,8 @@ resource "github_team" "this" {
   name        = var.name
   description = var.description
 
-  # visible to all members of this organization.
-  privacy = "closed"
+  # only visible to organization owners and members of this team.
+  privacy = "secret"
 }
 
 resource "github_team_members" "this" {
