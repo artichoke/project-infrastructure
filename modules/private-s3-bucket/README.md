@@ -1,7 +1,7 @@
 # Private S3 Bucket
 
-This folder contains a Terraform module to provision an AWS S3 bucket with no public access
-and access logs.
+This folder contains a Terraform module to provision an AWS S3 bucket with no
+public access and access logs.
 
 ## Usage
 
@@ -17,7 +17,8 @@ module "bucket" {
 ## Parameters
 
 - `bucket`: The name of the bucket to create.
-- `access_logs_bucket`: The name of the bucket to use as an access logs destination.
+- `access_logs_bucket`: The name of the bucket to use as an access logs
+  destination.
 
 ## Outputs
 
