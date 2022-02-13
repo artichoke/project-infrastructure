@@ -32,7 +32,7 @@ resource "github_repository_file" "file" {
   ## Contents
 
   ```
-  ${var.file_contents}
+  ${chomp(var.file_contents)}
   ```
   MESSAGE
 
