@@ -1,5 +1,5 @@
 locals {
-  ruby_version_force_bump = false
+  force_bump_ruby_version = false
 
   // https://github.com/ruby/ruby/tree/v3_1_0
   ruby_version = "3.1.0"
@@ -29,7 +29,7 @@ locals {
 
 module "ruby_version" {
   source   = "../modules/update-github-repository-file"
-  for_each = local.ruby_version_force_bump ? toset(local.ruby_version_repos) : toset([])
+  for_each = local.force_bump_ruby_version ? toset(local.ruby_version_repos) : toset([])
 
   organization  = "artichoke"
   repository    = each.value
