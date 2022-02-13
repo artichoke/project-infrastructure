@@ -113,8 +113,8 @@ data "template_file" "audit_workflow_ruby_rust" {
   template = file("${path.module}/templates/audit-workflow-ruby-rust.yaml")
 
   vars = {
-    // https://github.com/EmbarkStudios/cargo-deny/releases/tag/0.10.1
-    cargo_deny_version = "0.10.1"
+    // https://github.com/EmbarkStudios/cargo-deny/releases/tag/0.11.2
+    cargo_deny_version = "0.11.2"
     release_base_url   = "https://github.com/EmbarkStudios/cargo-deny/releases/download"
   }
 }
