@@ -1,11 +1,11 @@
 locals {
-  ruby_version_force_bump = false
+  ruby_version_force_bump = true
 
-  // https://github.com/ruby/ruby/tree/v3_0_2
-  ruby_version = "3.0.2"
+  // https://github.com/ruby/ruby/tree/v3_1_0
+  ruby_version = "3.1.0"
 
   ruby_version_repos = [
-    "artichoke",                // https://github.com/artichoke/artichoke
+    // "artichoke",                // https://github.com/artichoke/artichoke
     "artichoke.github.io",      // https://github.com/artichoke/artichoke.github.io
     "boba",                     // https://github.com/artichoke/boba
     "cactusref",                // https://github.com/artichoke/cactusref
