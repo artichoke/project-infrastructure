@@ -2,7 +2,7 @@ locals {
   // Set `force_bump_...` to true to create branches for PRs that update the
   // Audit workflow organization-wide.
 
-  force_bump_audit_node = false
+  force_bump_audit_node = true
   audit_node_repos = [
     "clang-format",          // https://github.com/artichoke/clang-format
     "jasper",                // https://github.com/artichoke/jasper
@@ -10,20 +10,20 @@ locals {
     "www.artichokeruby.org", // https://github.com/artichoke/www.artichokeruby.org
   ]
 
-  force_bump_audit_ruby = false
+  force_bump_audit_ruby = true
   audit_ruby_repos = [
     "docker-artichoke-nightly", // https://github.com/artichoke/docker-artichoke-nightly
     "nightly",                  // https://github.com/artichoke/nightly
     "project-infrastructure",   // https://github.com/artichoke/project-infrastructure
   ]
 
-  force_bump_audit_node_ruby = false
+  force_bump_audit_node_ruby = true
   audit_node_ruby_repos = [
     "artichoke.github.io", // https://github.com/artichoke/artichoke.github.io
     "rubyconf",            // https://github.com/artichoke/rubyconf
   ]
 
-  force_bump_audit_ruby_rust = false
+  force_bump_audit_ruby_rust = true
   audit_ruby_rust_repos = [
     "artichoke",             // https://github.com/artichoke/artichoke
     "boba",                  // https://github.com/artichoke/boba
@@ -37,7 +37,7 @@ locals {
     "strudel",               // https://github.com/artichoke/strudel
   ]
 
-  force_bump_audit_node_ruby_rust = false
+  force_bump_audit_node_ruby_rust = true
   audit_node_ruby_rust_repos = [
     "playground", // https://github.com/artichoke/playground
   ]
