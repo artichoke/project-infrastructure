@@ -1,98 +1,51 @@
 locals {
-  // Set `ruby_version_force_bump` to true to create branches for PRs that
-  // update the `.ruby-version` version used in each repository.
-  ruby_version_force_bump = false
-  // https://github.com/ruby/ruby/tree/v3_0_2
-  ruby_version = "3.0.2"
-  ruby_version_repos = {
-    artichoke                = "artichoke"                // https://github.com/artichoke/artichoke
-    artichoke_github_io      = "artichoke.github.io"      // https://github.com/artichoke/artichoke.github.io
-    boba                     = "boba"                     // https://github.com/artichoke/boba
-    cactusref                = "cactusref"                // https://github.com/artichoke/cactusref
-    docker_artichoke_nightly = "docker-artichoke-nightly" // https://github.com/artichoke/docker-artichoke-nightly
-    focaccia                 = "focaccia"                 // https://github.com/artichoke/focaccia
-    intaglio                 = "intaglio"                 // https://github.com/artichoke/intaglio
-    nightly                  = "nightly"                  // https://github.com/artichoke/nightly
-    playground               = "playground"               // https://github.com/artichoke/playground
-    project_infrastructure   = "project-infrastructure"   // https://github.com/artichoke/project-infrastructure
-    rand_mt                  = "rand_mt"                  // https://github.com/artichoke/rand_mt
-    raw_parts                = "raw-parts"                // https://github.com/artichoke/raw-parts
-    roe                      = "roe"                      // https://github.com/artichoke/roe
-    rubyconf                 = "rubyconf"                 // https://github.com/artichoke/rubyconf
-    ruby_file_expand_path    = "ruby-file-expand-path"    // https://github.com/artichoke/ruby-file-expand-path
-    strudel                  = "strudel"                  // https://github.com/artichoke/strudel
-  }
-}
+  force_bump_ruby_version = false
 
-data "template_file" "ruby_version" {
-  template = file("${path.module}/files/ruby-version.tpl")
-  vars = {
-    ruby_version = local.ruby_version
-  }
-}
+  // https://github.com/ruby/ruby/tree/v3_1_0
+  ruby_version = "3.1.0"
 
-data "github_branch" "ruby_version_sync_base" {
-  for_each = local.ruby_version_repos
-
-  repository = each.value
-  branch     = "trunk"
-
-  depends_on = [
-    github_repository.artichoke,
-    github_repository.artichoke_github_io,
-    github_repository.boba,
-    github_repository.cactusref,
-    github_repository.focaccia,
-    github_repository.intaglio,
-    github_repository.playground,
-    github_repository.project_infrastructure,
-    github_repository.rand_mt,
-    github_repository.roe,
-    github_repository.rubyconf,
-    github_repository.ruby_file_expand_path,
-    github_repository.strudel,
+  ruby_version_repos = [
+    // Artichoke's `.ruby-version` file is not managed with Terraform because
+    // Ruby version upgrade require extra (and manual) care.
+    //
+    // "artichoke",             // https://github.com/artichoke/artichoke
+    "artichoke.github.io",      // https://github.com/artichoke/artichoke.github.io
+    "boba",                     // https://github.com/artichoke/boba
+    "cactusref",                // https://github.com/artichoke/cactusref
+    "docker-artichoke-nightly", // https://github.com/artichoke/docker-artichoke-nightly
+    "focaccia",                 // https://github.com/artichoke/focaccia
+    "intaglio",                 // https://github.com/artichoke/intaglio
+    "nightly",                  // https://github.com/artichoke/nightly
+    "playground",               // https://github.com/artichoke/playground
+    "project-infrastructure",   // https://github.com/artichoke/project-infrastructure
+    "rand_mt",                  // https://github.com/artichoke/rand_mt
+    "raw-parts",                // https://github.com/artichoke/raw-parts
+    "roe",                      // https://github.com/artichoke/roe
+    "rubyconf",                 // https://github.com/artichoke/rubyconf
+    "ruby-file-expand-path",    // https://github.com/artichoke/ruby-file-expand-path
+    "strudel",                  // https://github.com/artichoke/strudel
   ]
 }
 
-resource "github_branch" "ruby_version" {
-  for_each = local.ruby_version_force_bump ? local.ruby_version_repos : {}
+module "ruby_version" {
+  source   = "../modules/update-github-repository-file"
+  for_each = local.force_bump_ruby_version ? toset(local.ruby_version_repos) : toset([])
 
+  organization  = "artichoke"
   repository    = each.value
-  branch        = "terraform/ruby_version_bump"
-  source_branch = "trunk"
-  source_sha    = data.github_branch.ruby_version_sync_base[each.key].sha
+  base_branch   = "trunk"
+  file_path     = ".ruby-version"
+  file_contents = "${local.ruby_version}\n"
 }
 
-resource "github_repository_file" "ruby_version" {
-  for_each = local.ruby_version_force_bump ? local.ruby_version_repos : {}
+output "ruby_version_branches" {
+  value = <<-HREFS
 
-  repository          = each.value
-  branch              = github_branch.ruby_version[each.key].ref
-  file                = ".ruby-version"
-  content             = data.template_file.ruby_version.rendered
-  commit_message      = "Update Ruby toolchain version to ${local.ruby_version} in .ruby-version\n\nManaged by Terraform"
-  commit_author       = "artichoke-ci"
-  commit_email        = "ci@artichokeruby.org"
-  overwrite_on_create = true
-}
+  ## Branch URLs:
 
-output "ruby_version_pull_requests" {
-  value = <<CONFIG
-
-Pull Requests:
-${local.ruby_version_force_bump ? join(
+  ${join(
   "\n",
-  formatlist(
-    "%s",
-    [for repo in keys(local.ruby_version_repos) :
-      join("/", [
-        "https://github.com/artichoke",
-        local.ruby_version_repos[repo],
-        "tree",
-        "terraform/ruby_version_bump",
-      ])
-    ]
-)) : "none"}
-
-CONFIG
+  formatlist("- %s", [for repo, ruby_version in module.ruby_version : ruby_version.branch_href])
+)}
+  HREFS
 }
