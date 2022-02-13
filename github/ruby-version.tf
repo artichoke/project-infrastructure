@@ -40,6 +40,7 @@ module "ruby_version" {
 
 output "ruby_version_branches" {
   value = <<-HREFS
+
   ## Branch URLs:
 
   ${join(
