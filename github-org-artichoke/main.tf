@@ -57,31 +57,15 @@ module "org_members" {
 }
 
 module "team_ci" {
-  source = "../modules/github/team"
+  source = "../modules/github-team-ci"
 
-  team        = "ci"
+  name        = "ci"
   description = "Builds"
-
-  admins = {
-    lopopolo = "lopopolo"
-  }
-
-  members = {
-    artichoke-ci = "artichoke-ci"
-  }
 }
 
 module "team_cratesio_publishers" {
-  source = "../modules/github/team"
+  source = "../modules/github-team-crates.io-publishers"
 
-  team        = "crates.io publishers"
+  name        = "crates.io publishers"
   description = "Core team with perissions for publishing packages to crates.io"
-
-  admins = {
-    lopopolo = "lopopolo"
-  }
-
-  members = {}
-
-  is_secret_team = false
 }
