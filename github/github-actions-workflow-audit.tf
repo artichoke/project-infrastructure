@@ -20,7 +20,6 @@ locals {
   force_bump_audit_node_ruby = false
   audit_node_ruby_repos      = [
     "artichoke.github.io", // https://github.com/artichoke/artichoke.github.io
-    "playground",          // https://github.com/artichoke/playground
     "rubyconf",            // https://github.com/artichoke/rubyconf
   ]
 
@@ -31,12 +30,16 @@ locals {
     "cactusref",             // https://github.com/artichoke/cactusref
     "focaccia",              // https://github.com/artichoke/focaccia
     "intaglio",              // https://github.com/artichoke/intaglio
-    "playground",            // https://github.com/artichoke/playground
     "rand_mt",               // https://github.com/artichoke/rand_mt
     "raw-parts",             // https://github.com/artichoke/raw-parts
     "roe",                   // https://github.com/artichoke/roe
     "ruby-file-expand-path", // https://github.com/artichoke/ruby-file-expand-path
     "strudel",               // https://github.com/artichoke/strudel
+  ]
+
+  force_bump_audit_node_ruby_rust = false
+  audit_node_ruby_rust_repos      = [
+    "playground",            // https://github.com/artichoke/playground
   ]
 }
 
@@ -138,6 +141,39 @@ output "audit_workflow_ruby_rust_branches" {
   ${join(
   "\n",
   formatlist("- %s", [for repo, audit_workflow in module.audit_workflow_ruby_rust : audit_workflow.branch_href])
+)}
+  HREFS
+}
+
+data "template_file" "audit_workflow_node_ruby_rust" {
+  template = file("${path.module}/templates/audit-workflow-node-ruby-rust.yaml")
+
+  vars = {
+    // https://github.com/EmbarkStudios/cargo-deny/releases/tag/0.11.2
+    cargo_deny_version = "0.11.2"
+    release_base_url   = "https://github.com/EmbarkStudios/cargo-deny/releases/download"
+  }
+}
+
+module "audit_workflow_node_ruby_rust" {
+  source   = "../modules/update-github-repository-file"
+  for_each = local.force_bump_audit_node_ruby_rust ? toset(local.audit_node_ruby_rust_repos) : toset([])
+
+  organization  = "artichoke"
+  repository    = each.value
+  base_branch   = "trunk"
+  file_path     = ".github/workflows/audit.yaml"
+  file_contents = data.template_file.audit_workflow_node_ruby_rust.rendered
+}
+
+output "audit_workflow_node_ruby_rust_branches" {
+  value = <<-HREFS
+
+  ## Branch URLs:
+
+  ${join(
+  "\n",
+  formatlist("- %s", [for repo, audit_workflow in module.audit_workflow_node_ruby_rust : audit_workflow.branch_href])
 )}
   HREFS
 }
