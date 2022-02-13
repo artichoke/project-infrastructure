@@ -14,42 +14,11 @@ module "remote_state_access_logs" {
   bucket = "artichoke-forge-project-infrastructure-terraform-state-logs"
 }
 
-resource "aws_s3_bucket" "this" {
-  bucket = "artichoke-forge-project-infrastructure-terraform-state"
-  acl    = "private"
+module "remote_state" {
+  source = "../modules/private-s3-bucket"
 
-  versioning {
-    enabled    = true
-    mfa_delete = false
-  }
-
-  server_side_encryption_configuration {
-    rule {
-      apply_server_side_encryption_by_default {
-        sse_algorithm = "aws:kms"
-      }
-    }
-  }
-
-  logging {
-    target_bucket = module.remote_state_access_logs.name
-    target_prefix = "v1/"
-  }
-
-  lifecycle {
-    prevent_destroy = true
-  }
-}
-
-resource "aws_s3_bucket_public_access_block" "this" {
-  bucket = aws_s3_bucket.this.id
-
-  block_public_acls   = true
-  block_public_policy = true
-
-  ignore_public_acls = true
-
-  restrict_public_buckets = true
+  bucket             = "artichoke-forge-project-infrastructure-terraform-state"
+  access_logs_bucket = module.remote_state_access_logs.name
 }
 
 resource "aws_kms_key" "terraform_statelock" {
