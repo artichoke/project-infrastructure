@@ -1,7 +1,7 @@
 # Private S3 Bucket
 
 This folder contains a Terraform module to provision an AWS S3 bucket with no
-public access and access logs.
+public access and access logging enabled.
 
 ## Usage
 
