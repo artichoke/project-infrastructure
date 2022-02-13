@@ -10,7 +10,7 @@ locals {
     "www.artichokeruby.org", // https://github.com/artichoke/www.artichokeruby.org
   ]
 
-  force_bump_audit_ruby = false
+  force_bump_audit_ruby = true
   audit_ruby_repos = [
     "docker-artichoke-nightly", // https://github.com/artichoke/docker-artichoke-nightly
     "nightly",                  // https://github.com/artichoke/nightly
