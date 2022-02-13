@@ -1,38 +1,34 @@
-locals {
-  crate_reservations = {
-    artichoke      = "artichoke-reserve"
-    artichokeruby  = "artichokeruby-reserve"
-    artichoke-ruby = "artichoke-ruby-reserve"
-    boba           = "boba-reserve"
-    invokedynamic  = "invokedynamic-reserve"
-  }
+module "reserve_artichoke" {
+  source = "../modules/crates.io-reservation-repository"
+
+  crate      = "artichoke"
+  repository = "artichoke-reserve"
 }
 
-resource "github_repository" "private_crate_reservation" {
-  for_each = local.crate_reservations
+module "reserve_artichokeruby" {
+  source = "../modules/crates.io-reservation-repository"
 
-  name         = each.value
-  description  = "📦 This repo was used to reserve the ${each.key} crate on crates.io"
-  homepage_url = "https://crates.io/crates/${each.key}"
+  crate      = "artichokeruby"
+  repository = "artichokeruby-reserve"
+}
 
-  visibility = "private"
+module "reserve_artichoke_ruby" {
+  source = "../modules/crates.io-reservation-repository"
 
-  has_downloads = false
-  has_issues    = false
-  has_projects  = false
-  has_wiki      = false
+  crate      = "artichoke-ruby"
+  repository = "artichoke-ruby-reserve"
+}
 
-  delete_branch_on_merge = true
-  vulnerability_alerts   = true
+module "reserve_boba" {
+  source = "../modules/crates.io-reservation-repository"
 
-  topics = [
-    "artichoke",
-    "reserve",
-    "rust",
-    "rust-crate",
-  ]
+  crate      = "boba"
+  repository = "boba-reserve"
+}
 
-  lifecycle {
-    prevent_destroy = true
-  }
+module "reserve_invokedynamic" {
+  source = "../modules/crates.io-reservation-repository"
+
+  crate      = "invokedynamic"
+  repository = "invokedynamic-reserve"
 }
