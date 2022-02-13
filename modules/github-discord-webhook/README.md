@@ -34,13 +34,20 @@ module "gitlog_webhook" {
 
 ## Parameters
 
-- `webhook_id`: The ID of the Discord webhook. For example, in
-  `https://discord.com/api/webhooks/347114750880120863/kKDdjXa1g9tKNs0-_yOwLyALC9gydEWP6gr9sHabuK1vuofjhQDDnlOclJeRIvYK-pj_`,
-  the webhook ID is `347114750880120863`.
-- `webhook_token`: The token of the Discord webhook. For example, in
-  `https://discord.com/api/webhooks/347114750880120863/kKDdjXa1g9tKNs0-_yOwLyALC9gydEWP6gr9sHabuK1vuofjhQDDnlOclJeRIvYK-pj_`,
-  the webhook token is
-  `kKDdjXa1g9tKNs0-_yOwLyALC9gydEWP6gr9sHabuK1vuofjhQDDnlOclJeRIvYK-pj_`.
+- `webhook_id`: The ID of the Discord webhook. For example, in the following
+  webhook URL, the webhook ID is `347114750880120863`.
+
+  ```
+  https://discord.com/api/webhooks/347114750880120863/kKDdjXa1g9tKNs0-_yOwLyALC
+  ```
+
+- `webhook_token`: The token of the Discord webhook. For example, in the
+  following webhook URL, the webhook token is `kKDdjXa1g9tKNs0-_yOwLyALC`.
+
+  ```
+  https://discord.com/api/webhooks/347114750880120863/kKDdjXa1g9tKNs0-_yOwLyALC
+  ```
+
 - `github_events`: A list of [webhook events] to send to this webhook.
 
 ## Outputs
