@@ -6,10 +6,16 @@ public access and access logging enabled.
 ## Usage
 
 ```terraform
-module "bucket" {
+module "access_logs" {
   source = "../modules/access-logs-s3-bucket"
 
   bucket = "artichoke-forge-project-infrastructure-terraform-state-logs"
+}
+
+module "bucket" {
+  source = "../modules/access-logs-s3-bucket"
+
+  bucket = "artichoke-forge-project-infrastructure-terraform-state"
   access_logs_bucket = module.access_logs.name
 }
 ```
