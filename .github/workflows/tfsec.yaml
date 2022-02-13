@@ -39,7 +39,7 @@ jobs:
       - name: "terraform init"
         run: |
           terraform -chdir=aws init
-          terraform -chdir=github init
+          terraform -chdir=github-org-artichoke init
           terraform -chdir=github-org-artichokeruby init
           terraform -chdir=github-org-artichoke-ruby init
           terraform -chdir=remote-state init
@@ -52,13 +52,13 @@ jobs:
           entrypoint: tfsec
           args: aws
 
-      - name: "tfsec github"
+      - name: "tfsec github-org-artichoke"
         uses: docker://tfsec/tfsec:latest
-        id: tfsec_github
+        id: tfsec_github_artichoke
         continue-on-error: true
         with:
           entrypoint: tfsec
-          args: github
+          args: github-org-artichoke
 
       - name: "tfsec github-org-artichokeruby"
         uses: docker://tfsec/tfsec:latest
@@ -91,9 +91,9 @@ jobs:
             failed="y"
             echo >&2 "tfsec aws failed"
           fi
-          if [[ ${{ steps.tfsec_github.outcome }} != "success" ]]; then
+          if [[ ${{ steps.tfsec_github_artichoke.outcome }} != "success" ]]; then
             failed="y"
-            echo >&2 "tfsec github failed"
+            echo >&2 "tfsec github-org-artichoke failed"
           fi
           if [[ ${{ steps.tfsec_github_artichokeruby.outcome }} != "success" ]]; then
             failed="y"

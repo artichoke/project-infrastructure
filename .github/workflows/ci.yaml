@@ -39,17 +39,17 @@ jobs:
       - name: "Format terraform sources"
         run: terraform fmt -recursive -check -diff
 
-      - name: "Initialize aws module"
+      - name: "Initialize aws environment"
         run: terraform -chdir=aws init
 
-      - name: "Validate aws module"
+      - name: "Validate aws environment"
         run: terraform -chdir=aws validate -no-color
 
-      - name: "Initialize github module"
-        run: terraform -chdir=github init
+      - name: "Initialize github-org-artichoke environment"
+        run: terraform -chdir=github-org-artichoke init
 
-      - name: "Validate github module"
-        run: terraform -chdir=github validate -no-color
+      - name: "Validate github-org-artichoke environment"
+        run: terraform -chdir=github-org-artichoke validate -no-color
 
       - name: "Initialize github-org-artichokeruby environment"
         run: terraform -chdir=github-org-artichokeruby init
@@ -63,10 +63,10 @@ jobs:
       - name: "Validate github-org-artichoke-ruby environment"
         run: terraform -chdir=github-org-artichoke-ruby validate -no-color
 
-      - name: "Initialize remote-state module"
+      - name: "Initialize remote-state environment"
         run: terraform -chdir=remote-state init
 
-      - name: "Validate remote-state module"
+      - name: "Validate remote-state environment"
         run: terraform -chdir=remote-state validate -no-color
 
   ruby:
