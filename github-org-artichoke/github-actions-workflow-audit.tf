@@ -23,7 +23,7 @@ locals {
     "rubyconf",            // https://github.com/artichoke/rubyconf
   ]
 
-  force_bump_audit_ruby_rust = false
+  force_bump_audit_ruby_rust = true
   audit_ruby_rust_repos = [
     "artichoke",             // https://github.com/artichoke/artichoke
     "boba",                  // https://github.com/artichoke/boba
@@ -37,13 +37,13 @@ locals {
     "strudel",               // https://github.com/artichoke/strudel
   ]
 
-  force_bump_audit_node_ruby_rust = false
+  force_bump_audit_node_ruby_rust = true
   audit_node_ruby_rust_repos = [
     "playground", // https://github.com/artichoke/playground
   ]
 
   // https://github.com/EmbarkStudios/cargo-deny/releases/tag/0.11.2
-  cargo_deny_version          = "0.11.2"
+  cargo_deny_version          = "0.11.3"
   cargo_deny_release_base_url = "https://github.com/EmbarkStudios/cargo-deny/releases/download"
 }
 
