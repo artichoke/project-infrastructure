@@ -41,6 +41,10 @@ locals {
   audit_node_ruby_rust_repos = [
     "playground", // https://github.com/artichoke/playground
   ]
+
+  // https://github.com/EmbarkStudios/cargo-deny/releases/tag/0.11.2
+  cargo_deny_version          = "0.11.2"
+  cargo_deny_release_base_url = "https://github.com/EmbarkStudios/cargo-deny/releases/download"
 }
 
 module "audit_workflow_node" {
@@ -112,25 +116,22 @@ output "audit_workflow_node_ruby_branches" {
   HREFS
 }
 
-data "template_file" "audit_workflow_ruby_rust" {
-  template = file("${path.module}/templates/audit-workflow-ruby-rust.yaml")
-
-  vars = {
-    // https://github.com/EmbarkStudios/cargo-deny/releases/tag/0.11.2
-    cargo_deny_version = "0.11.2"
-    release_base_url   = "https://github.com/EmbarkStudios/cargo-deny/releases/download"
-  }
-}
-
 module "audit_workflow_ruby_rust" {
   source   = "../modules/update-github-repository-file"
   for_each = local.force_bump_audit_ruby_rust ? toset(local.audit_ruby_rust_repos) : toset([])
 
-  organization  = "artichoke"
-  repository    = each.value
-  base_branch   = "trunk"
-  file_path     = ".github/workflows/audit.yaml"
-  file_contents = data.template_file.audit_workflow_ruby_rust.rendered
+  organization = "artichoke"
+  repository   = each.value
+  base_branch  = "trunk"
+  file_path    = ".github/workflows/audit.yaml"
+
+  file_contents = templatefile(
+    "${path.module}/templates/audit-workflow-ruby-rust.yaml",
+    {
+      cargo_deny_version = local.cargo_deny_version,
+      release_base_url   = local.cargo_deny_release_base_url,
+    }
+  )
 }
 
 output "audit_workflow_ruby_rust_branches" {
@@ -145,25 +146,22 @@ output "audit_workflow_ruby_rust_branches" {
   HREFS
 }
 
-data "template_file" "audit_workflow_node_ruby_rust" {
-  template = file("${path.module}/templates/audit-workflow-node-ruby-rust.yaml")
-
-  vars = {
-    // https://github.com/EmbarkStudios/cargo-deny/releases/tag/0.11.2
-    cargo_deny_version = "0.11.2"
-    release_base_url   = "https://github.com/EmbarkStudios/cargo-deny/releases/download"
-  }
-}
-
 module "audit_workflow_node_ruby_rust" {
   source   = "../modules/update-github-repository-file"
   for_each = local.force_bump_audit_node_ruby_rust ? toset(local.audit_node_ruby_rust_repos) : toset([])
 
-  organization  = "artichoke"
-  repository    = each.value
-  base_branch   = "trunk"
-  file_path     = ".github/workflows/audit.yaml"
-  file_contents = data.template_file.audit_workflow_node_ruby_rust.rendered
+  organization = "artichoke"
+  repository   = each.value
+  base_branch  = "trunk"
+  file_path    = ".github/workflows/audit.yaml"
+
+  file_contents = templatefile(
+    "${path.module}/templates/audit-workflow-node-ruby-rust.yaml",
+    {
+      cargo_deny_version = local.cargo_deny_version,
+      release_base_url   = local.cargo_deny_release_base_url,
+    }
+  )
 }
 
 output "audit_workflow_node_ruby_rust_branches" {
