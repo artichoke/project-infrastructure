@@ -61,6 +61,7 @@ rake lint:rubocop                 # Run RuboCop
 rake lint:rubocop:auto_correct    # Auto-correct RuboCop offenses
 rake lint:terraform               # Lint Terraform sources
 rake release:markdown_link_check  # Check for broken links in markdown files
+rake terraform:providers:lock     # Lock terraform providers on all plaforms in all environments
 ```
 
 To lint Ruby sources, project-infrastructure uses [RuboCop]. RuboCop runs as
