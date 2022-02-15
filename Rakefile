@@ -5,6 +5,14 @@ require 'shellwords'
 require 'bundler/audit/task'
 require 'rubocop/rake_task'
 
+TERRAFORM_ENVIRONMENTS = %w[
+  aws
+  github-org-artichoke
+  github-org-artichokeruby
+  github-org-artichoke-ruby
+  remote-state
+].freeze
+
 task default: %i[format lint]
 
 desc 'Lint sources'
@@ -15,7 +23,9 @@ namespace :lint do
 
   desc 'Lint Terraform sources'
   task :terraform do
-    sh 'terraform -chdir=aws validate'
+    TERRAFORM_ENVIRONMENTS.each do |environment|
+      sh "terraform -chdir=#{environment} validate"
+    end
     sh 'terraform -chdir=github-org-artichoke validate'
     sh 'terraform -chdir=github-org-artichokeruby validate'
     sh 'terraform -chdir=github-org-artichoke-ruby validate'
@@ -54,6 +64,15 @@ namespace :fmt do
 end
 
 Bundler::Audit::Task.new
+
+namespace :terraform do
+  desc 'Lock terraform providers on all plaforms in all environments'
+  task :'providers:lock' do
+    TERRAFORM_ENVIRONMENTS.each do |environment|
+      sh "terraform -chdir=#{environment} providers lock -platform=windows_amd64 -platform=darwin_amd64 -platform=linux_amd64"
+    end
+  end
+end
 
 namespace :release do
   link_check_files = FileList.new('**/*.md') do |f|
