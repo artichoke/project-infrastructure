@@ -25,3 +25,15 @@ variable "discord_security_events_webhook_token" {
   type        = string
   sensitive   = true
 }
+
+variable "dockerhub_user" {
+  description = "Docker Hub user for pushing container images in CI"
+  type        = string
+  sensitive   = true
+}
+
+variable "dockerhub_token" {
+  description = "Docker Hub access token for the given Docker Hub user"
+  type        = string
+  sensitive   = true
+}

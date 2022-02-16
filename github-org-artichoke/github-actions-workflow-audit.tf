@@ -58,18 +58,6 @@ module "audit_workflow_node" {
   file_contents = file("${path.module}/templates/audit-workflow-node.yaml")
 }
 
-output "audit_workflow_node_branches" {
-  value = <<-HREFS
-
-  ## Branch URLs:
-
-  ${join(
-  "\n",
-  formatlist("- %s", [for repo, audit_workflow in module.audit_workflow_node : audit_workflow.branch_href])
-)}
-  HREFS
-}
-
 module "audit_workflow_ruby" {
   source   = "../modules/update-github-repository-file"
   for_each = local.force_bump_audit_ruby ? toset(local.audit_ruby_repos) : toset([])
@@ -81,18 +69,6 @@ module "audit_workflow_ruby" {
   file_contents = file("${path.module}/templates/audit-workflow-ruby.yaml")
 }
 
-output "audit_workflow_ruby_branches" {
-  value = <<-HREFS
-
-  ## Branch URLs:
-
-  ${join(
-  "\n",
-  formatlist("- %s", [for repo, audit_workflow in module.audit_workflow_ruby : audit_workflow.branch_href])
-)}
-  HREFS
-}
-
 module "audit_workflow_node_ruby" {
   source   = "../modules/update-github-repository-file"
   for_each = local.force_bump_audit_node_ruby ? toset(local.audit_node_ruby_repos) : toset([])
@@ -102,18 +78,6 @@ module "audit_workflow_node_ruby" {
   base_branch   = "trunk"
   file_path     = ".github/workflows/audit.yaml"
   file_contents = file("${path.module}/templates/audit-workflow-node-ruby.yaml")
-}
-
-output "audit_workflow_node_ruby_branches" {
-  value = <<-HREFS
-
-  ## Branch URLs:
-
-  ${join(
-  "\n",
-  formatlist("- %s", [for repo, audit_workflow in module.audit_workflow_node_ruby : audit_workflow.branch_href])
-)}
-  HREFS
 }
 
 module "audit_workflow_ruby_rust" {
@@ -134,18 +98,6 @@ module "audit_workflow_ruby_rust" {
   )
 }
 
-output "audit_workflow_ruby_rust_branches" {
-  value = <<-HREFS
-
-  ## Branch URLs:
-
-  ${join(
-  "\n",
-  formatlist("- %s", [for repo, audit_workflow in module.audit_workflow_ruby_rust : audit_workflow.branch_href])
-)}
-  HREFS
-}
-
 module "audit_workflow_node_ruby_rust" {
   source   = "../modules/update-github-repository-file"
   for_each = local.force_bump_audit_node_ruby_rust ? toset(local.audit_node_ruby_rust_repos) : toset([])
@@ -162,16 +114,4 @@ module "audit_workflow_node_ruby_rust" {
       release_base_url   = local.cargo_deny_release_base_url,
     }
   )
-}
-
-output "audit_workflow_node_ruby_rust_branches" {
-  value = <<-HREFS
-
-  ## Branch URLs:
-
-  ${join(
-  "\n",
-  formatlist("- %s", [for repo, audit_workflow in module.audit_workflow_node_ruby_rust : audit_workflow.branch_href])
-)}
-  HREFS
 }
