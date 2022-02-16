@@ -1,13 +1,3 @@
-variable "dockerhub_token" {
-  type      = string
-  sensitive = true
-}
-
-variable "dockerhub_user" {
-  type      = string
-  sensitive = true
-}
-
 resource "github_actions_organization_secret" "dockerhub_token" {
   secret_name     = "DOCKERHUB_TOKEN"
   visibility      = "selected"

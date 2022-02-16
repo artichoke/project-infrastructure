@@ -37,15 +37,3 @@ module "ruby_version" {
   file_path     = ".ruby-version"
   file_contents = "${local.ruby_version}\n"
 }
-
-output "ruby_version_branches" {
-  value = <<-HREFS
-
-  ## Branch URLs:
-
-  ${join(
-  "\n",
-  formatlist("- %s", [for repo, ruby_version in module.ruby_version : ruby_version.branch_href])
-)}
-  HREFS
-}
