@@ -8,31 +8,19 @@ terraform {
   }
 }
 
-variable "github_token" {
-  type      = string
-  sensitive = true
-}
-
-variable "discord_api_secret" {
-  type      = string
-  sensitive = true
-}
-
 provider "github" {
   token = var.github_token
   owner = "artichoke"
 }
 
-resource "github_organization_webhook" "discord" {
-  configuration {
-    url          = "https://discordapp.com/api/webhooks/616536749367099402/${var.discord_api_secret}/github"
-    content_type = "json"
-    insecure_ssl = false
-  }
+module "git_events_webhook" {
+  source = "../modules/github-discord-webhook"
 
-  active = true
+  webhook_id    = var.discord_git_events_webhook_id
+  webhook_token = var.discord_git_events_webhook_token
 
-  events = [
+  # https://docs.github.com/en/developers/webhooks-and-events/webhooks/webhook-events-and-payloads
+  github_events = [
     "commit_comment",
     "create",
     "delete",
@@ -41,6 +29,31 @@ resource "github_organization_webhook" "discord" {
     "pull_request",
     "pull_request_review",
     "pull_request_review_comment",
+  ]
+}
+
+module "security_events_webhook" {
+  source = "../modules/github-discord-webhook"
+
+  webhook_id    = var.discord_security_events_webhook_id
+  webhook_token = var.discord_security_events_webhook_token
+
+  # https://docs.github.com/en/developers/webhooks-and-events/webhooks/webhook-events-and-payloads
+  github_events = [
+    "branch_protection_rule",
+    "code_scanning_alert",
+    "deploy_key",
+    "member",
+    "membership",
+    "organization",
+    "org_block",
+    "public",
+    "repository",
+    "repository_import",
+    "repository_vulnerability_alert",
+    "secret_scanning_alert",
+    "team",
+    "team_add",
   ]
 }
 
