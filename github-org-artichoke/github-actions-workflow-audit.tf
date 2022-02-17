@@ -43,8 +43,10 @@ locals {
   ]
 
   // https://github.com/EmbarkStudios/cargo-deny/releases/tag/0.11.2
-  cargo_deny_version          = "0.11.3"
-  cargo_deny_release_base_url = "https://github.com/EmbarkStudios/cargo-deny/releases/download"
+  cargo_deny = {
+    version  = "0.11.3"
+    base_url = "https://github.com/EmbarkStudios/cargo-deny/releases/download"
+  }
 }
 
 module "audit_workflow_node" {
@@ -89,13 +91,7 @@ module "audit_workflow_ruby_rust" {
   base_branch  = "trunk"
   file_path    = ".github/workflows/audit.yaml"
 
-  file_contents = templatefile(
-    "${path.module}/templates/audit-workflow-ruby-rust.yaml",
-    {
-      cargo_deny_version = local.cargo_deny_version,
-      release_base_url   = local.cargo_deny_release_base_url,
-    }
-  )
+  file_contents = templatefile("${path.module}/templates/audit-workflow-ruby-rust.yaml", { cargo_deny = local.cargo_deny })
 }
 
 module "audit_workflow_node_ruby_rust" {
@@ -107,11 +103,5 @@ module "audit_workflow_node_ruby_rust" {
   base_branch  = "trunk"
   file_path    = ".github/workflows/audit.yaml"
 
-  file_contents = templatefile(
-    "${path.module}/templates/audit-workflow-node-ruby-rust.yaml",
-    {
-      cargo_deny_version = local.cargo_deny_version,
-      release_base_url   = local.cargo_deny_release_base_url,
-    }
-  )
+  file_contents = templatefile("${path.module}/templates/audit-workflow-node-ruby-rust.yaml", { cargo_deny = local.cargo_deny })
 }

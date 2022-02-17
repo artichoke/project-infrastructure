@@ -63,7 +63,7 @@ jobs:
           fi
 
       - name: Setup cargo-deny
-        run: curl -sL "${release_base_url}/${cargo_deny_version}/cargo-deny-${cargo_deny_version}-x86_64-unknown-linux-musl.tar.gz" | sudo tar xvz -C /usr/local/bin/ --strip-components=1
+        run: curl -sL "${cargo_deny.base_url}/${cargo_deny.version}/cargo-deny-${cargo_deny.version}-x86_64-unknown-linux-musl.tar.gz" | sudo tar xvz -C /usr/local/bin/ --strip-components=1
 
       - name: Show cargo-deny version
         run: cargo-deny --version
