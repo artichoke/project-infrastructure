@@ -1,7 +1,7 @@
 # GitHub Team – `crates.io publishers`
 
-This folder contains a Terraform module to provision a "ci" GitHub team with
-[@lopopolo] as the only member.
+This folder contains a Terraform module to provision a "crates.io publishers"
+GitHub team with [@lopopolo] as the only member.
 
 [@lopopolo]: https://github.com/lopopolo
 
