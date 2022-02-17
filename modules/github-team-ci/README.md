@@ -4,7 +4,7 @@ This folder contains a Terraform module to provision a "ci" GitHub team with
 [@lopopolo] and [@artichoke-ci] as members.
 
 [@lopopolo]: https://github.com/lopopolo
-[@aritchoke-ci]: https://github.com/artichoke-ci
+[@artichoke-ci]: https://github.com/artichoke-ci
 
 ## Usage
 
