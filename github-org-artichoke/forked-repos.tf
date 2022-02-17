@@ -1,7 +1,7 @@
 #tfsec:ignore:github-repositories-vulnerability-alerts
 resource "github_repository" "mruby" {
   name        = "mruby"
-  description = "Artichoke fork of mruby 2.x, a Lightweight Ruby"
+  description = "Artichoke fork of mruby 3.x, a Lightweight Ruby"
 
   visibility = "public"
 
