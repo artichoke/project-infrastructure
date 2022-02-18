@@ -21,8 +21,11 @@ module "remote_state" {
   access_logs_bucket = module.remote_state_access_logs.name
 }
 
-resource "aws_kms_key" "terraform_statelock" {
-  enable_key_rotation = true
+module "dynamo_statelock_kms" {
+  source = "../modules/kms-key"
+
+  description       = "Key for encrypting remote state DynamoDB table"
+  alias_name_prefix = "dynamodb-remote-state-"
 }
 
 resource "aws_dynamodb_table" "terraform_statelock" {
@@ -37,7 +40,7 @@ resource "aws_dynamodb_table" "terraform_statelock" {
 
   server_side_encryption {
     enabled     = true
-    kms_key_arn = aws_kms_key.terraform_statelock.arn
+    kms_key_arn = module.dynamo_statelock_kms.key_arn
   }
 
   attribute {
