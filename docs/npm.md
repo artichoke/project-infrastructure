@@ -8,3 +8,11 @@
 | @artichoke-ruby | Free         | Alternate NPM scope to protect against typosquatting | [@lopopolo]     | ✅            |
 
 [@lopopolo]: https://www.npmjs.com/~lopopolo
+
+## Packages
+
+| Package                 | Description             | Maintainer 2FA Required? | Publish 2FA Required? |
+| ----------------------- | ----------------------- | ------------------------ | --------------------- |
+| [`@artichokeruby/logo`] | Logo for Artichoke Ruby | ✅                       | ✅                    |
+
+[`@artichokeruby/logo`]: https://www.npmjs.com/package/@artichokeruby/logo
