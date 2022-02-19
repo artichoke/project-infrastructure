@@ -1,5 +1,11 @@
 # crates.io
 
+[crates.io] is the Rust community crate registry. Artichoke publishes several
+"crates" (library packages) to crates.io. Crates published to crates.io can be
+used as dependencies in a Rust project with Cargo.
+
+[crates.io]: https://crates.io/
+
 ## Crate Owners
 
 | Type        | GitHub Account                    | crates.io Profile                | Who Are Admins? |

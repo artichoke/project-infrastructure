@@ -1,4 +1,9 @@
-# NPM
+# npm
+
+[npm] is the JavaScript community package registry. Artichoke publishes several
+packages to npm in the `@artichokeruby` scope.
+
+[npm]: https://www.npmjs.com/
 
 ## Scopes
 
