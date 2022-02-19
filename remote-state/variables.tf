@@ -1,6 +1,6 @@
 variable "environment" {
   description = "Terraform environment bulkhead"
-  default     = "aws"
+  default     = "remote-state"
   type        = string
 }
 

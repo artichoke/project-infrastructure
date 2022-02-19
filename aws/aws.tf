@@ -5,7 +5,7 @@ provider "aws" {
     tags = {
       environment = var.environment
       managed_by  = "terraform"
-      project     = "aws"
+      project     = var.project
     }
   }
 }
