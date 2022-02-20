@@ -31,13 +31,13 @@ module "github_actions_project_infrastructure_assume_role" {
 module "repo_backups_access_logs" {
   source = "../modules/access-logs-s3-bucket"
 
-  bucket = "artichoke-forge-github-backups-logs"
+  bucket = "artichoke-forge-github-backups-logs-${var.region}"
 }
 
 module "repo_backups" {
-  source = "../modules/private-s3-bucket"
+  source = "../modules/private-archive-s3-bucket"
 
-  bucket             = "artichoke-forge-github-backups"
+  bucket             = "artichoke-forge-github-backups-${var.region}"
   access_logs_bucket = module.repo_backups_access_logs.name
 }
 
