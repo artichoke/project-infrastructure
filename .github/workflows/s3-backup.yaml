@@ -20,7 +20,6 @@ jobs:
       id-token: write
       contents: read
       issues: read
-      metadata: read
       pull-requests: read
       repository-projects: read
     runs-on: ubuntu-latest
