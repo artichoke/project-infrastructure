@@ -13,7 +13,7 @@ module "access_logs" {
 }
 
 module "bucket" {
-  source = "../modules/access-logs-s3-bucket"
+  source = "../modules/private-s3-bucket"
 
   bucket = "artichoke-forge-project-infrastructure-terraform-state"
   access_logs_bucket = module.access_logs.name
