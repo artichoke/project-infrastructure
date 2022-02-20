@@ -42,7 +42,7 @@ jobs:
         run: pip install github-backup==0.40.1
 
       - name: Backup repository
-        run: github-backup artichoke --token "${{ secrets.GITHUB_TOKEN }}" --output-directory out --organization --repository project-infrastructure --all --pull-details --private
+        run: github-backup artichoke --as-app --token "${{ secrets.GITHUB_TOKEN }}" --output-directory out --organization --repository project-infrastructure --all --pull-details --private
 
       - name: Make a tar archive
         id: tar_archive
