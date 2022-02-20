@@ -40,7 +40,7 @@ data "aws_iam_policy_document" "backup" {
     ]
 
     condition {
-      test     = "StringLike"
+      test     = "StringEquals"
       variable = "s3:prefix"
       values   = ["${data.aws_s3_bucket.bucket.id}/"]
     }
