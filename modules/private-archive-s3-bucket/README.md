@@ -1,7 +1,8 @@
 # Private S3 Bucket
 
 This folder contains a Terraform module to provision an AWS S3 bucket with no
-public access and access logging enabled.
+public access and access logging enabled. This bucket has versioning and
+lifecycle policies meant for long-term, append-only archival storage.
 
 ## Usage
 
@@ -9,13 +10,13 @@ public access and access logging enabled.
 module "access_logs" {
   source = "../modules/access-logs-s3-bucket"
 
-  bucket = "artichoke-forge-project-infrastructure-terraform-state-logs"
+  bucket = "artichoke-forge-backups-logs"
 }
 
 module "bucket" {
-  source = "../modules/private-s3-bucket"
+  source = "../modules/private-archive-s3-bucket"
 
-  bucket = "artichoke-forge-project-infrastructure-terraform-state"
+  bucket = "artichoke-forge-backups"
   access_logs_bucket = module.access_logs.name
 }
 ```
