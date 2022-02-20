@@ -8,11 +8,16 @@ terraform {
   }
 }
 
+module "github_actions_oidc_provider" {
+  source = "../modules/github-actions-oidc-provider"
+}
+
 module "github_actions_project_infrastructure_assume_role" {
   source = "../modules/github-actions-s3-bucket-read-only-access"
 
-  github_organization = "artichoke"
-  github_repository   = "project-infrastructure"
+  github_oidc_provider_arn = module.github_actions_oidc_provider.arn
+  github_organization      = "artichoke"
+  github_repository        = "project-infrastructure"
 
   s3_bucket_name = "artichoke-forge-project-infrastructure-terraform-state"
 }

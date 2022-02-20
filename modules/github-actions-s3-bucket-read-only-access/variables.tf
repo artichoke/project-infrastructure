@@ -1,3 +1,8 @@
+variable "github_oidc_provider_arn" {
+  description = "AWS IAM OIDC provider ARN for token.actions.githubusercontent.com"
+  type        = string
+}
+
 variable "github_organization" {
   description = "The GitHub organization to grant access to"
   type        = string
