@@ -28,16 +28,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@master
-        with:
-          aws-region: us-west-2
-          role-to-assume: arn:aws:iam::447522982029:role/gha-project-infrastructure-s3-backup-20220220212010997600000001
-          role-session-name: GitHubActionsS3Backup@project-infrastructure
-
-      - name: Show AWS caller identity
-        run: aws sts get-caller-identity
-
       - name: Install python-github-backup
         run: pip install github-backup==0.40.1
 
@@ -82,11 +72,6 @@ jobs:
           zip -r "${zip_archive_name}" "${{ steps.paths.outputs.archive_dir }}"
           echo "::set-output name=file_name::${zip_archive_name}"
 
-      - name: Upload archives to S3
-        run: |
-          aws s3 cp ${{ steps.tar_archive.outputs.file_name }} s3://artichoke-forge-github-backups-us-west-2/project-infrastructure/archives/tarballs/${{ steps.tar_archive.outputs.file_name }}
-          aws s3 cp ${{ steps.zip_archive.outputs.file_name }} s3://artichoke-forge-github-backups-us-west-2/project-infrastructure/archives/zips/${{ steps.zip_archive.outputs.file_name }}
-
       - name: Backup releases
         run: |
           github-backup artichoke \
@@ -99,5 +84,20 @@ jobs:
             --assets \
             --private
 
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@master
+        with:
+          aws-region: us-west-2
+          role-to-assume: arn:aws:iam::447522982029:role/gha-project-infrastructure-s3-backup-20220220212010997600000001
+          role-session-name: GitHubActionsS3Backup@project-infrastructure
+
+      - name: Show AWS caller identity
+        run: aws sts get-caller-identity
+
+      - name: Upload archives to S3
+        run: |
+          aws s3 cp ${{ steps.tar_archive.outputs.file_name }} s3://artichoke-forge-github-backups-us-west-2/project-infrastructure/archives/tarballs/${{ steps.tar_archive.outputs.file_name }} --sse AES256
+          aws s3 cp ${{ steps.zip_archive.outputs.file_name }} s3://artichoke-forge-github-backups-us-west-2/project-infrastructure/archives/zips/${{ steps.zip_archive.outputs.file_name }} --sse AES256
+
       - name: Upload releases to S3
-        run: aws s3 cp --recursive ${{ steps.paths.outputs.releases_dir }}/repositories/project-infrastructure/releases s3://artichoke-forge-github-backups-us-west-2/project-infrastructure/releases/
+        run: aws s3 cp --recursive ${{ steps.paths.outputs.releases_dir }}/repositories/project-infrastructure/releases s3://artichoke-forge-github-backups-us-west-2/project-infrastructure/releases/ --sse AES256
