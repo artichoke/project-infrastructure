@@ -84,8 +84,8 @@ jobs:
 
       - name: Upload archives to S3
         run: |
-          aws s3 cp ${{ steps.tar_archive.outputs.file_name }} s3://artichoke-forge-github-backups-us-west-2/project-infrastructure/archives/tarballs/${{ steps.tar_archive.outputs.file_name }} --sse aws:kms --sse-kms-key-id "09f0dca9-124c-404f-bc3e-4c38d403f551"
-          aws s3 cp ${{ steps.zip_archive.outputs.file_name }} s3://artichoke-forge-github-backups-us-west-2/project-infrastructure/archives/zips/${{ steps.zip_archive.outputs.file_name }} --sse aws:kms --sse-kms-key-id "09f0dca9-124c-404f-bc3e-4c38d403f551"
+          aws s3 cp ${{ steps.tar_archive.outputs.file_name }} s3://artichoke-forge-github-backups-us-west-2/project-infrastructure/archives/tarballs/${{ steps.tar_archive.outputs.file_name }}
+          aws s3 cp ${{ steps.zip_archive.outputs.file_name }} s3://artichoke-forge-github-backups-us-west-2/project-infrastructure/archives/zips/${{ steps.zip_archive.outputs.file_name }}
 
       - name: Backup releases
         run: |
@@ -100,4 +100,4 @@ jobs:
             --private
 
       - name: Upload releases to S3
-        run: aws s3 cp --recursive ${{ steps.paths.outputs.releases_dir }}/repositories/project-infrastructure/releases s3://artichoke-forge-github-backups-us-west-2/project-infrastructure/releases/ --sse aws:kms --sse-kms-key-id "09f0dca9-124c-404f-bc3e-4c38d403f551"
+        run: aws s3 cp --recursive ${{ steps.paths.outputs.releases_dir }}/repositories/project-infrastructure/releases s3://artichoke-forge-github-backups-us-west-2/project-infrastructure/releases/
