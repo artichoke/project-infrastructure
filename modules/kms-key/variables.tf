@@ -17,3 +17,9 @@ variable "alias_name_prefix" {
     error_message = "The alias_name_prefix value must not be empty."
   }
 }
+
+variable "roles_with_key_access" {
+  description = "IAM roles to grant access to this KMS key"
+  default     = []
+  type        = list(string)
+}
