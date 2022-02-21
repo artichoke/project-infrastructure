@@ -1,0 +1,93 @@
+---
+name: "S3 repository backup"
+"on":
+  schedule:
+    - cron: "0 12 ${cron_day_of_month} * *" # 12pm GMT which is either 3am or 4am Pacific
+jobs:
+  terraform:
+    name: Backup
+    permissions:
+      id-token: write
+      contents: read
+      issues: read
+      pull-requests: read
+      repository-projects: read
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install python-github-backup
+        run: pip install github-backup==${python_github_backup_version}
+
+      - name: Set archive directory
+        id: paths
+        run: |
+          echo "::set-output name=archive_dir::${github_repository}-$(date '+%Y-%m-%d')"
+          echo "::set-output name=releases_dir::${github_repository}-releases-$(date '+%Y-%m-%d')"
+
+      - name: Backup repository
+        run: |
+          github-backup artichoke \
+            --as-app \
+            --token "$${{ secrets.GITHUB_TOKEN }}" \
+            --output-directory "$${{ steps.paths.outputs.archive_dir }}" \
+            --organization \
+            --repository ${github_repository} \
+            --issues \
+            --issue-comments \
+            --issue-events \
+            --pulls \
+            --pull-comments \
+            --pull-commits \
+            --pull-details \
+            --labels \
+            --milestones \
+            --repositories \
+            --wikis \
+            --private
+
+      - name: Make a tar archive
+        id: tar_archive
+        run: |
+          tar_archive_name="$${{ steps.paths.outputs.archive_dir }}.tar.gz"
+          tar czf "$${tar_archive_name}" "$${{ steps.paths.outputs.archive_dir }}"
+          echo "::set-output name=file_name::$${tar_archive_name}"
+
+      - name: Make a zip archive
+        id: zip_archive
+        run: |
+          zip_archive_name="$${{ steps.paths.outputs.archive_dir }}.zip"
+          zip -r "$${zip_archive_name}" "$${{ steps.paths.outputs.archive_dir }}"
+          echo "::set-output name=file_name::$${zip_archive_name}"
+
+      - name: Backup releases
+        run: |
+          github-backup artichoke \
+            --as-app \
+            --token "$${{ secrets.GITHUB_TOKEN }}" \
+            --output-directory "$${{ steps.paths.outputs.releases_dir }}" \
+            --organization \
+            --repository ${github_repository} \
+            --releases \
+            --assets \
+            --private
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@master
+        with:
+          aws-region: us-west-2
+          role-to-assume: ${backup_role_arn}
+          role-session-name: GitHubActionsS3Backup@${github_repository}
+
+      - name: Show AWS caller identity
+        run: aws sts get-caller-identity
+
+      - name: Upload archives to S3
+        run: |
+          aws s3 cp $${{ steps.tar_archive.outputs.file_name }} s3://${s3_bucket}/${github_repository}/archives/tarballs/$${{ steps.tar_archive.outputs.file_name }} --sse AES256
+          aws s3 cp $${{ steps.zip_archive.outputs.file_name }} s3://${s3_bucket}/${github_repository}/archives/zips/$${{ steps.zip_archive.outputs.file_name }} --sse AES256
+
+      - name: Upload releases to S3
+        run: aws s3 cp --recursive $${{ steps.paths.outputs.releases_dir }}/repositories/${github_repository}/releases s3://${s3_bucket}/${github_repository}/releases/ --sse AES256

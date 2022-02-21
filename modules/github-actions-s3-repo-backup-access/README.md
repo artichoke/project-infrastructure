@@ -21,7 +21,7 @@ module "github_actions_project_infrastructure_assume_role" {
   github_organization      = "artichoke"
   github_repository        = "project-infrastructure"
 
-  s3_bucket_name = "artichoke-forge-github-backup"
+  s3_bucket_name = "artichoke-forge-backups"
 }
 ```
 
