@@ -33,7 +33,7 @@ jobs:
         with:
           aws-region: us-west-2
           role-to-assume: arn:aws:iam::447522982029:role/gha-project-infrastructure-s3-backup-20220220212010997600000001
-          role-session-name: GitHubActionsSession@s3-backup
+          role-session-name: GitHubActionsS3Backup@project-infrastructure
 
       - name: Show AWS caller identity
         run: aws sts get-caller-identity
@@ -41,21 +41,45 @@ jobs:
       - name: Install python-github-backup
         run: pip install github-backup==0.40.1
 
+      - name: Set archive directory
+        id: paths
+        run: |
+          echo "::set-output name=archive_dir::project-infrastructure-$(date '+%Y-%m-%d')"
+          echo "::set-output name=releases_dir::project-infrastructure-releases-$(date '+%Y-%m-%d')"
+
       - name: Backup repository
-        run: github-backup artichoke --as-app --token "${{ secrets.GITHUB_TOKEN }}" --output-directory out --organization --repository project-infrastructure --issues --issue-comments --issue-events --pulls --pull-comments --pull-commits --pull-details --labels --milestones --repositories --wikis --private
+        run: |
+          github-backup artichoke \
+            --as-app \
+            --token "${{ secrets.GITHUB_TOKEN }}" \
+            --output-directory "${{ steps.paths.outputs.archive_dir }}" \
+            --organization \
+            --repository project-infrastructure \
+            --issues \
+            --issue-comments \
+            --issue-events \
+            --pulls \
+            --pull-comments \
+            --pull-commits \
+            --pull-details \
+            --labels \
+            --milestones \
+            --repositories \
+            --wikis \
+            --private
 
       - name: Make a tar archive
         id: tar_archive
         run: |
-          tar_archive_name="project-infrastructure-$(date '+%Y-%m-%d').tar.gz"
-          tar czf "${tar_archive_name}" out
+          tar_archive_name="${{ steps.paths.outputs.archive_dir }}.tar.gz"
+          tar czf "${tar_archive_name}" "${{ steps.paths.outputs.archive_dir }}"
           echo "::set-output name=file_name::${tar_archive_name}"
 
       - name: Make a zip archive
         id: zip_archive
         run: |
-          zip_archive_name="project-infrastructure-$(date '+%Y-%m-%d').zip"
-          zip -r "${zip_archive_name}" out
+          zip_archive_name="${{ steps.paths.outputs.archive_dir }}.zip"
+          zip -r "${zip_archive_name}" "${{ steps.paths.outputs.archive_dir }}"
           echo "::set-output name=file_name::${zip_archive_name}"
 
       - name: Upload archives to S3
@@ -64,7 +88,16 @@ jobs:
           aws s3 cp ${{ steps.zip_archive.outputs.file_name }} s3://artichoke-forge-github-backups-us-west-2/project-infrastructure/archives/zips/${{ steps.zip_archive.outputs.file_name }} --sse aws:kms --sse-kms-key-id "09f0dca9-124c-404f-bc3e-4c38d403f551"
 
       - name: Backup releases
-        run: github-backup artichoke --as-app --token "${{ secrets.GITHUB_TOKEN }}" --output-directory out-releases --organization --repository project-infrastructure --releases --assets --private
+        run: |
+          github-backup artichoke \
+            --as-app \
+            --token "${{ secrets.GITHUB_TOKEN }}" \
+            --output-directory "${{ steps.paths.outputs.releases_dir }}" \
+            --organization \
+            --repository project-infrastructure \
+            --releases \
+            --assets \
+            --private
 
       - name: Upload releases to S3
-        run: aws s3 cp --recursive out-releases/repositories/project-infrastructure/releases s3://artichoke-forge-github-backups-us-west-2/project-infrastructure/releases/ --sse aws:kms --sse-kms-key-id "09f0dca9-124c-404f-bc3e-4c38d403f551"
+        run: aws s3 cp --recursive ${{ steps.paths.outputs.releases_dir }}/repositories/project-infrastructure/releases s3://artichoke-forge-github-backups-us-west-2/project-infrastructure/releases/ --sse aws:kms --sse-kms-key-id "09f0dca9-124c-404f-bc3e-4c38d403f551"
