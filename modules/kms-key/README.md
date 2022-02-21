@@ -11,6 +11,8 @@ module "remote_state" {
 
   description       = "Key for encrypting remote state bucket contents"
   alias_name_prefix = "s3-remote-state-"
+
+  roles_with_key_access = []
 }
 ```
 
@@ -19,6 +21,7 @@ module "remote_state" {
 - `description`: The description of the KMS key.
 - `alias_name_prefix`: A prefix for the alias name. This variable must be
   non-empty and must not start with `alias/`.
+- `roles_with_key_access`: IAM roles to grant access to this KMS key.
 
 ## Outputs
 
