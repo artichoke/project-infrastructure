@@ -31,7 +31,7 @@ data "aws_s3_bucket" "bucket" {
 
 data "aws_iam_policy_document" "backup" {
   statement {
-    sid = 1
+    sid = "WriteBackup"
 
     effect = "Allow"
 
@@ -39,13 +39,7 @@ data "aws_iam_policy_document" "backup" {
       "s3:PutObject"
     ]
 
-    condition {
-      test     = "StringEquals"
-      variable = "s3:prefix"
-      values   = ["${data.aws_s3_bucket.bucket.id}/"]
-    }
-
-    resources = ["${data.aws_s3_bucket.bucket.arn}/*"]
+    resources = ["${data.aws_s3_bucket.bucket.arn}/${var.github_repository}/*"]
   }
 }
 
