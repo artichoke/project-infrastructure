@@ -1,6 +1,16 @@
 ---
 name: "S3 repository backup"
 "on":
+  push:
+    branches:
+      - trunk
+    paths:
+      - .github/workflows/s3-backup.yaml
+  pull_request:
+    branches:
+      - trunk
+    paths:
+      - .github/workflows/s3-backup.yaml
   schedule:
     - cron: "0 12 2 * *" # 12pm GMT which is either 3am or 4am Pacific
 jobs:
