@@ -12,7 +12,7 @@ name: "S3 repository backup"
     paths:
       - .github/workflows/s3-backup.yaml
   schedule:
-    - cron: "0 12 * * THU" # 12pm GMT on Thursdays, either 3am or 4am Pacific
+    - cron: "0 12 2 * *" # 12pm GMT which is either 3am or 4am Pacific
 jobs:
   terraform:
     name: Backup
@@ -42,7 +42,7 @@ jobs:
         run: pip install github-backup==0.40.1
 
       - name: Backup repository
-        run: github-backup artichoke --as-app --token "${{ secrets.GITHUB_TOKEN }}" --output-directory out --organization --repository project-infrastructure --issues --issue-comments --issue-events --pulls --pull-comments --pull-commits --pull-details --labels --milestones --repositories --wikis --private
+        run: github-backup artichoke --as-app --token "${{ secrets.GITHUB_TOKEN }}" --output-directory out --organization --repository project-infrastructure --issues --issue-comments --issue-events --pulls --pull-comments --pull-commits --pull-details --labels --milestones --repositories --wikis --releases --assets --private
 
       - name: Make a tar archive
         id: tar_archive
