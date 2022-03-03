@@ -23,7 +23,27 @@ updates:
       - A-deps
       - A-terraform
   - package-ecosystem: terraform
-    directory: "/github"
+    directory: "/github-org-artichoke"
+    schedule:
+      interval: monthly
+    open-pull-requests-limit: 10
+    assignees:
+      - lopopolo
+    labels:
+      - A-deps
+      - A-terraform
+  - package-ecosystem: terraform
+    directory: "/github-org-artichokeruby"
+    schedule:
+      interval: monthly
+    open-pull-requests-limit: 10
+    assignees:
+      - lopopolo
+    labels:
+      - A-deps
+      - A-terraform
+  - package-ecosystem: terraform
+    directory: "/github-org-artichoke-ruby"
     schedule:
       interval: monthly
     open-pull-requests-limit: 10
