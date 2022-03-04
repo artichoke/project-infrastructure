@@ -49,7 +49,7 @@ data "aws_iam_policy_document" "bucket_read_only" {
     actions = [
       "s3:GetObject",
     ]
-    resources = ["${data.aws_s3_bucket.bucket.arn}/*"]
+    resources = ["${data.aws_s3_bucket.bucket.arn}/*"] # tfsec:ignore:aws-iam-no-policy-wildcards
   }
 }
 

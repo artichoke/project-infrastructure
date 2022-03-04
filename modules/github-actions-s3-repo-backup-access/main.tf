@@ -39,7 +39,7 @@ data "aws_iam_policy_document" "backup" {
       "s3:PutObject"
     ]
 
-    resources = ["${data.aws_s3_bucket.bucket.arn}/${var.github_repository}/*"]
+    resources = ["${data.aws_s3_bucket.bucket.arn}/${var.github_repository}/*"] # tfsec:ignore:aws-iam-no-policy-wildcards
   }
 }
 
