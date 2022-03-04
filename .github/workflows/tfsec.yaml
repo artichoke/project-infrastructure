@@ -45,7 +45,7 @@ jobs:
           terraform -chdir=remote-state init
 
       - name: "tfsec aws"
-        uses: docker://tfsec/tfsec:latest
+        uses: docker://aquasec/tfsec:latest
         id: tfsec_aws
         continue-on-error: true
         with:
@@ -53,7 +53,7 @@ jobs:
           args: aws
 
       - name: "tfsec github-org-artichoke"
-        uses: docker://tfsec/tfsec:latest
+        uses: docker://aquasec/tfsec:latest
         id: tfsec_github_artichoke
         continue-on-error: true
         with:
@@ -61,7 +61,7 @@ jobs:
           args: github-org-artichoke
 
       - name: "tfsec github-org-artichokeruby"
-        uses: docker://tfsec/tfsec:latest
+        uses: docker://aquasec/tfsec:latest
         id: tfsec_github_artichokeruby
         continue-on-error: true
         with:
@@ -69,7 +69,7 @@ jobs:
           args: github-org-artichokeruby
 
       - name: "tfsec github-org-artichoke-ruby"
-        uses: docker://tfsec/tfsec:latest
+        uses: docker://aquasec/tfsec:latest
         id: tfsec_github_artichoke_ruby
         continue-on-error: true
         with:
@@ -77,7 +77,7 @@ jobs:
           args: github-org-artichoke-ruby
 
       - name: "tfsec remote-state"
-        uses: docker://tfsec/tfsec:latest
+        uses: docker://aquasec/tfsec:latest
         id: tfsec_remote_state
         continue-on-error: true
         with:
