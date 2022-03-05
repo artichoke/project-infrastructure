@@ -6,7 +6,6 @@ module "github_artichoke" {
   homepage_url = "https://www.artichokeruby.org/"
 
   topics = [
-    "artichoke",
     "language",
     "programming-language",
     "ruby",
@@ -27,7 +26,6 @@ module "github_artichoke_github_io" {
   homepage_url = "https://artichoke.github.io/"
 
   topics = [
-    "artichoke",
     "gh-pages",
     "project-website",
     "static-site",
@@ -42,7 +40,6 @@ module "github_boba" {
   homepage_url = "https://crates.io/crates/boba"
 
   topics = [
-    "artichoke",
     "bubblebabble",
     "decoding",
     "encoding",
@@ -60,7 +57,6 @@ module "github_cactusref" {
   homepage_url = "https://crates.io/crates/cactusref"
 
   topics = [
-    "artichoke",
     "garbage-collection",
     "garbage-collector",
     "memory-management",
@@ -80,7 +76,6 @@ module "github_clang_format" {
   has_github_pages = false
 
   topics = [
-    "artichoke",
     "c",
     "ci",
     "clang-format",
@@ -102,7 +97,6 @@ module "github_docker_artichoke_nightly" {
   has_github_pages = false
 
   topics = [
-    "artichoke",
     "docker",
     "nightly",
     "nightly-build",
@@ -120,7 +114,6 @@ module "github_focaccia" {
   homepage_url = "https://crates.io/crates/focaccia"
 
   topics = [
-    "artichoke",
     "case",
     "case-folding",
     "no-std",
@@ -140,7 +133,6 @@ module "github_intaglio" {
   homepage_url = "https://crates.io/crates/intaglio"
 
   topics = [
-    "artichoke",
     "bytes",
     "interner",
     "rust",
@@ -162,7 +154,6 @@ module "github_jasper" {
   has_github_pages = false
 
   topics = [
-    "artichoke",
     "bundler",
     "packaging",
     "ruby",
@@ -181,7 +172,6 @@ module "github_logo" {
   homepage_url = "https://www.npmjs.com/package/@artichokeruby/logo"
 
   topics = [
-    "artichoke",
     "branding",
     "javascript",
     "logo",
@@ -199,7 +189,6 @@ module "github_nightly" {
   has_github_pages = false
 
   topics = [
-    "artichoke",
     "nightly",
     "nightly-build",
     "ruby",
@@ -218,7 +207,6 @@ module "github_playground" {
   github_pages_cname = "artichoke.run"
 
   topics = [
-    "artichoke",
     "playground",
     "programming-language",
     "ruby",
@@ -239,7 +227,6 @@ module "github_project_infrastructure" {
   has_github_pages = false
 
   topics = [
-    "artichoke",
     "infrastructure-as-code",
     "meta",
     "terraform",
@@ -254,7 +241,6 @@ module "github_rand_mt" {
   homepage_url = "https://crates.io/crates/rand_mt"
 
   topics = [
-    "artichoke",
     "mersenne-twister",
     "no-std",
     "rand",
@@ -273,7 +259,6 @@ module "github_raw_parts" {
   homepage_url = "https://crates.io/crates/raw-parts"
 
   topics = [
-    "artichoke",
     "ffi",
     "no-std",
     "pointers",
@@ -291,7 +276,6 @@ module "github_roe" {
   homepage_url = "https://crates.io/crates/roe"
 
   topics = [
-    "artichoke",
     "case",
     "case-mapping",
     "lowercase",
@@ -314,7 +298,6 @@ module "github_rubyconf" {
   homepage_url = "https://artichoke.github.io/rubyconf/"
 
   topics = [
-    "artichoke",
     "conference-talk",
     "deck",
     "gh-pages",
@@ -336,7 +319,6 @@ module "github_ruby_file_expand_path" {
   homepage_url = "https://artichoke.github.io/ruby-file-expand-path/ruby_file_expand_path/"
 
   topics = [
-    "artichoke",
     "ffi",
     "filesystem",
     "ruby",
@@ -355,7 +337,6 @@ module "github_strudel" {
   homepage_url = "https://artichoke.github.io/strudel/strudel/"
 
   topics = [
-    "artichoke",
     "c",
     "ffi",
     "hashmap",
@@ -375,7 +356,6 @@ module "github_www_artichokeruby_org" {
   github_pages_cname = "www.artichokeruby.org"
 
   topics = [
-    "artichoke",
     "gh-pages",
     "project-website",
     "static-site",
