@@ -41,4 +41,5 @@ module "repo_artichoke" {
 
 ## Outputs
 
-This module has no outputs.
+- `full_name`: A string of the form `orgname/reponame`.
+- `repo_id`: GitHub ID for the repository.
