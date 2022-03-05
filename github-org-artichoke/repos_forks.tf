@@ -1,4 +1,4 @@
-#tfsec:ignore:github-repositories-vulnerability-alerts
+# tfsec:ignore:github-repositories-enable_vulnerability_alerts
 resource "github_repository" "mruby" {
   name        = "mruby"
   description = "Artichoke fork of mruby 3.x, a Lightweight Ruby"
@@ -32,7 +32,7 @@ resource "github_branch_default" "mruby" {
   branch     = "artichoke-vendor"
 }
 
-#tfsec:ignore:github-repositories-vulnerability-alerts
+# tfsec:ignore:github-repositories-enable_vulnerability_alerts
 resource "github_repository" "mspec" {
   name         = "mspec"
   description  = "Artichoke fork of MSpec, an RSpec-like test runner for the Ruby Spec Suite"
@@ -67,7 +67,7 @@ resource "github_branch_default" "mspec" {
   branch     = "artichoke-vendor"
 }
 
-#tfsec:ignore:github-repositories-vulnerability-alerts
+# tfsec:ignore:github-repositories-enable_vulnerability_alerts
 resource "github_repository" "onigmo" {
   name        = "Onigmo"
   description = "Artichoke fork of Onigmo, a regular expressions library forked from Oniguruma."
@@ -96,7 +96,7 @@ resource "github_repository" "onigmo" {
   }
 }
 
-#tfsec:ignore:github-repositories-vulnerability-alerts
+# tfsec:ignore:github-repositories-enable_vulnerability_alerts
 resource "github_repository" "oniguruma" {
   name        = "oniguruma"
   description = "Artichoke fork of oniguruma, a regular expression library"
@@ -125,7 +125,7 @@ resource "github_repository" "oniguruma" {
   }
 }
 
-#tfsec:ignore:github-repositories-vulnerability-alerts
+# tfsec:ignore:github-repositories-enable_vulnerability_alerts
 resource "github_repository" "ruby" {
   name         = "ruby"
   description  = "Artichoke fork of Ruby 2.6.3"
@@ -160,7 +160,7 @@ resource "github_branch_default" "ruby" {
   branch     = "artichoke-vendor"
 }
 
-#tfsec:ignore:github-repositories-vulnerability-alerts
+# tfsec:ignore:github-repositories-enable_vulnerability_alerts
 resource "github_repository" "rust_onig" {
   name         = "rust-onig"
   description  = "Artichoke fork of rust-onig, Rust bindings for the Oniguruma regex library"
@@ -196,7 +196,7 @@ resource "github_branch_default" "rust_onig" {
   branch     = "artichoke-vendor"
 }
 
-#tfsec:ignore:github-repositories-vulnerability-alerts
+# tfsec:ignore:github-repositories-enable_vulnerability_alerts
 resource "github_repository" "spec" {
   name        = "spec"
   description = "Artichoke fork of the Ruby Spec Suite aka ruby/spec"
