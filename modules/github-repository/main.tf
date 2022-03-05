@@ -12,16 +12,15 @@ resource "github_repository" "this" {
   description  = var.description
   homepage_url = var.homepage_url
 
-  archived   = true
   visibility = "public"
 
-  has_downloads = var.has_downloads
-  has_issues    = var.has_issues
-  has_projects  = var.has_projects
-  has_wiki      = var.has_wiki
+  has_downloads = true
+  has_issues    = true
+  has_projects  = false
+  has_wiki      = false
 
-  delete_branch_on_merge = var.delete_branch_on_merge
-  vulnerability_alerts   = var.vulnerability_alerts
+  delete_branch_on_merge = true
+  vulnerability_alerts   = true
 
   topics = toset(concat(var.topics, ["artichoke"]))
 
