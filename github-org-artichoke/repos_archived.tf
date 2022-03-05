@@ -8,7 +8,6 @@ module "archived_artichoke_ci" {
   has_wiki               = true
 
   topics = [
-    "artichoke",
     "base-image",
     "build",
     "ci",
@@ -30,7 +29,6 @@ module "archived_ferrocarril" {
   has_wiki               = true
 
   topics = [
-    "artichoke",
     "rack",
     "ruby",
     "rust",
@@ -68,7 +66,6 @@ module "archived_rubyconf2019_artichoke_run" {
   github_pages_cname = "rubyconf2019.artichoke.run"
 
   topics = [
-    "artichoke",
     "playground",
     "programming-language",
     "ruby",

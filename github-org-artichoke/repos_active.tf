@@ -1,20 +1,11 @@
-resource "github_repository" "artichoke" {
+module "github_artichoke" {
+  source = "../modules/github-repository"
+
   name         = "artichoke"
   description  = "💎 Artichoke is a Ruby made with Rust"
   homepage_url = "https://www.artichokeruby.org/"
 
-  visibility = "public"
-
-  has_downloads = true
-  has_issues    = true
-  has_projects  = false
-  has_wiki      = false
-
-  delete_branch_on_merge = true
-  vulnerability_alerts   = true
-
   topics = [
-    "artichoke",
     "language",
     "programming-language",
     "ruby",
@@ -25,70 +16,30 @@ resource "github_repository" "artichoke" {
     "wasm",
     "webassembly",
   ]
-
-  pages {
-    source {
-      branch = "gh-pages"
-      path   = "/"
-    }
-  }
-
-  lifecycle {
-    prevent_destroy = true
-  }
 }
 
-resource "github_repository" "artichoke_github_io" {
+module "github_artichoke_github_io" {
+  source = "../modules/github-repository"
+
   name         = "artichoke.github.io"
   description  = "⏭ Redirect to Artichoke project website"
   homepage_url = "https://artichoke.github.io/"
 
-  visibility = "public"
-
-  has_downloads = true
-  has_issues    = true
-  has_projects  = false
-  has_wiki      = false
-
-  delete_branch_on_merge = true
-  vulnerability_alerts   = true
-
   topics = [
-    "artichoke",
     "gh-pages",
     "project-website",
     "static-site",
   ]
-
-  pages {
-    source {
-      branch = "gh-pages"
-      path   = "/"
-    }
-  }
-
-  lifecycle {
-    prevent_destroy = true
-  }
 }
 
-resource "github_repository" "boba" {
+module "github_boba" {
+  source = "../modules/github-repository"
+
   name         = "boba"
   description  = "💦 Rust implementation of the Bubble Babble binary data encoding"
   homepage_url = "https://crates.io/crates/boba"
 
-  visibility = "public"
-
-  has_downloads = true
-  has_issues    = true
-  has_projects  = false
-  has_wiki      = false
-
-  delete_branch_on_merge = true
-  vulnerability_alerts   = true
-
   topics = [
-    "artichoke",
     "bubblebabble",
     "decoding",
     "encoding",
@@ -96,37 +47,16 @@ resource "github_repository" "boba" {
     "rust",
     "rust-crate",
   ]
-
-  pages {
-    source {
-      branch = "gh-pages"
-      path   = "/"
-    }
-  }
-
-  lifecycle {
-    prevent_destroy = true
-  }
 }
 
-resource "github_repository" "cactusref" {
+module "github_cactusref" {
+  source = "../modules/github-repository"
+
   name         = "cactusref"
   description  = "🌵 Cycle-Aware Reference Counting in Rust"
   homepage_url = "https://crates.io/crates/cactusref"
 
-  archived   = false
-  visibility = "public"
-
-  has_downloads = true
-  has_issues    = true
-  has_projects  = false
-  has_wiki      = false
-
-  delete_branch_on_merge = true
-  vulnerability_alerts   = true
-
   topics = [
-    "artichoke",
     "garbage-collection",
     "garbage-collector",
     "memory-management",
@@ -134,36 +64,18 @@ resource "github_repository" "cactusref" {
     "rust",
     "rust-crate",
   ]
-
-  pages {
-    source {
-      branch = "gh-pages"
-      path   = "/"
-    }
-  }
-
-  lifecycle {
-    prevent_destroy = true
-  }
 }
 
-resource "github_repository" "clang_format" {
+module "github_clang_format" {
+  source = "../modules/github-repository"
+
   name         = "clang-format"
   description  = "✏️ clang-format runner for CI"
   homepage_url = "https://github.com/artichoke/clang-format#readme"
 
-  visibility = "public"
-
-  has_downloads = true
-  has_issues    = true
-  has_projects  = false
-  has_wiki      = false
-
-  delete_branch_on_merge = true
-  vulnerability_alerts   = true
+  has_github_pages = false
 
   topics = [
-    "artichoke",
     "c",
     "ci",
     "clang-format",
@@ -173,29 +85,18 @@ resource "github_repository" "clang_format" {
     "nodejs",
     "npx",
   ]
-
-  lifecycle {
-    prevent_destroy = true
-  }
 }
 
-resource "github_repository" "docker_artichoke_nightly" {
+module "github_docker_artichoke_nightly" {
+  source = "../modules/github-repository"
+
   name         = "docker-artichoke-nightly"
   description  = "🐳 Docker builds for nightly Artichoke"
   homepage_url = "https://hub.docker.com/r/artichokeruby/artichoke"
 
-  visibility = "public"
-
-  has_downloads = true
-  has_issues    = true
-  has_projects  = false
-  has_wiki      = false
-
-  delete_branch_on_merge = true
-  vulnerability_alerts   = true
+  has_github_pages = false
 
   topics = [
-    "artichoke",
     "docker",
     "nightly",
     "nightly-build",
@@ -203,29 +104,16 @@ resource "github_repository" "docker_artichoke_nightly" {
     "rust",
     "rust-application",
   ]
-
-  lifecycle {
-    prevent_destroy = true
-  }
 }
 
-resource "github_repository" "focaccia" {
+module "github_focaccia" {
+  source = "../modules/github-repository"
+
   name         = "focaccia"
   description  = "🍞 no_std Unicode case folding comparisons"
   homepage_url = "https://crates.io/crates/focaccia"
 
-  visibility = "public"
-
-  has_downloads = true
-  has_issues    = true
-  has_projects  = false
-  has_wiki      = false
-
-  delete_branch_on_merge = true
-  vulnerability_alerts   = true
-
   topics = [
-    "artichoke",
     "case",
     "case-folding",
     "no-std",
@@ -235,36 +123,16 @@ resource "github_repository" "focaccia" {
     "unicode-case-folding",
     "utf-8"
   ]
-
-  pages {
-    source {
-      branch = "gh-pages"
-      path   = "/"
-    }
-  }
-
-  lifecycle {
-    prevent_destroy = true
-  }
 }
 
-resource "github_repository" "intaglio" {
+module "github_intaglio" {
+  source = "../modules/github-repository"
+
   name         = "intaglio"
   description  = "🗃 UTF-8 string, byte string, and C string interner"
   homepage_url = "https://crates.io/crates/intaglio"
 
-  visibility = "public"
-
-  has_downloads = true
-  has_issues    = true
-  has_projects  = false
-  has_wiki      = false
-
-  delete_branch_on_merge = true
-  vulnerability_alerts   = true
-
   topics = [
-    "artichoke",
     "bytes",
     "interner",
     "rust",
@@ -274,35 +142,18 @@ resource "github_repository" "intaglio" {
     "symbol-table",
     "utf-8",
   ]
-
-  pages {
-    source {
-      branch = "gh-pages"
-      path   = "/"
-    }
-  }
-
-  lifecycle {
-    prevent_destroy = true
-  }
 }
 
-resource "github_repository" "jasper" {
-  name        = "jasper"
-  description = "🧳 Single-binary packaging for Ruby applications that supports native and Wasm targets"
+module "github_jasper" {
+  source = "../modules/github-repository"
 
-  visibility = "public"
+  name         = "jasper"
+  description  = "🧳 Single-binary packaging for Ruby applications that supports native and Wasm targets"
+  homepage_url = null
 
-  has_downloads = true
-  has_issues    = true
-  has_projects  = false
-  has_wiki      = false
-
-  delete_branch_on_merge = true
-  vulnerability_alerts   = true
+  has_github_pages = false
 
   topics = [
-    "artichoke",
     "bundler",
     "packaging",
     "ruby",
@@ -311,93 +162,51 @@ resource "github_repository" "jasper" {
     "wasm",
     "webassembly",
   ]
-
-  lifecycle {
-    prevent_destroy = true
-  }
 }
 
-resource "github_repository" "logo" {
+module "github_logo" {
+  source = "../modules/github-repository"
+
   name         = "logo"
   description  = "🖼 Project logos for Artichoke Ruby"
   homepage_url = "https://www.npmjs.com/package/@artichokeruby/logo"
 
-  visibility = "public"
-
-  has_downloads = true
-  has_issues    = true
-  has_projects  = false
-  has_wiki      = false
-
-  delete_branch_on_merge = true
-  vulnerability_alerts   = true
-
   topics = [
-    "artichoke",
     "branding",
     "javascript",
     "logo",
     "static-assets",
   ]
-
-  pages {
-    source {
-      branch = "gh-pages"
-      path   = "/"
-    }
-  }
-
-  lifecycle {
-    prevent_destroy = true
-  }
 }
 
-resource "github_repository" "nightly" {
+module "github_nightly" {
+  source = "../modules/github-repository"
+
   name         = "nightly"
   description  = "🌌 Nightly builds of Artichoke Ruby"
   homepage_url = "https://github.com/artichoke/nightly/releases/latest"
 
-  visibility = "public"
-
-  has_downloads = true
-  has_issues    = true
-  has_projects  = false
-  has_wiki      = false
-
-  delete_branch_on_merge = true
-  vulnerability_alerts   = true
+  has_github_pages = false
 
   topics = [
-    "artichoke",
     "nightly",
     "nightly-build",
     "ruby",
     "rust",
     "rust-application",
   ]
-
-  lifecycle {
-    prevent_destroy = true
-  }
 }
 
-resource "github_repository" "playground" {
+module "github_playground" {
+  source = "../modules/github-repository"
+
   name         = "playground"
   description  = "🎡 Artichoke Ruby Wasm Playground"
   homepage_url = "https://artichoke.run/"
 
-  visibility = "public"
-
-  has_downloads = true
-  has_issues    = true
-  has_projects  = false
-  has_wiki      = false
-
-  delete_branch_on_merge = true
-  vulnerability_alerts   = true
+  github_pages_cname = "artichoke.run"
 
   topics = [
-    "artichoke",
     "playground",
     "programming-language",
     "ruby",
@@ -406,63 +215,32 @@ resource "github_repository" "playground" {
     "wasm",
     "webassembly",
   ]
-
-  pages {
-    cname = "artichoke.run"
-    source {
-      branch = "gh-pages"
-      path   = "/"
-    }
-  }
-
-  lifecycle {
-    prevent_destroy = true
-  }
 }
 
-resource "github_repository" "project_infrastructure" {
-  name        = "project-infrastructure"
-  description = "🛠 Infrastructure as code for the Artichoke open source project"
+module "github_project_infrastructure" {
+  source = "../modules/github-repository"
 
-  visibility = "public"
+  name         = "project-infrastructure"
+  description  = "🛠 Infrastructure as code for the Artichoke open source project"
+  homepage_url = "https://github.com/artichoke/project-infrastructure/tree/trunk/docs"
 
-  has_downloads = true
-  has_issues    = true
-  has_projects  = false
-  has_wiki      = false
-
-  delete_branch_on_merge = true
-  vulnerability_alerts   = true
+  has_github_pages = false
 
   topics = [
-    "artichoke",
     "infrastructure-as-code",
     "meta",
     "terraform",
   ]
-
-  lifecycle {
-    prevent_destroy = true
-  }
 }
 
-resource "github_repository" "rand_mt" {
+module "github_rand_mt" {
+  source = "../modules/github-repository"
+
   name         = "rand_mt"
   description  = "🌪 Mersenne Twister implementation backed by rand_core"
   homepage_url = "https://crates.io/crates/rand_mt"
 
-  visibility = "public"
-
-  has_downloads = true
-  has_issues    = true
-  has_projects  = false
-  has_wiki      = false
-
-  delete_branch_on_merge = true
-  vulnerability_alerts   = true
-
   topics = [
-    "artichoke",
     "mersenne-twister",
     "no-std",
     "rand",
@@ -471,36 +249,16 @@ resource "github_repository" "rand_mt" {
     "rust",
     "rust-crate",
   ]
-
-  pages {
-    source {
-      branch = "gh-pages"
-      path   = "/"
-    }
-  }
-
-  lifecycle {
-    prevent_destroy = true
-  }
 }
 
-resource "github_repository" "raw_parts" {
+module "github_raw_parts" {
+  source = "../modules/github-repository"
+
   name         = "raw-parts"
   description  = "🪣 Types for a `Vec`'s raw parts"
   homepage_url = "https://crates.io/crates/raw-parts"
 
-  visibility = "public"
-
-  has_downloads = true
-  has_issues    = true
-  has_projects  = false
-  has_wiki      = false
-
-  delete_branch_on_merge = true
-  vulnerability_alerts   = true
-
   topics = [
-    "artichoke",
     "ffi",
     "no-std",
     "pointers",
@@ -508,36 +266,16 @@ resource "github_repository" "raw_parts" {
     "rust-crate",
     "vector",
   ]
-
-  pages {
-    source {
-      branch = "gh-pages"
-      path   = "/"
-    }
-  }
-
-  lifecycle {
-    prevent_destroy = true
-  }
 }
 
-resource "github_repository" "roe" {
+module "github_roe" {
+  source = "../modules/github-repository"
+
   name         = "roe"
   description  = "🍣 Unicode case converters"
   homepage_url = "https://crates.io/crates/roe"
 
-  visibility = "public"
-
-  has_downloads = true
-  has_issues    = true
-  has_projects  = false
-  has_wiki      = false
-
-  delete_branch_on_merge = true
-  vulnerability_alerts   = true
-
   topics = [
-    "artichoke",
     "case",
     "case-mapping",
     "lowercase",
@@ -550,36 +288,16 @@ resource "github_repository" "roe" {
     "uppercase",
     "utf-8"
   ]
-
-  pages {
-    source {
-      branch = "gh-pages"
-      path   = "/"
-    }
-  }
-
-  lifecycle {
-    prevent_destroy = true
-  }
 }
 
-resource "github_repository" "rubyconf" {
+module "github_rubyconf" {
+  source = "../modules/github-repository"
+
   name         = "rubyconf"
   description  = "📽 RubyConf presentations"
   homepage_url = "https://artichoke.github.io/rubyconf/"
 
-  visibility = "public"
-
-  has_downloads = true
-  has_issues    = true
-  has_projects  = false
-  has_wiki      = false
-
-  delete_branch_on_merge = true
-  vulnerability_alerts   = true
-
   topics = [
-    "artichoke",
     "conference-talk",
     "deck",
     "gh-pages",
@@ -591,36 +309,16 @@ resource "github_repository" "rubyconf" {
     "wasm",
     "webassembly",
   ]
-
-  pages {
-    source {
-      branch = "gh-pages"
-      path   = "/"
-    }
-  }
-
-  lifecycle {
-    prevent_destroy = true
-  }
 }
 
-resource "github_repository" "ruby_file_expand_path" {
+module "github_ruby_file_expand_path" {
+  source = "../modules/github-repository"
+
   name         = "ruby-file-expand-path"
   description  = "📂 Rust port of path normalization from MRI Ruby."
   homepage_url = "https://artichoke.github.io/ruby-file-expand-path/ruby_file_expand_path/"
 
-  visibility = "public"
-
-  has_downloads = true
-  has_issues    = true
-  has_projects  = false
-  has_wiki      = false
-
-  delete_branch_on_merge = true
-  vulnerability_alerts   = true
-
   topics = [
-    "artichoke",
     "ffi",
     "filesystem",
     "ruby",
@@ -629,36 +327,16 @@ resource "github_repository" "ruby_file_expand_path" {
     "rust-crate",
     "windows",
   ]
-
-  pages {
-    source {
-      branch = "gh-pages"
-      path   = "/"
-    }
-  }
-
-  lifecycle {
-    prevent_destroy = true
-  }
 }
 
-resource "github_repository" "strudel" {
+module "github_strudel" {
+  source = "../modules/github-repository"
+
   name         = "strudel"
   description  = "🥐 🥮 Rust port and drop-in replacement for the `st_hash` C hash table library"
   homepage_url = "https://artichoke.github.io/strudel/strudel/"
 
-  visibility = "public"
-
-  has_downloads = true
-  has_issues    = true
-  has_projects  = false
-  has_wiki      = false
-
-  delete_branch_on_merge = true
-  vulnerability_alerts   = true
-
   topics = [
-    "artichoke",
     "c",
     "ffi",
     "hashmap",
@@ -666,50 +344,20 @@ resource "github_repository" "strudel" {
     "rust",
     "rust-crate",
   ]
-
-  pages {
-    source {
-      branch = "gh-pages"
-      path   = "/"
-    }
-  }
-
-  lifecycle {
-    prevent_destroy = true
-  }
 }
 
-resource "github_repository" "www_artichokeruby_org" {
+module "github_www_artichokeruby_org" {
+  source = "../modules/github-repository"
+
   name         = "www.artichokeruby.org"
   description  = "🌐 Artichoke Ruby project website"
   homepage_url = "https://www.artichokeruby.org/"
 
-  visibility = "public"
-
-  has_downloads = true
-  has_issues    = true
-  has_projects  = false
-  has_wiki      = false
-
-  delete_branch_on_merge = true
-  vulnerability_alerts   = true
+  github_pages_cname = "www.artichokeruby.org"
 
   topics = [
-    "artichoke",
     "gh-pages",
     "project-website",
     "static-site",
   ]
-
-  pages {
-    cname = "www.artichokeruby.org"
-    source {
-      branch = "gh-pages"
-      path   = "/"
-    }
-  }
-
-  lifecycle {
-    prevent_destroy = true
-  }
 }

@@ -3,7 +3,7 @@ resource "github_actions_organization_secret" "dockerhub_token" {
   visibility      = "selected"
   plaintext_value = var.dockerhub_token
 
-  selected_repository_ids = [github_repository.docker_artichoke_nightly.repo_id]
+  selected_repository_ids = [module.github_docker_artichoke_nightly.repo_id]
 }
 
 resource "github_actions_organization_secret" "dockerhub_user" {
@@ -11,5 +11,5 @@ resource "github_actions_organization_secret" "dockerhub_user" {
   visibility      = "selected"
   plaintext_value = var.dockerhub_user
 
-  selected_repository_ids = [github_repository.docker_artichoke_nightly.repo_id]
+  selected_repository_ids = [module.github_docker_artichoke_nightly.repo_id]
 }
