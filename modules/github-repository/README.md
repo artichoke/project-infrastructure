@@ -1,7 +1,7 @@
 # GitHub Repository
 
-This folder contains a Terraform module to manage GitHub repositories that are actively
-receiving commits.
+This folder contains a Terraform module to manage GitHub repositories that are
+actively receiving commits.
 
 ## Usage
 
