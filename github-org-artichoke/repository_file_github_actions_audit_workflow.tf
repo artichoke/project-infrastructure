@@ -7,6 +7,7 @@ locals {
     "clang-format",          // https://github.com/artichoke/clang-format
     "jasper",                // https://github.com/artichoke/jasper
     "logo",                  // https://github.com/artichoke/logo
+    "spec-state",            // https://github.com/artichoke/spec-state
     "www.artichokeruby.org", // https://github.com/artichoke/www.artichokeruby.org
   ]
 

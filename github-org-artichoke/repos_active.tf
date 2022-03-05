@@ -329,6 +329,22 @@ module "github_ruby_file_expand_path" {
   ]
 }
 
+module "github_spec_state" {
+  source = "../modules/github-repository"
+
+  name         = "spec-state"
+  description  = "💎📈 Records historical ruby/spec compliance for Artichoke"
+  homepage_url = "https://github.com/artichoke/spec-state/tree/trunk/reports"
+
+  has_github_pages = false
+
+  topics = [
+    "language-specs",
+    "ruby",
+    "rubyspec",
+  ]
+}
+
 module "github_strudel" {
   source = "../modules/github-repository"
 
