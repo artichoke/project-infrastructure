@@ -6,7 +6,8 @@
 
 Infrastructure as code for the [Artichoke] open source project.
 
-This repository stores terraform configuration for Artichoke AWS resources and
-the @artichoke GitHub organization.
+This repository stores terraform configuration for artichokeruby.org AWS
+resources and the **[@artichoke]** GitHub organization.
 
 [artichoke]: https://github.com/artichoke
+[@artichoke]: https://github.com/artichoke
