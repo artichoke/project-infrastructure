@@ -2,7 +2,7 @@ locals {
   force_bump_ruby_version = false
 
   // https://github.com/ruby/ruby/tree/v3_1_0
-  ruby_version = "3.1.0"
+  ruby_version = "3.1.1"
 
   ruby_version_repos = [
     // Artichoke's `.ruby-version` file is not managed with Terraform because
