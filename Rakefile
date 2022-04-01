@@ -65,7 +65,7 @@ namespace :terraform do
   desc 'Lock terraform providers on all plaforms in all environments'
   task :'providers:lock' do
     TERRAFORM_ENVIRONMENTS.each do |environment|
-      sh "terraform -chdir=#{environment} providers lock -platform=windows_amd64 -platform=darwin_amd64 -platform=linux_amd64"
+      sh "terraform -chdir=#{environment} providers lock -platform=windows_amd64 -platform=darwin_amd64 -platform=darwin_arm64 -platform=linux_amd64"
     end
   end
 end
