@@ -43,7 +43,7 @@ locals {
     "playground", // https://github.com/artichoke/playground
   ]
 
-  // https://github.com/EmbarkStudios/cargo-deny/releases/tag/0.11.2
+  // https://github.com/EmbarkStudios/cargo-deny/releases/tag/0.11.3
   cargo_deny = {
     version  = "0.11.3"
     base_url = "https://github.com/EmbarkStudios/cargo-deny/releases/download"
