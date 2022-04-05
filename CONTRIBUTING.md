@@ -133,7 +133,7 @@ Regular dependency bumps are handled by [@dependabot].
 [good first issues are labeled `e-easy`]:
   https://github.com/artichoke/project-infrastructure/labels/E-easy
 [join artichoke's public discord server]: https://discord.gg/QCe2tp2
-[terraform]: https://www.terraform.io/downloads.html
+[terraform]: https://www.terraform.io/downloads
 [homebrew]: https://docs.brew.sh/Installation
 [bundler]: https://bundler.io/
 [rubocop]: https://github.com/rubocop-hq/rubocop
