@@ -5,10 +5,7 @@ locals {
   ruby_version = "3.1.2"
 
   ruby_version_repos = [
-    // Artichoke's `.ruby-version` file is not managed with Terraform because
-    // Ruby version upgrade require extra (and manual) care.
-    //
-    // "artichoke",             // https://github.com/artichoke/artichoke
+    "artichoke",                // https://github.com/artichoke/artichoke
     "artichoke.github.io",      // https://github.com/artichoke/artichoke.github.io
     "boba",                     // https://github.com/artichoke/boba
     "cactusref",                // https://github.com/artichoke/cactusref
