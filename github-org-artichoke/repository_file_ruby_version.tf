@@ -1,14 +1,11 @@
 locals {
   force_bump_ruby_version = false
 
-  // https://github.com/ruby/ruby/tree/v3_1_0
-  ruby_version = "3.1.1"
+  // https://github.com/ruby/ruby/tree/v3_1_2
+  ruby_version = "3.1.2"
 
   ruby_version_repos = [
-    // Artichoke's `.ruby-version` file is not managed with Terraform because
-    // Ruby version upgrade require extra (and manual) care.
-    //
-    // "artichoke",             // https://github.com/artichoke/artichoke
+    "artichoke",                // https://github.com/artichoke/artichoke
     "artichoke.github.io",      // https://github.com/artichoke/artichoke.github.io
     "boba",                     // https://github.com/artichoke/boba
     "cactusref",                // https://github.com/artichoke/cactusref
@@ -18,6 +15,7 @@ locals {
     "nightly",                  // https://github.com/artichoke/nightly
     "playground",               // https://github.com/artichoke/playground
     "project-infrastructure",   // https://github.com/artichoke/project-infrastructure
+    "qed",                      // https://github.com/artichoke/qed
     "rand_mt",                  // https://github.com/artichoke/rand_mt
     "raw-parts",                // https://github.com/artichoke/raw-parts
     "roe",                      // https://github.com/artichoke/roe
