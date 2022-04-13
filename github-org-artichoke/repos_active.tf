@@ -233,6 +233,23 @@ module "github_project_infrastructure" {
   ]
 }
 
+module "github_qed" {
+  source = "../modules/github-repository"
+
+  name         = "qed"
+  description  = "∎ Compile-time assertion macros"
+  homepage_url = "https://crates.io/crates/qed"
+
+  topics = [
+    "assert",
+    "compile-time",
+    "const-assert",
+    "no-std",
+    "rust",
+    "rust-crate",
+  ]
+}
+
 module "github_rand_mt" {
   source = "../modules/github-repository"
 
