@@ -66,6 +66,7 @@ module "org_members" {
 
   members = toset([
     "artichoke-ci",
+    "b-n",
   ])
 }
 
@@ -76,9 +77,40 @@ module "team_ci" {
   description = "Builds"
 }
 
+module "team_contributors" {
+  source = "../modules/github-team-contributors"
+
+  name        = "contributors"
+  description = "Code contributors"
+}
+
 module "team_cratesio_publishers" {
   source = "../modules/github-team-crates.io-publishers"
 
   name        = "crates.io publishers"
   description = "Core team with perissions for publishing packages to crates.io"
+}
+
+resource "github_team_repository" "contributor_repos" {
+  for_each = toset([
+    "artichoke",
+    "boba",
+    "cactusref",
+    "clang-format",
+    "focaccia",
+    "intaglio",
+    "jasper",
+    "playground",
+    "qed",
+    "rand_mt",
+    "raw-parts",
+    "roe",
+    "ruby-file-expand-path",
+    "strftime-ruby",
+    "strudel",
+  ])
+
+  team_id    = module.team_contributors.team_id
+  repository = each.value
+  permission = "push"
 }
