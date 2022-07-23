@@ -86,7 +86,7 @@ rake format:terraform             # Format Terraform sources with terraform fmt
 rake format:text                  # Format text, YAML, and Markdown sources with prettier
 rake lint                         # Lint sources
 rake lint:rubocop                 # Run RuboCop
-rake lint:rubocop:auto_correct    # Auto-correct RuboCop offenses
+rake lint:rubocop:autocorrect     # Auto-correct RuboCop offenses
 rake lint:terraform               # Lint Terraform sources
 rake release:markdown_link_check  # Check for broken links in markdown files
 rake terraform:providers:lock     # Lock terraform providers on all plaforms in all environments

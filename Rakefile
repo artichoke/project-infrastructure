@@ -16,7 +16,7 @@ TERRAFORM_ENVIRONMENTS = %w[
 task default: %i[format lint]
 
 desc 'Lint sources'
-task lint: %i[lint:rubocop:auto_correct lint:terraform]
+task lint: %i[lint:rubocop:autocorrect lint:terraform]
 
 namespace :lint do
   RuboCop::RakeTask.new(:rubocop)
