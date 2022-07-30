@@ -3,8 +3,11 @@
 👋 Hi and welcome to [Artichoke]. Thanks for taking the time to contribute!
 💪💎🙌
 
-Artichoke aspires to be a Ruby 2.6.3-compatible implementation of the Ruby
-programming language. [There is lots to do].
+Artichoke aspires to be a [recent MRI Ruby][mri-target]-compatible
+implementation of the Ruby programming language. [There is lots to do].
+
+[mri-target]:
+  https://github.com/artichoke/artichoke/blob/trunk/RUBYSPEC.md#mri-target
 
 project-infrastructure is infrastructure as code configuration for Artichoke on
 GitHub, AWS, and other platforms.
