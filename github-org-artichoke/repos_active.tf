@@ -362,6 +362,22 @@ module "github_spec_state" {
   ]
 }
 
+module "github_strftime_ruby" {
+  source = "../modules/github-repository"
+
+  name         = "strftime-ruby"
+  description  = "⏳ Ruby `Time#strftime` parser and formatter"
+  homepage_url = "https://artichoke.github.io/strftime-ruby/strftime/"
+
+  topics = [
+    "ruby",
+    "rust",
+    "rust-crate",
+    "strftime",
+    "time",
+  ]
+}
+
 module "github_strudel" {
   source = "../modules/github-repository"
 
