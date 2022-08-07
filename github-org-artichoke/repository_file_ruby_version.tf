@@ -21,6 +21,7 @@ locals {
     "roe",                      // https://github.com/artichoke/roe
     "rubyconf",                 // https://github.com/artichoke/rubyconf
     "ruby-file-expand-path",    // https://github.com/artichoke/ruby-file-expand-path
+    "strftime-ruby",            // https://github.com/artichoke/strftime-ruby
     "strudel",                  // https://github.com/artichoke/strudel
   ]
 }

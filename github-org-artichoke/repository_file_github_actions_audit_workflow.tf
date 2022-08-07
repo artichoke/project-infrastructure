@@ -36,6 +36,7 @@ locals {
     "raw-parts",             // https://github.com/artichoke/raw-parts
     "roe",                   // https://github.com/artichoke/roe
     "ruby-file-expand-path", // https://github.com/artichoke/ruby-file-expand-path
+    "strftime-ruby",         // https://github.com/artichoke/strftime-ruby
     "strudel",               // https://github.com/artichoke/strudel
   ]
 
