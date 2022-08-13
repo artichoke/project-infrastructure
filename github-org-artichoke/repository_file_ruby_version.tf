@@ -14,6 +14,7 @@ locals {
     "intaglio",                 // https://github.com/artichoke/intaglio
     "nightly",                  // https://github.com/artichoke/nightly
     "playground",               // https://github.com/artichoke/playground
+    "posix-space",              // https://github.com/artichoke/posix-space
     "project-infrastructure",   // https://github.com/artichoke/project-infrastructure
     "qed",                      // https://github.com/artichoke/qed
     "rand_mt",                  // https://github.com/artichoke/rand_mt

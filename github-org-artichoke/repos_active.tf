@@ -217,6 +217,21 @@ module "github_playground" {
   ]
 }
 
+module "github_posix_space" {
+  source = "../modules/github-repository"
+
+  name         = "posix-space"
+  description  = "🔭 Determine if a byte is a space in the POSIX locale"
+  homepage_url = "https://crates.io/crates/posix-space"
+
+  topics = [
+    "locale",
+    "posix",
+    "rust",
+    "rust-crate",
+  ]
+}
+
 module "github_project_infrastructure" {
   source = "../modules/github-repository"
 
