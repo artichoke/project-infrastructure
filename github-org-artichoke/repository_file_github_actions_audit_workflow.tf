@@ -31,6 +31,7 @@ locals {
     "cactusref",             // https://github.com/artichoke/cactusref
     "focaccia",              // https://github.com/artichoke/focaccia
     "intaglio",              // https://github.com/artichoke/intaglio
+    "posix-space",           // https://github.com/artichoke/posix-space
     "qed",                   // https://github.com/artichoke/qed
     "rand_mt",               // https://github.com/artichoke/rand_mt
     "raw-parts",             // https://github.com/artichoke/raw-parts
