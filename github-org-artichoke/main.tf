@@ -114,3 +114,12 @@ resource "github_team_repository" "contributor_repos" {
   repository = each.value
   permission = "push"
 }
+
+module "strftime_ruby_collaborators" {
+  source = "../modules/github-repository-collaborators"
+
+  repository = "strftime-ruby"
+  collaborators = [
+    { user = "x-hgg-x", role = "push" },
+  ]
+}
