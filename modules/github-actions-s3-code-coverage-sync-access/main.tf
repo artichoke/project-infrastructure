@@ -31,17 +31,28 @@ data "aws_s3_bucket" "bucket" {
 
 data "aws_iam_policy_document" "backup" {
   statement {
-    sid = "WriteBackup"
+    sid = "SyncArtifacts"
 
     effect = "Allow"
 
     actions = [
-      "s3:ListBucket",
       "s3:PutObject",
       "s3:DeleteObject",
     ]
 
     resources = ["${data.aws_s3_bucket.bucket.arn}/${var.github_repository}/*"] # tfsec:ignore:aws-iam-no-policy-wildcards
+  }
+
+  statement {
+    sid = "ListBucket"
+
+    effect = "Allow"
+
+    actions = [
+      "s3:ListBucket",
+    ]
+
+    resources = [data.aws_s3_bucket.bucket.arn]
   }
 }
 
