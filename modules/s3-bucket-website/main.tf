@@ -196,3 +196,11 @@ resource "aws_cloudfront_distribution" "website" {
     }
   }
 }
+
+resource "aws_s3_object" "robots_txt" {
+  bucket = aws_s3_bucket.this.id
+  key    = "robots.txt"
+  source = "${path.module}/robots.txt"
+
+  etag = filemd5("${path.module}/robots.txt")
+}
