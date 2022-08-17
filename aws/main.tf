@@ -72,7 +72,7 @@ module "code_coverage" {
   domains = ["codecov.artichokeruby.org"]
 
   providers = {
-    aws = aws
+    aws           = aws
     aws.us_east_1 = aws.us_east_1
   }
 }
