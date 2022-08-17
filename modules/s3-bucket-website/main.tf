@@ -235,7 +235,7 @@ resource "aws_cloudfront_distribution" "website" {
 }
 
 resource "aws_cloudfront_function" "request_handler" {
-  name    = "cloudfront-${var.domains[0]}-request-handler"
+  name    = "cloudfront-${replace(var.domains[0], ".", "-")}-request-handler"
   runtime = "cloudfront-js-1.0"
   comment = "static website request handler ${var.domains[0]}"
   publish = true
@@ -243,7 +243,7 @@ resource "aws_cloudfront_function" "request_handler" {
 }
 
 resource "aws_cloudfront_function" "response_handler" {
-  name    = "cloudfront-${var.domains[0]}-response-handler"
+  name    = "cloudfront-${replace(var.domains[0], ".", "-")}-response-handler"
   runtime = "cloudfront-js-1.0"
   comment = "static website response handler ${var.domains[0]}"
   publish = true
