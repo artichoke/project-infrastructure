@@ -109,7 +109,7 @@ resource "aws_acm_certificate" "cert" {
 
 data "aws_iam_roles" "admin" {
   path_prefix = "/aws-reserved/sso.amazonaws.com/"
-  name_regex = ".*AWSAdministratorAccess.*"
+  name_regex  = ".*AWSAdministratorAccess.*"
 }
 
 resource "aws_cloudfront_origin_access_identity" "website" {
@@ -255,7 +255,7 @@ resource "aws_s3_object" "robots_txt" {
   key    = "robots.txt"
   source = "${path.module}/robots.txt"
 
-  etag = filemd5("${path.module}/robots.txt")
+  etag         = filemd5("${path.module}/robots.txt")
   content_type = "text/plain"
 
   server_side_encryption = "AES256"
