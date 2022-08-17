@@ -134,6 +134,12 @@ resource "aws_s3_bucket_policy" "this" {
   policy = data.aws_iam_policy_document.cloudfront.json
 }
 
+
+# The below lints are disabled for cost reasons and because the site deployed
+# behind this cloudfront distribution is a static website.
+#
+# tfsec:ignore:aws-cloudfront-enable-waf
+# tfsec:ignore:aws-cloudfront-enable-logging
 resource "aws_cloudfront_distribution" "website" {
   comment = "static website ${var.domains[0]}"
 
