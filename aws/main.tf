@@ -70,6 +70,11 @@ module "code_coverage" {
   access_logs_bucket = module.forge_access_logs.name
 
   domains = ["codecov.artichokeruby.org"]
+
+  providers = {
+    aws = aws
+    aws.us_east_1 = aws.us_east_1
+  }
 }
 
 module "github_actions_code_coverage_assume_role" {
