@@ -175,6 +175,10 @@ resource "aws_cloudfront_distribution" "website" {
         forward = "none"
       }
     }
+
+    min_ttl     = 0
+    default_ttl = 30
+    max_ttl     = 86400
   }
 
   origin {
