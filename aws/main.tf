@@ -78,7 +78,7 @@ module "code_coverage" {
 }
 
 module "github_actions_code_coverage_assume_role" {
-  source   = "../modules/github-actions-s3-repo-backup-access"
+  source   = "../modules/github-actions-s3-code-coverage-sync-access"
   for_each = toset(local.code_coverage_repositories)
 
   github_oidc_provider_arn = module.github_actions_oidc_provider.arn
