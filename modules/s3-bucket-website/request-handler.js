@@ -11,7 +11,7 @@ function handler(event) {
     var response = {
       statusCode: 302,
       statusDescription: "Found",
-      headers: { location: { value: newurl } },
+      headers: { location: { value: newUrl } },
     };
 
     return response;
