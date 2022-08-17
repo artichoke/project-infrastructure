@@ -87,6 +87,8 @@ resource "aws_s3_bucket_versioning" "this" {
 }
 
 resource "aws_acm_certificate" "cert" {
+  provider = aws.us_east_1
+
   domain_name               = var.domains[0]
   subject_alternative_names = slice(var.domains, 1, length(var.domains))
   validation_method         = "EMAIL"
@@ -133,7 +135,6 @@ resource "aws_s3_bucket_policy" "this" {
 
   policy = data.aws_iam_policy_document.cloudfront.json
 }
-
 
 # The below lints are disabled for cost reasons and because the site deployed
 # behind this cloudfront distribution is a static website.

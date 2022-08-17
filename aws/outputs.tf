@@ -25,5 +25,5 @@ output "code_coverage_s3_bucket" {
 
 output "code_coverage_cloudfront_domain" {
   description = "The CloudFront domain name for the code coverage website"
-  value       = module.code_coverage.name
+  value       = module.code_coverage.cloudfront_domain_name
 }
