@@ -172,7 +172,7 @@ resource "aws_cloudfront_distribution" "website" {
     origin_id   = "main"
 
     s3_origin_config {
-      origin_access_identity = aws_cloudfront_origin_access_identity.website
+      origin_access_identity = aws_cloudfront_origin_access_identity.website.cloudfront_access_identity_path
     }
   }
 
