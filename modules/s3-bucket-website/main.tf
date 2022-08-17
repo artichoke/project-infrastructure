@@ -106,6 +106,34 @@ resource "aws_cloudfront_origin_access_identity" "website" {
   comment = "static website ${var.domains[0]} access"
 }
 
+data "aws_iam_policy_document" "cloudfront" {
+  statement {
+    sid    = "CloudFrontAccess"
+    effect = "Allow"
+
+    principal {
+      type        = "AWS"
+      identifiers = [aws_cloudfront_origin_access_identity.website.iam_arn]
+    }
+
+    actions = [
+      "s3:GetObject",
+      "s3:ListBucket"
+    ]
+
+    resources = [
+      "${aws_s3_bucket.this.arn}",
+      "${aws_s3_bucket.this.arn}/*"
+    ]
+  }
+}
+
+resource "aws_s3_bucket_policy" "this" {
+  bucket = aws_s3_bucket.this.id
+
+  policy = data.aws_iam_policy_document.cloudfront.json
+}
+
 resource "aws_cloudfront_distribution" "website" {
   comment = "static website ${var.domains[0]}"
 
