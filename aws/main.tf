@@ -87,3 +87,14 @@ module "github_actions_code_coverage_assume_role" {
 
   s3_bucket_name = module.code_coverage.name
 }
+
+resource "aws_s3_object" "code_coverage_index_html" {
+  bucket = module.code_coverage.name
+  key    = "index.html"
+  source = "${path.module}/code-coverage-index.html"
+
+  etag         = filemd5("${path.module}/code-coverage-index.html")
+  content_type = "text/html"
+
+  server_side_encryption = "AES256"
+}
