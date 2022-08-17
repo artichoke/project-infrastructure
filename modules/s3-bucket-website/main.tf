@@ -256,4 +256,7 @@ resource "aws_s3_object" "robots_txt" {
   source = "${path.module}/robots.txt"
 
   etag = filemd5("${path.module}/robots.txt")
+  content_type = "text/plain"
+
+  server_side_encryption = "AES256"
 }
