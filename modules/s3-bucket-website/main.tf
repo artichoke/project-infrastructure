@@ -179,6 +179,16 @@ resource "aws_cloudfront_distribution" "website" {
     min_ttl     = 0
     default_ttl = 30
     max_ttl     = 86400
+
+    function_association {
+      event_type   = "viewer-request"
+      function_arn = aws_cloudfront_function.request_handler.arn
+    }
+
+    function_association {
+      event_type   = "viewer-response"
+      function_arn = aws_cloudfront_function.response_handler.arn
+    }
   }
 
   origin {
@@ -195,6 +205,22 @@ resource "aws_cloudfront_distribution" "website" {
       restriction_type = "none"
     }
   }
+}
+
+resource "aws_cloudfront_function" "request_handler" {
+  name    = "cloudfront-${var.domains[0]}-request-handler"
+  runtime = "cloudfront-js-1.0"
+  comment = "static website request handler ${var.domains[0]}"
+  publish = true
+  code    = file("${path.module}/request-handler.js")
+}
+
+resource "aws_cloudfront_function" "response_handler" {
+  name    = "cloudfront-${var.domains[0]}-response-handler"
+  runtime = "cloudfront-js-1.0"
+  comment = "static website response handler ${var.domains[0]}"
+  publish = true
+  code    = file("${path.module}/response-handler.js")
 }
 
 resource "aws_s3_object" "robots_txt" {
