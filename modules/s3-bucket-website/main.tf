@@ -98,6 +98,9 @@ resource "aws_acm_certificate" "cert" {
     validation_domain = "artichokeruby.org"
   }
 
+  options {
+    certificate_transparency_logging_preference = "ENABLED"
+  }
 
   lifecycle {
     create_before_destroy = true
