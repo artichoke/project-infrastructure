@@ -111,7 +111,7 @@ data "aws_iam_policy_document" "cloudfront" {
     sid    = "CloudFrontAccess"
     effect = "Allow"
 
-    principal {
+    principals {
       type        = "AWS"
       identifiers = [aws_cloudfront_origin_access_identity.website.iam_arn]
     }
