@@ -28,6 +28,13 @@ module "github_actions_project_infrastructure_assume_role" {
   s3_bucket_name = "artichoke-forge-project-infrastructure-terraform-state"
 }
 
+module "forge_access_logs" {
+  source = "../modules/access-logs-s3-bucket"
+
+  bucket = "artichoke-forge-s3-logs-${var.region}"
+}
+
+# deprecated
 module "repo_backups_access_logs" {
   source = "../modules/access-logs-s3-bucket"
 
@@ -38,7 +45,7 @@ module "repo_backups" {
   source = "../modules/private-archive-s3-bucket"
 
   bucket             = "artichoke-forge-github-backups-${var.region}"
-  access_logs_bucket = module.repo_backups_access_logs.name
+  access_logs_bucket = module.forge_access_logs.name
 }
 
 module "github_actions_s3_backups_assume_role" {
