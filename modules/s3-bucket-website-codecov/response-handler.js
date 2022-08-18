@@ -17,9 +17,6 @@ function handler(event) {
 
   // https://infosec.mozilla.org/guidelines/web_security#content-security-policy
   // https://infosec.mozilla.org/guidelines/web_security#x-frame-options
-  //
-  // TODO: determine a safe CSP.
-  //
   headers["content-security-policy"] = {
     value:
       "frame-ancestors 'none'; style-src 'self' https://cdn.jsdelivr.net/ 'nonce-b77e5ce9ed'; img-src 'self'; object-src 'none'; script-src 'none'; trusted-types; require-trusted-types-for 'script';",
