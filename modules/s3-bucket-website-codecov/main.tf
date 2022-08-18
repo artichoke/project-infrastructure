@@ -211,11 +211,6 @@ resource "aws_cloudfront_distribution" "website" {
       event_type   = "viewer-request"
       function_arn = aws_cloudfront_function.request_handler.arn
     }
-
-    function_association {
-      event_type   = "viewer-response"
-      function_arn = aws_cloudfront_function.response_handler.arn
-    }
   }
 
   origin {
