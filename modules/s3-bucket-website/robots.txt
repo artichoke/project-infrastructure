@@ -1,0 +1,4 @@
+# https://infosec.mozilla.org/guidelines/web_security#robotstxt
+# Stop all search engines from crawling this site
+User-agent: *
+Disallow: /
