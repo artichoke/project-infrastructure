@@ -237,14 +237,6 @@ resource "aws_cloudfront_function" "request_handler" {
   code    = file("${path.module}/request-handler.js")
 }
 
-resource "aws_cloudfront_function" "response_handler" {
-  name    = "cloudfront-${replace(var.domains[0], ".", "-")}-response-handler"
-  runtime = "cloudfront-js-1.0"
-  comment = "static website response handler ${var.domains[0]}"
-  publish = false
-  code    = file("${path.module}/response-handler.js")
-}
-
 resource "aws_s3_object" "robots_txt" {
   bucket = aws_s3_bucket.this.id
   key    = "robots.txt"
