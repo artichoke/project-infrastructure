@@ -207,14 +207,11 @@ resource "aws_cloudfront_distribution" "website" {
     default_ttl = 30
     max_ttl     = 86400
 
+    response_headers_policy_id = aws_cloudfront_response_headers_policy.website.id
+
     function_association {
       event_type   = "viewer-request"
       function_arn = aws_cloudfront_function.request_handler.arn
-    }
-
-    function_association {
-      event_type   = "viewer-response"
-      function_arn = aws_cloudfront_function.response_handler.arn
     }
   }
 
@@ -242,12 +239,64 @@ resource "aws_cloudfront_function" "request_handler" {
   code    = file("${path.module}/request-handler.js")
 }
 
-resource "aws_cloudfront_function" "response_handler" {
-  name    = "cloudfront-${replace(var.domains[0], ".", "-")}-response-handler"
-  runtime = "cloudfront-js-1.0"
-  comment = "static website response handler ${var.domains[0]}"
-  publish = true
-  code    = file("${path.module}/response-handler.js")
+resource "aws_cloudfront_response_headers_policy" "website" {
+  name    = "cloudfront-${replace(var.domains[0], ".", "-")}-response-headers"
+  comment = "static website ${var.domains[0]}"
+
+  custom_headers_config {
+    # Prevent user agents from caching responses from this CloudFront
+    # distribution.
+    #
+    # Per a request to <https://github.com/artichoke/strftime-ruby/workflows/CI/badge.svg>,
+    # badges should return a `Cache-Control: no-cache` header. This header
+    # prevents GitHub's camo servers from caching README badges.
+    items {
+      header   = "cache-control"
+      value    = "no-cache"
+      override = true
+    }
+  }
+
+  security_headers_config {
+    # https://infosec.mozilla.org/guidelines/web_security#content-security-policy
+    # https://infosec.mozilla.org/guidelines/web_security#x-frame-options
+    content_security_policy {
+      content_security_policy = "frame-ancestors 'none'; style-src 'self' https://cdn.jsdelivr.net/ 'nonce-b77e5ce9ed'; img-src 'self'; object-src 'none'; script-src 'none'; trusted-types; require-trusted-types-for 'script';"
+      override                = true
+    }
+
+    # https://infosec.mozilla.org/guidelines/web_security#x-content-type-options
+    content_type_options {
+      override = true
+    }
+
+    # https://infosec.mozilla.org/guidelines/web_security#x-frame-options
+    frame_options {
+      frame_option = "DENY"
+      override     = true
+    }
+
+    # https://infosec.mozilla.org/guidelines/web_security#referrer-policy
+    referrer_policy {
+      referrer_policy = "no-referrer"
+      override        = true
+    }
+
+    # https://infosec.mozilla.org/guidelines/web_security#http-strict-transport-security
+    strict_transport_security {
+      access_control_max_age_sec = 63072000
+      include_subdomains         = false
+      preload                    = false
+      override                   = true
+    }
+
+    # https://infosec.mozilla.org/guidelines/web_security#x-xss-protection
+    xss_protection {
+      protection = true
+      mode_block = true
+      override   = true
+    }
+  }
 }
 
 resource "aws_s3_object" "robots_txt" {
