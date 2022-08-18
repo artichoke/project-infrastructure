@@ -260,3 +260,36 @@ resource "aws_s3_object" "robots_txt" {
 
   server_side_encryption = "AES256"
 }
+
+resource "aws_s3_object" "index_html" {
+  bucket = aws_s3_bucket.this.id
+  key    = "index.html"
+  source = "${path.module}/code-coverage-index.html"
+
+  etag         = filemd5("${path.module}/code-coverage-index.html")
+  content_type = "text/html"
+
+  server_side_encryption = "AES256"
+}
+
+resource "aws_s3_object" "favicon_png" {
+  bucket = aws_s3_bucket.this.id
+  key    = "favicon.png"
+  source = "${path.module}/favicon-32x32.png"
+
+  etag         = filemd5("${path.module}/favicon-32x32.png")
+  content_type = "image/png"
+
+  server_side_encryption = "AES256"
+}
+
+resource "aws_s3_object" "favicon_ico" {
+  bucket = aws_s3_bucket.this.id
+  key    = "favicon.ico"
+  source = "${path.module}/favicon.ico"
+
+  etag         = filemd5("${path.module}/favicon.ico")
+  content_type = "image/x-icon"
+
+  server_side_encryption = "AES256"
+}

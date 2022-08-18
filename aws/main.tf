@@ -64,7 +64,7 @@ module "github_actions_s3_backups_assume_role" {
 }
 
 module "code_coverage" {
-  source = "../modules/s3-bucket-website"
+  source = "../modules/s3-bucket-website-codecov"
 
   bucket             = "artichoke-forge-code-coverage-${var.region}"
   access_logs_bucket = module.forge_access_logs.name
@@ -86,37 +86,4 @@ module "github_actions_code_coverage_assume_role" {
   github_repository        = each.value
 
   s3_bucket_name = module.code_coverage.name
-}
-
-resource "aws_s3_object" "code_coverage_index_html" {
-  bucket = module.code_coverage.name
-  key    = "index.html"
-  source = "${path.module}/code-coverage-index.html"
-
-  etag         = filemd5("${path.module}/code-coverage-index.html")
-  content_type = "text/html"
-
-  server_side_encryption = "AES256"
-}
-
-resource "aws_s3_object" "code_coverage_favicon" {
-  bucket = module.code_coverage.name
-  key    = "favicon.png"
-  source = "${path.module}/favicon-32x32.png"
-
-  etag         = filemd5("${path.module}/favicon-32x32.png")
-  content_type = "image/png"
-
-  server_side_encryption = "AES256"
-}
-
-resource "aws_s3_object" "code_coverage_favicon_ico" {
-  bucket = module.code_coverage.name
-  key    = "favicon.ico"
-  source = "${path.module}/favicon.ico"
-
-  etag         = filemd5("${path.module}/favicon.ico")
-  content_type = "image/x-icon"
-
-  server_side_encryption = "AES256"
 }

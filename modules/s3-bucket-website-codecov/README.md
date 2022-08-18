@@ -1,7 +1,8 @@
-# Private S3 Bucket
+# S3 Bucket Website `codecov`
 
 This folder contains a Terraform module to provision an AWS S3 bucket with no
-public access and access logging enabled.
+public access that is made accessible via CloudFront for
+`codecov.artichokeruby.org`.
 
 ## Usage
 
@@ -9,14 +10,21 @@ public access and access logging enabled.
 module "access_logs" {
   source = "../modules/access-logs-s3-bucket"
 
-  bucket = "artichoke-forge-project-infrastructure-terraform-state-logs"
+  bucket = "artichoke-forge-logs"
 }
 
-module "bucket" {
-  source = "../modules/private-s3-bucket"
+module "code_coverage" {
+  source = "../modules/s3-bucket-website"
 
-  bucket = "artichoke-forge-project-infrastructure-terraform-state"
+  bucket             = "artichoke-forge-code-coverage"
   access_logs_bucket = module.access_logs.name
+
+  domains = ["codecov.artichokeruby.org"]
+
+  providers = {
+    aws           = aws
+    aws.us_east_1 = aws.us_east_1
+  }
 }
 ```
 
