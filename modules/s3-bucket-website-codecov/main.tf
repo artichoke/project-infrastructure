@@ -177,6 +177,7 @@ resource "aws_cloudfront_distribution" "website" {
   enabled             = true
   wait_for_deployment = false
   is_ipv6_enabled     = true
+  http_version        = "http2and3"
   default_root_object = "index.html"
   price_class         = "PriceClass_All"
 
