@@ -32,7 +32,7 @@ module "rust_code_coverage_workflow" {
     "${path.module}/templates/rust-code-coverage.yaml",
     {
       s3_bucket         = data.terraform_remote_state.aws.outputs.code_coverage_s3_bucket,
-      backup_role_arn   = data.terraform_remote_state.aws.outputs.github_actions_code_coverage_assume_role[each.value],
+      backup_role_arn   = data.terraform_remote_state.aws.outputs.github_actions_code_coverage_assume_role_arn[each.value],
       github_repository = each.value,
     }
   )
