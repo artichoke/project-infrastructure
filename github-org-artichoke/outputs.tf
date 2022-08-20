@@ -23,6 +23,11 @@ output "audit_workflow_node_ruby_rust_branches" {
   value       = join("\n", concat(length(module.audit_workflow_node_ruby_rust) == 0 ? [] : ["## Branches", ""], formatlist("- %s", [for repo, audit_workflow in module.audit_workflow_node_ruby_rust : audit_workflow.branch_href])))
 }
 
+output "rust_code_coverage_workflow_branches" {
+  description = "Links to GitHub with changes to the Rust `code-coverage` workflow"
+  value       = join("\n", concat(length(module.rust_code_coverage_workflow) == 0 ? [] : ["## Branches", ""], formatlist("- %s", [for repo, code_coverage_workflow in module.rust_code_coverage_workflow : code_coverage_workflow.branch_href])))
+}
+
 output "rustdoc_workflow_branches" {
   description = "Links to GitHub with changes to the `rustdoc` workflow"
   value       = join("\n", concat(length(module.rustdoc_workflow) == 0 ? [] : ["## Branches", ""], formatlist("- %s", [for repo, rustdoc_workflow in module.rustdoc_workflow : rustdoc_workflow.branch_href])))

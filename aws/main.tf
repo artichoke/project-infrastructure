@@ -14,7 +14,19 @@ locals {
   ]
 
   code_coverage_repositories = [
-    "strftime-ruby",
+    "boba",          // https://github.com/artichoke/boba
+    "focaccia",      // https://github.com/artichoke/focaccia
+    "intaglio",      // https://github.com/artichoke/intaglio
+    "posix-space",   // https://github.com/artichoke/posix-space
+    "rand_mt",       // https://github.com/artichoke/rand_mt
+    "raw-parts",     // https://github.com/artichoke/raw-parts
+    "roe",           // https://github.com/artichoke/roe
+    "strftime-ruby", // https://github.com/artichoke/strftime-ruby
+    # "artichoke",   // https://github.com/artichoke/artichoke
+    # "cactusref",   // https://github.com/artichoke/cactusref
+    # "playground",  // https://github.com/artichoke/playground
+    # "qed",         // https://github.com/artichoke/qed
+    # "strudel",     // https://github.com/artichoke/strudel
   ]
 }
 
