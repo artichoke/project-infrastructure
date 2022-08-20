@@ -13,6 +13,18 @@ provider "github" {
   owner = "artichoke"
 }
 
+data "terraform_remote_state" "aws" {
+  backend = "s3"
+
+  config = {
+    bucket         = "artichoke-forge-project-infrastructure-terraform-state"
+    region         = "us-west-2"
+    key            = "aws/terraform.tfstate"
+    encrypt        = true
+    dynamodb_table = "terraform_statelock"
+  }
+}
+
 module "git_events_webhook" {
   source = "../modules/github-discord-webhook"
 

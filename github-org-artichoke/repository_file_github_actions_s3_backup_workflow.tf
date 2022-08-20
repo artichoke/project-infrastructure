@@ -8,18 +8,6 @@ locals {
   ]
 }
 
-data "terraform_remote_state" "aws" {
-  backend = "s3"
-
-  config = {
-    bucket         = "artichoke-forge-project-infrastructure-terraform-state"
-    region         = "us-west-2"
-    key            = "aws/terraform.tfstate"
-    encrypt        = true
-    dynamodb_table = "terraform_statelock"
-  }
-}
-
 resource "random_integer" "cron_day_of_month" {
   for_each = toset(local.s3_backup_repos)
 

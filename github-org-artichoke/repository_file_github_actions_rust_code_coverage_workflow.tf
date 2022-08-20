@@ -20,18 +20,6 @@ locals {
   ]
 }
 
-data "terraform_remote_state" "aws" {
-  backend = "s3"
-
-  config = {
-    bucket         = "artichoke-forge-project-infrastructure-terraform-state"
-    region         = "us-west-2"
-    key            = "aws/terraform.tfstate"
-    encrypt        = true
-    dynamodb_table = "terraform_statelock"
-  }
-}
-
 module "rust_code_coverage_workflow" {
   source   = "../modules/update-github-repository-file"
   for_each = toset(local.force_bump_rust_code_coverage ? local.rust_code_coverage_repos : [])
