@@ -2,7 +2,7 @@ locals {
   // Set `force_bump_s3_backup` to true to create branches for PRs that update
   // the S3 backup workflow organization-wide.
 
-  force_bump_rust_code_coverage = true
+  force_bump_rust_code_coverage = false
   rust_code_coverage_repos = [
     "boba",          // https://github.com/artichoke/boba
     "focaccia",      // https://github.com/artichoke/focaccia
