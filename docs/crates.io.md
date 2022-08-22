@@ -22,21 +22,19 @@ used as dependencies in a Rust project with Cargo.
 
 ## Crates
 
-| Crate                                          | Description                                                               | Who Are Admins?                                | Has Team Owner? | Crate Reservation? |
-| ---------------------------------------------- | ------------------------------------------------------------------------- | ---------------------------------------------- | --------------- | ------------------ |
-| [`artichoke`]                                  | Empty crate, used only to reserve the name                                | [@lopopolo], [@artichoke/crates-io-publishers] | ✅              | ✅                 |
-| [`artichokeruby`]                              | Empty crate, used only to reserve the name                                | [@lopopolo], [@artichoke/crates-io-publishers] | ✅              | ✅                 |
-| [`artichoke-ruby`]                             | Empty crate, used only to reserve the name                                | [@lopopolo], [@artichoke/crates-io-publishers] | ✅              | ✅                 |
-| [`boba`]                                       | Encoder and decoder for the Bubble Babble binary data encoding            | [@lopopolo], [@artichoke/crates-io-publishers] | ✅              |                    |
-| [`cactusref`]                                  | Cycle-aware reference counting smart pointer                              |
-| [@lopopolo], [@artichoke/crates-io-publishers] | ✅                                                                        |                                                |
-| [`focaccia`]                                   | no_std implementation of Unicode case folding comparisons                 | [@lopopolo], [@artichoke/crates-io-publishers] | ✅              |                    |
-| [`intaglio`]                                   | UTF-8 string and bytestring interner and symbol table                     | [@lopopolo], [@artichoke/crates-io-publishers] | ✅              |                    |
-| [`invokedynamic`]                              | Empty crate, used only to reserve the name                                | [@lopopolo], [@artichoke/crates-io-publishers] | ✅              | ✅                 |
-| [`rand_mt`]                                    | Reference Mersenne Twister random number generators.                      | [@lopopolo], [@artichoke/crates-io-publishers] | ✅              |                    |
-| [`raw-parts`]                                  | Ergonomic wrapper around `Vec::from_raw_parts` and `Vec::into_raw_parts`. |
-| [@lopopolo], [@artichoke/crates-io-publishers] | ✅                                                                        |                                                |
-| [`roe`]                                        | Unicode case conversion                                                   | [@lopopolo], [@artichoke/crates-io-publishers] | ✅              |                    |
+| Crate              | Description                                                               | Who Are Admins?                                | Has Team Owner? | Crate Reservation? |
+| ------------------ | ------------------------------------------------------------------------- | ---------------------------------------------- | --------------- | ------------------ |
+| [`artichoke`]      | Empty crate, used only to reserve the name                                | [@lopopolo], [@artichoke/crates-io-publishers] | ✅              | ✅                 |
+| [`artichokeruby`]  | Empty crate, used only to reserve the name                                | [@lopopolo], [@artichoke/crates-io-publishers] | ✅              | ✅                 |
+| [`artichoke-ruby`] | Empty crate, used only to reserve the name                                | [@lopopolo], [@artichoke/crates-io-publishers] | ✅              | ✅                 |
+| [`boba`]           | Encoder and decoder for the Bubble Babble binary data encoding            | [@lopopolo], [@artichoke/crates-io-publishers] | ✅              |                    |
+| [`cactusref`]      | Cycle-aware reference counting smart pointer                              | [@lopopolo], [@artichoke/crates-io-publishers] | ✅              |                    |
+| [`focaccia`]       | no_std implementation of Unicode case folding comparisons                 | [@lopopolo], [@artichoke/crates-io-publishers] | ✅              |                    |
+| [`intaglio`]       | UTF-8 string and bytestring interner and symbol table                     | [@lopopolo], [@artichoke/crates-io-publishers] | ✅              |                    |
+| [`invokedynamic`]  | Empty crate, used only to reserve the name                                | [@lopopolo], [@artichoke/crates-io-publishers] | ✅              | ✅                 |
+| [`rand_mt`]        | Reference Mersenne Twister random number generators.                      | [@lopopolo], [@artichoke/crates-io-publishers] | ✅              |                    |
+| [`raw-parts`]      | Ergonomic wrapper around `Vec::from_raw_parts` and `Vec::into_raw_parts`. | [@lopopolo], [@artichoke/crates-io-publishers] | ✅              |                    |
+| [`roe`]            | Unicode case conversion                                                   | [@lopopolo], [@artichoke/crates-io-publishers] | ✅              |                    |
 
 [`artichoke`]: https://crates.io/crates/artichoke
 [`artichokeruby`]: https://crates.io/crates/artichokeruby
