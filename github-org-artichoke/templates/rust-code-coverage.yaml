@@ -44,9 +44,7 @@ jobs:
           RUSTFLAGS: "-C instrument-coverage"
           # Unstable feature: https://github.com/rust-lang/rust/issues/56925
           RUSTDOCFLAGS: "-C instrument-coverage -Z unstable-options --persist-doctests target/debug/doctests"
-        run: |
-          cargo +nightly test --lib
-          cargo +nightly test --doc
+        run: cargo test
 
       - name: Generate HTML report
         run: grcov ${github_repository}*.profraw --source-dir . --binary-path target/debug -t html --filter covered -o target/coverage
