@@ -47,10 +47,10 @@ jobs:
         run: cargo test
 
       - name: Generate HTML report
-        run: grcov ${github_repository}*.profraw --source-dir . --binary-path target/debug -t html --filter covered -o target/coverage
+        run: grcov ${github_repository}*.profraw --source-dir . --keep-only 'src/*' --binary-path target/debug -t html --filter covered -o target/coverage
 
       - name: Generate detailed JSON report
-        run: grcov ${github_repository}*.profraw --source-dir . --binary-path target/debug -t covdir --filter covered -o target/coverage/coverage.json
+        run: grcov ${github_repository}*.profraw --source-dir . --keep-only 'src/*' --binary-path target/debug -t covdir --filter covered -o target/coverage/coverage.json
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@master
