@@ -16,20 +16,33 @@
 
 ## Web Properties
 
-| Property                   | DNS                                | Description                         | HTTPS? | HSTS[^2]? |
-| -------------------------- | ---------------------------------- | ----------------------------------- | ------ | --------- |
-| artichoke.run              | A and AAAA records to GitHub Pages | Wasm playground                     | ✅     | ❌        |
-| www.artichoke.run          | CNAME to GitHub Pages              | Wasm playground redirect            | ✅     | ❌        |
-| artichokeruby.com          | Google-managed redirect            | Project website redirect            | ✅     | ❌        |
-| www.artichokeruby.com      | Google-managed redirect            | Project website redirect            | ✅     | ❌        |
-| rubyconf2019.artichoke.run | CNAME to GitHub Pages              | Snapshot of the Wasm playground[^3] | ✅     | ❌        |
-| artichokeruby.org          | Google-managed redirect            | Project website redirect            | ✅     | ❌        |
-| codecov.artichokeruby.org  | CNAME to CloudFront distribution   | Code coverage reports               | ✅     | ✅        |
-| www.artichokeruby.org      | CNAME to GitHub Pages              | Project website                     | ✅     | ❌        |
-| artichokeruby.net          | Google-managed redirect            | Project website redirect            | ✅     | ❌        |
-| www.artichokeruby.net      | Google-managed redirect            | Project website redirect            | ✅     | ❌        |
-| artichokeruby.run          | Google-managed redirect            | Wasm playground website redirect    | ✅     | ❌        |
-| www.artichokeruby.run      | Google-managed redirect            | Wasm playground website redirect    | ✅     | ❌        |
+| Property                     | DNS                                | Description                         | HTTPS? | HSTS[^2]? |
+| ---------------------------- | ---------------------------------- | ----------------------------------- | ------ | --------- |
+| [artichoke.run]              | A and AAAA records to GitHub Pages | Wasm playground                     | ✅     | ❌        |
+| [www.artichoke.run]          | CNAME to GitHub Pages              | Wasm playground redirect            | ✅     | ❌        |
+| [artichokeruby.com]          | Google-managed redirect            | Project website redirect            | ✅     | ❌        |
+| [www.artichokeruby.com]      | Google-managed redirect            | Project website redirect            | ✅     | ❌        |
+| [rubyconf2019.artichoke.run] | CNAME to GitHub Pages              | Snapshot of the Wasm playground[^3] | ✅     | ❌        |
+| [artichokeruby.org]          | Google-managed redirect            | Project website redirect            | ✅     | ❌        |
+| [codecov.artichokeruby.org]  | CNAME to CloudFront distribution   | Code coverage reports               | ✅     | ✅        |
+| [www.artichokeruby.org]      | CNAME to GitHub Pages              | Project website                     | ✅     | ❌        |
+| [artichokeruby.net]          | Google-managed redirect            | Project website redirect            | ✅     | ❌        |
+| [www.artichokeruby.net]      | Google-managed redirect            | Project website redirect            | ✅     | ❌        |
+| [artichokeruby.run]          | Google-managed redirect            | Wasm playground website redirect    | ✅     | ❌        |
+| [www.artichokeruby.run]      | Google-managed redirect            | Wasm playground website redirect    | ✅     | ❌        |
+
+[artichoke.run]: https://artichoke.run/
+[www.artichoke.run]: https://www.artichoke.run/
+[artichokeruby.com]: https://artichokeruby.com/
+[www.artichokeruby.com]: https://www.artichokeruby.com/
+[rubyconf2019.artichoke.run]: https://rubyconf2019.artichoke.run/
+[artichokeruby.org]: https://artichokeruby.org/
+[codecov.artichokeruby.org]: https://codecov.artichokeruby.org/
+[www.artichokeruby.org]: https://www.artichokeruby.org/
+[artichokeruby.net]: https://artichokeruby.net/
+[www.artichokeruby.net]: https://www.artichokeruby.net/
+[artichokeruby.run]: https://artichokeruby.run/
+[www.artichokeruby.run]: https://www.artichokeruby.run/
 
 [^2]: Property sets [HTTP Strict Transport Security][hsts-explainer] headers.
 [^3]:
