@@ -23,6 +23,11 @@ resource "github_repository" "this" {
   delete_branch_on_merge = var.delete_branch_on_merge
   vulnerability_alerts   = var.vulnerability_alerts
 
+  merge_commit_title          = "MERGE_MESSAGE"
+  merge_commit_message        = "PR_TITLE"
+  squash_merge_commit_title   = "PR_TITLE"
+  squash_merge_commit_message = "PR_BODY"
+
   topics = toset(concat(var.topics, ["artichoke"]))
 
   dynamic "pages" {
