@@ -125,6 +125,27 @@ module "github_focaccia" {
   ]
 }
 
+module "github_generate_third_party" {
+  source = "../modules/github-repository"
+
+  name         = "generate_third_party"
+  description  = "📜 Generate listings of third party licenses for Artichoke Ruby"
+  homepage_url = "https://github.com/artichoke/generate_third_party#github-actions"
+
+  has_github_pages = false
+
+  topics = [
+    "cli",
+    "github-actions",
+    "license-checking",
+    "licensing",
+    "ruby",
+    "rubygem",
+    "rust",
+    "spdx",
+  ]
+}
+
 module "github_intaglio" {
   source = "../modules/github-repository"
 
