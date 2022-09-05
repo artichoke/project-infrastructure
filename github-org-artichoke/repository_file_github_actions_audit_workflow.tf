@@ -24,7 +24,7 @@ locals {
     "rubyconf",            // https://github.com/artichoke/rubyconf
   ]
 
-  force_bump_audit_ruby_rust = true
+  force_bump_audit_ruby_rust = false
   audit_ruby_rust_repos = [
     "artichoke",             // https://github.com/artichoke/artichoke
     "boba",                  // https://github.com/artichoke/boba
@@ -41,7 +41,7 @@ locals {
     "strudel",               // https://github.com/artichoke/strudel
   ]
 
-  force_bump_audit_node_ruby_rust = true
+  force_bump_audit_node_ruby_rust = false
   audit_node_ruby_rust_repos = [
     "playground", // https://github.com/artichoke/playground
   ]
