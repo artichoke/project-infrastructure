@@ -128,7 +128,7 @@ resource "github_repository" "oniguruma" {
 # tfsec:ignore:github-repositories-enable_vulnerability_alerts
 resource "github_repository" "ruby" {
   name         = "ruby"
-  description  = "Artichoke fork of Ruby 2.6.3"
+  description  = "Artichoke fork of Ruby 3.1.2"
   homepage_url = "https://www.ruby-lang.org/"
 
   visibility = "public"
