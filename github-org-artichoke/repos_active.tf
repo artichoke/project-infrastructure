@@ -403,7 +403,7 @@ module "github_strftime_ruby" {
 
   name         = "strftime-ruby"
   description  = "⏳ Ruby `Time#strftime` parser and formatter"
-  homepage_url = "https://artichoke.github.io/strftime-ruby/strftime/"
+  homepage_url = "https://crates.io/crates/strftime-ruby"
 
   topics = [
     "ruby",
