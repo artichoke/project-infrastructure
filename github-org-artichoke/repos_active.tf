@@ -382,6 +382,24 @@ module "github_ruby_file_expand_path" {
   ]
 }
 
+module "github_setup_rust" {
+  source = "../modules/github-repository"
+
+  name         = "setup-rust"
+  description  = "⛓ GitHub Actions for setting up Rust toolchains"
+  homepage_url = "https://github.com/artichoke/setup-rust#readme"
+
+  has_github_pages = false
+
+  topics = [
+    "github-actions",
+    "rust",
+    "rustdoc",
+    "rustup",
+    "toolchain",
+  ]
+}
+
 module "github_spec_state" {
   source = "../modules/github-repository"
 
