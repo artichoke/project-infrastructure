@@ -24,8 +24,8 @@ jobs:
       - name: Set archive directory
         id: paths
         run: |
-          echo "::set-output name=archive_dir::${github_repository}-$(date '+%Y-%m-%d')"
-          echo "::set-output name=releases_dir::${github_repository}-releases-$(date '+%Y-%m-%d')"
+          echo "archive_dir=${github_repository}-$(date '+%Y-%m-%d')" >> $GITHUB_OUTPUT
+          echo "releases_dir=${github_repository}-releases-$(date '+%Y-%m-%d')" >> $GITHUB_OUTPUT
 
       - name: Backup repository
         run: |
@@ -53,14 +53,14 @@ jobs:
         run: |
           tar_archive_name="$${{ steps.paths.outputs.archive_dir }}.tar.gz"
           tar czf "$${tar_archive_name}" "$${{ steps.paths.outputs.archive_dir }}"
-          echo "::set-output name=file_name::$${tar_archive_name}"
+          echo "file_name=$${tar_archive_name}" >> $GITHUB_OUTPUT
 
       - name: Make a zip archive
         id: zip_archive
         run: |
           zip_archive_name="$${{ steps.paths.outputs.archive_dir }}.zip"
           zip -r "$${zip_archive_name}" "$${{ steps.paths.outputs.archive_dir }}"
-          echo "::set-output name=file_name::$${zip_archive_name}"
+          echo "file_name=$${zip_archive_name}" >> $GITHUB_OUTPUT
 
       - name: Backup releases
         run: |
