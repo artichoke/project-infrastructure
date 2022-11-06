@@ -2,7 +2,7 @@ locals {
   // Set `force_bump_...` to true to create branches for PRs that update the
   // rustdoc Documentation workflow organization-wide.
 
-  force_bump_rustdoc = false
+  force_bump_rustdoc = true
   rustdoc_repos = [
     // artichoke has custom bits that are manually managed.
     // playground does not deploy rustdoc to GitHub Pages.
