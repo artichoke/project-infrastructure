@@ -1,7 +1,7 @@
 output "branch_href" {
   description = "Link to the newly-created branch"
   value = join("/", [
-    "https://github.com/",
+    "https://github.com",
     var.organization,
     var.repository,
     "tree",
