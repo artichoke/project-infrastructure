@@ -46,3 +46,9 @@ resource "github_repository" "this" {
     prevent_destroy = true
   }
 }
+
+resource "github_actions_repository_permissions" "this" {
+  repository      = github_repository.this.name
+  enabled         = true
+  allowed_actions = "all"
+}

@@ -32,6 +32,11 @@ resource "github_branch_default" "mruby" {
   branch     = "artichoke-vendor"
 }
 
+resource "github_actions_repository_permissions" "mruby" {
+  repository = github_repository.mruby.name
+  enabled    = false
+}
+
 # tfsec:ignore:github-repositories-enable_vulnerability_alerts
 resource "github_repository" "mspec" {
   name         = "mspec"
@@ -67,6 +72,11 @@ resource "github_branch_default" "mspec" {
   branch     = "artichoke-vendor"
 }
 
+resource "github_actions_repository_permissions" "mspec" {
+  repository = github_repository.mspec.name
+  enabled    = false
+}
+
 # tfsec:ignore:github-repositories-enable_vulnerability_alerts
 resource "github_repository" "onigmo" {
   name        = "Onigmo"
@@ -96,6 +106,11 @@ resource "github_repository" "onigmo" {
   }
 }
 
+resource "github_actions_repository_permissions" "onigmo" {
+  repository = github_repository.onigmo.name
+  enabled    = false
+}
+
 # tfsec:ignore:github-repositories-enable_vulnerability_alerts
 resource "github_repository" "oniguruma" {
   name        = "oniguruma"
@@ -123,6 +138,11 @@ resource "github_repository" "oniguruma" {
   lifecycle {
     prevent_destroy = true
   }
+}
+
+resource "github_actions_repository_permissions" "oniguruma" {
+  repository = github_repository.oniguruma.name
+  enabled    = false
 }
 
 # tfsec:ignore:github-repositories-enable_vulnerability_alerts
@@ -158,6 +178,11 @@ resource "github_repository" "ruby" {
 resource "github_branch_default" "ruby" {
   repository = github_repository.ruby.name
   branch     = "artichoke-vendor"
+}
+
+resource "github_actions_repository_permissions" "ruby" {
+  repository = github_repository.ruby.name
+  enabled    = false
 }
 
 # tfsec:ignore:github-repositories-enable_vulnerability_alerts
@@ -196,6 +221,11 @@ resource "github_branch_default" "rust_onig" {
   branch     = "artichoke-vendor"
 }
 
+resource "github_actions_repository_permissions" "rust_onig" {
+  repository = github_repository.rust_onig.name
+  enabled    = false
+}
+
 # tfsec:ignore:github-repositories-enable_vulnerability_alerts
 resource "github_repository" "spec" {
   name        = "spec"
@@ -228,4 +258,9 @@ resource "github_repository" "spec" {
 resource "github_branch_default" "spec" {
   repository = github_repository.spec.name
   branch     = "artichoke-vendor"
+}
+
+resource "github_actions_repository_permissions" "spec" {
+  repository = github_repository.spec.name
+  enabled    = false
 }
