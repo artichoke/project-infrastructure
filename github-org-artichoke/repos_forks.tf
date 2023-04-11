@@ -1,4 +1,38 @@
 # tfsec:ignore:github-repositories-enable_vulnerability_alerts
+resource "github_repository" "lib_ruby_parser" {
+  name        = "lib-ruby-parser"
+  description = "Artichoke fork of lib-ruby-parser, a Ruby parser written in Rust"
+
+  visibility = "public"
+
+  has_downloads = false
+  has_issues    = true
+  has_projects  = false
+  has_wiki      = false
+
+  delete_branch_on_merge = true
+  vulnerability_alerts   = false
+
+  topics = [
+    "artichoke",
+    "fork",
+    "parser",
+    "ruby",
+    "rust",
+    "vendor"
+  ]
+
+  lifecycle {
+    prevent_destroy = true
+  }
+}
+
+resource "github_actions_repository_permissions" "lib_ruby_parser" {
+  repository = github_repository.lib_ruby_parser.name
+  enabled    = false
+}
+
+# tfsec:ignore:github-repositories-enable_vulnerability_alerts
 resource "github_repository" "mruby" {
   name        = "mruby"
   description = "Artichoke fork of mruby 3.x, a Lightweight Ruby"
