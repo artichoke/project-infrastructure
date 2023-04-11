@@ -32,3 +32,10 @@ module "reserve_invokedynamic" {
   crate      = "invokedynamic"
   repository = "invokedynamic-reserve"
 }
+
+module "reserve_qed" {
+  source = "../modules/crates.io-reservation-repository"
+
+  crate      = "qed"
+  repository = "qed-reserve"
+}
