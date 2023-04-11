@@ -33,8 +33,8 @@ resource "github_branch_default" "mruby" {
 }
 
 resource "github_actions_repository_permissions" "mruby" {
-  repository      = github_repository.mruby.name
-  enabled         = false
+  repository = github_repository.mruby.name
+  enabled    = false
 }
 
 # tfsec:ignore:github-repositories-enable_vulnerability_alerts
@@ -73,8 +73,8 @@ resource "github_branch_default" "mspec" {
 }
 
 resource "github_actions_repository_permissions" "mspec" {
-  repository      = github_repository.mspec.name
-  enabled         = false
+  repository = github_repository.mspec.name
+  enabled    = false
 }
 
 # tfsec:ignore:github-repositories-enable_vulnerability_alerts
@@ -107,8 +107,8 @@ resource "github_repository" "onigmo" {
 }
 
 resource "github_actions_repository_permissions" "onigmo" {
-  repository      = github_repository.onigmo.name
-  enabled         = false
+  repository = github_repository.onigmo.name
+  enabled    = false
 }
 
 # tfsec:ignore:github-repositories-enable_vulnerability_alerts
@@ -141,8 +141,8 @@ resource "github_repository" "oniguruma" {
 }
 
 resource "github_actions_repository_permissions" "oniguruma" {
-  repository      = github_repository.oniguruma.name
-  enabled         = false
+  repository = github_repository.oniguruma.name
+  enabled    = false
 }
 
 # tfsec:ignore:github-repositories-enable_vulnerability_alerts
@@ -181,8 +181,8 @@ resource "github_branch_default" "ruby" {
 }
 
 resource "github_actions_repository_permissions" "ruby" {
-  repository      = github_repository.ruby.name
-  enabled         = false
+  repository = github_repository.ruby.name
+  enabled    = false
 }
 
 # tfsec:ignore:github-repositories-enable_vulnerability_alerts
@@ -222,8 +222,8 @@ resource "github_branch_default" "rust_onig" {
 }
 
 resource "github_actions_repository_permissions" "rust_onig" {
-  repository      = github_repository.rust_onig.name
-  enabled         = false
+  repository = github_repository.rust_onig.name
+  enabled    = false
 }
 
 # tfsec:ignore:github-repositories-enable_vulnerability_alerts
@@ -261,6 +261,6 @@ resource "github_branch_default" "spec" {
 }
 
 resource "github_actions_repository_permissions" "spec" {
-  repository      = github_repository.spec.name
-  enabled         = false
+  repository = github_repository.spec.name
+  enabled    = false
 }
