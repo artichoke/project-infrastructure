@@ -16,7 +16,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v3.5.2
 
       - name: Install python-github-backup
         run: pip install github-backup==${python_github_backup_version}
@@ -75,7 +75,7 @@ jobs:
             --private
 
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@master
+        uses: aws-actions/configure-aws-credentials@e1e17a757e536f70e52b5a12b2e8d1d1c60e04ef # v2.0.0
         with:
           aws-region: us-west-2
           role-to-assume: ${backup_role_arn}

@@ -19,10 +19,10 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v3.5.2
 
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@master
+        uses: aws-actions/configure-aws-credentials@e1e17a757e536f70e52b5a12b2e8d1d1c60e04ef # v2.0.0
         with:
           aws-region: us-west-2
           role-to-assume: arn:aws:iam::447522982029:role/gha-project-infrastructure-s3-ro-20220212013048188700000001
@@ -32,7 +32,7 @@ jobs:
         run: aws sts get-caller-identity
 
       - name: "Setup Terraform"
-        uses: hashicorp/setup-terraform@v2
+        uses: hashicorp/setup-terraform@633666f66e0061ca3b725c73b2ec20cd13a8fdd1 # v2.0.3
         with:
           terraform_version: 1.x
 
