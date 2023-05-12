@@ -5,6 +5,9 @@
     },
     {
       "pattern": "^https://github.com/.*-reserve$"
+    },
+    {
+      "pattern": "^https://twitter.com/artichokeruby"
     }
   ],
   "replacementPatterns": [],
