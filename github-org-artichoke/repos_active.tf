@@ -449,6 +449,26 @@ module "github_strudel" {
   ]
 }
 
+module "github_sysdir" {
+  source = "../modules/github-repository"
+
+  name         = "sysdir-rs"
+  description  = "🍎 📁 Rust bindings to `sysdir` API on Apple platforms"
+  homepage_url = "https://crates.io/crates/sysdir"
+
+  topics = [
+    "bindgen",
+    "ios",
+    "knownfolders",
+    "macos",
+    "rust",
+    "rust-crate",
+    "sysdir",
+    "tvos",
+    "watchos",
+  ]
+}
+
 module "github_www_artichokeruby_org" {
   source = "../modules/github-repository"
 
