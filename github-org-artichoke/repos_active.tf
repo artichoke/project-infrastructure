@@ -185,6 +185,21 @@ module "github_jasper" {
   ]
 }
 
+module "github_known_folders" {
+  source = "../modules/github-repository"
+
+  name         = "known-folders-rs"
+  description  = "🪟 📁 Rust bindings to the Known Folders API on Windows"
+  homepage_url = "https://crates.io/crates/known-folders"
+
+  topics = [
+    "knownfolders",
+    "rust",
+    "rust-crate",
+    "windows",
+  ]
+}
+
 module "github_logo" {
   source = "../modules/github-repository"
 
