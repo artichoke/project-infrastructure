@@ -47,7 +47,10 @@ jobs:
         env:
           LLVM_PROFILE_FILE: "${github_repository}-%m-%p.profraw"
           RUSTFLAGS: "-C instrument-coverage"
-          # Unstable feature: https://github.com/rust-lang/rust/issues/56925
+          # Unstable feature: `--persist-doctests`: persist doctest executables after running
+          # https://rustwiki.org/en/rustdoc/unstable-features.html#--persist-doctests-persist-doctest-executables-after-running
+          #
+          # Used to allow grcov to use these sources to generate coverage metrics.
           RUSTDOCFLAGS: "-C instrument-coverage -Z unstable-options --persist-doctests target/debug/doctests"
         run: cargo test
 
