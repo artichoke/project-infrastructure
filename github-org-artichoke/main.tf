@@ -111,24 +111,47 @@ module "org_members" {
 }
 
 module "team_ci" {
-  source = "../modules/github-team-ci"
+  source = "../modules/github-team"
 
   name        = "ci"
   description = "Builds"
+
+  maintainers = toset([
+    "lopopolo",
+  ])
+
+  members = toset([
+    "artichoke-ci",
+  ])
 }
 
 module "team_contributors" {
-  source = "../modules/github-team-contributors"
+  source = "../modules/github-team"
 
   name        = "contributors"
   description = "Code contributors"
+
+  maintainers = toset([
+    "lopopolo",
+  ])
+
+  members = toset([
+    "b-n",
+    "choznerol",
+  ])
 }
 
 module "team_cratesio_publishers" {
-  source = "../modules/github-team-crates.io-publishers"
+  source = "../modules/github-team"
 
   name        = "crates.io publishers"
   description = "Core team with perissions for publishing packages to crates.io"
+
+  maintainers = toset([
+    "lopopolo",
+  ])
+
+  members = toset([])
 }
 
 resource "github_team_repository" "contributor_repos" {
