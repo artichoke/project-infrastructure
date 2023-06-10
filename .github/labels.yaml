@@ -7,7 +7,7 @@
   description: "Area: CI build infrastructure."
 - name: "A-deps"
   color: "f7e101"
-  description: "Area: Source and library dependencies."'
+  description: "Area: Source and library dependencies."
 - name: "A-discord"
   color: "f7e101"
   description: "Area: Discord server."
