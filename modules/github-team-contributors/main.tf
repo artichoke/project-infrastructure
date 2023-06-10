@@ -18,4 +18,9 @@ resource "github_team_members" "this" {
     username = "b-n"
     role     = "member"
   }
+
+  members {
+    username = "choznerol"
+    role     = "member"
+  }
 }

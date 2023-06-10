@@ -79,6 +79,7 @@ module "org_members" {
   members = toset([
     "artichoke-ci",
     "b-n",
+    "choznerol",
   ])
 }
 
