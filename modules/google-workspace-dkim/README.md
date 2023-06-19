@@ -1,7 +1,7 @@
 # Google Workspace DKIM TXT Record
 
-This folder contains a Terraform module to provision an DKIM TXT record in an
-AWS Route53 zone.
+This folder contains a Terraform module to provision an Google Workspace DKIM
+TXT record in an AWS Route53 zone.
 
 ## Usage
 

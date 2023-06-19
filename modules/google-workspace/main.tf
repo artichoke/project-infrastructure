@@ -5,18 +5,18 @@ data "aws_route53_zone" "zone" {
 module "mx" {
   source = "../google-workspace-mx"
 
-  zone_id = var.zone_id
+  zone_id = data.aws_route53_zone.zone.zone_id
 }
 
 module "dkim" {
   source = "../google-workspace-dkim"
 
-  zone_id     = var.zone_id
+  zone_id     = data.aws_route53_zone.zone.zone_id
   dkim_record = var.dkim_record
 }
 
 resource "aws_route53_record" "txt" {
-  zone_id = var.zone_id
+  zone_id = data.aws_route53_zone.zone.zone_id
   name    = data.aws_route53_zone.zone.name
   type    = "TXT"
   ttl     = "300"

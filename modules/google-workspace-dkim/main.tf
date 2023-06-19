@@ -1,5 +1,9 @@
-resource "aws_route53_record" "this" {
+data "aws_route53_zone" "zone" {
   zone_id = var.zone_id
+}
+
+resource "aws_route53_record" "this" {
+  zone_id = data.aws_route53_zone.zone.zone_id
   name    = "google._domainkey"
   type    = "TXT"
   ttl     = "3600"
