@@ -29,7 +29,7 @@ module "mx" {
 
 ## Parameters
 
-- `zone_id`: The id of the Route53 zone to create DKIM records in.
+- `zone_id`: The id of the Route53 zone to create MX records in.
 
 ## Outputs
 

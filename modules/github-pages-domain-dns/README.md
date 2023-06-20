@@ -17,7 +17,7 @@ module "artichokeruby_org_github_pages" {
 
 ## Parameters
 
-- `zone_id`: The id of the Route53 zone to create DKIM records in.
+- `zone_id`: The id of the Route53 zone to create TXT records in.
 - `github_organization`: The GitHub organization slug, e.g. `artichoke`.
 
 ## Outputs
