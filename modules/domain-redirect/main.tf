@@ -94,6 +94,102 @@ resource "aws_route53_record" "www_ipv6" {
   }
 }
 
+resource "aws_s3_bucket" "this" {
+  bucket = "artichoke-domain-redirect-${replace(local.domain, ".", "-")}"
+
+  lifecycle {
+    prevent_destroy = true
+  }
+}
+
+resource "aws_s3_bucket_acl" "this" {
+  bucket = aws_s3_bucket.this.id
+  acl    = "private"
+
+  lifecycle {
+    prevent_destroy = true
+  }
+}
+
+resource "aws_s3_bucket_lifecycle_configuration" "this" {
+  bucket = aws_s3_bucket.this.id
+
+  rule {
+    id     = "archive"
+    status = "Enabled"
+
+    noncurrent_version_transition {
+      noncurrent_days = 30
+      storage_class   = "GLACIER_IR"
+    }
+  }
+
+  lifecycle {
+    prevent_destroy = true
+  }
+}
+
+resource "aws_s3_bucket_logging" "this" {
+  bucket        = aws_s3_bucket.this.id
+  target_bucket = var.access_logs_bucket
+  target_prefix = "v2/${var.bucket}/"
+
+  lifecycle {
+    prevent_destroy = true
+  }
+}
+
+resource "aws_s3_bucket_public_access_block" "this" {
+  bucket = aws_s3_bucket.this.id
+
+  block_public_acls   = true
+  block_public_policy = true
+
+  ignore_public_acls = true
+
+  restrict_public_buckets = true
+
+  lifecycle {
+    prevent_destroy = true
+  }
+}
+
+# tfsec:ignore:aws-s3-encryption-customer-key
+resource "aws_s3_bucket_server_side_encryption_configuration" "this" {
+  bucket = aws_s3_bucket.this.id
+
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm = "AES256"
+    }
+  }
+
+  lifecycle {
+    prevent_destroy = true
+  }
+}
+
+resource "aws_s3_bucket_versioning" "this" {
+  bucket = aws_s3_bucket.this.id
+
+  versioning_configuration {
+    status     = "Enabled"
+    mfa_delete = "Disabled"
+  }
+
+  lifecycle {
+    prevent_destroy = true
+  }
+}
+
+resource "aws_cloudfront_origin_access_control" "this" {
+  name                              = "oac-domain-redirect-${replace(local.domain, ".", "-")}"
+  description                       = "OAC for S3 bucket backing domain redirect from ${local.domain} to ${var.redirect_to}"
+  origin_access_control_origin_type = "s3"
+  signing_behavior                  = "always"
+  signing_protocol                  = "sigv4"
+}
+
 # The below lints are disabled for cost reasons and because the site deployed
 # behind this cloudfront distribution is empty.
 #
@@ -145,15 +241,10 @@ resource "aws_cloudfront_distribution" "this" {
   }
 
   origin {
-    domain_name = "example.com" # dummy, the function always returns a redirect
+    domain_name = aws_s3_bucket.this.bucket_regional_domain_name
     origin_id   = "main"
 
-    custom_origin_config {
-      http_port              = 80
-      https_port             = 443
-      origin_protocol_policy = "https-only"
-      origin_ssl_protocols   = ["TLSv1.2"]
-    }
+    origin_access_control_id = aws_cloudfront_origin_access_control.this.cloudfront_s3_oac.id
   }
 
   restrictions {

@@ -39,6 +39,8 @@ module "artichokeruby_net_github_pages_challenge" {
 module "artichokeruby_net_redirect" {
   source = "../modules/domain-redirect"
 
+  access_logs_bucket = module.forge_access_logs.name
+
   zone_id     = aws_route53_zone.artichokeruby_net.zone_id
   redirect_to = "https://www.artichokeruby.org"
 

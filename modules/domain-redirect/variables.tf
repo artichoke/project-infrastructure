@@ -1,3 +1,8 @@
+variable "access_logs_bucket" {
+  description = "The name of the bucket to use as the destination for access logs"
+  type        = string
+}
+
 variable "zone_id" {
   description = "The id of the Route53 zone to create redirect records in"
   type        = string

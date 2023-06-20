@@ -11,8 +11,16 @@ Domains.
 ## Usage
 
 ```terraform
+module "access_logs" {
+  source = "../modules/access-logs-s3-bucket"
+
+  bucket = "artichoke-forge-logs"
+}
+
 module "redirect" {
   source = "../modules/domain-redirect"
+
+  access_logs_bucket = module.access_logs.name
 
   zone_id     = aws_route53_zone.this.zone_id
   redirect_to = "https://www.artichokeruby.org"
@@ -26,6 +34,8 @@ module "redirect" {
 
 ## Parameters
 
+- `access_logs_bucket`: The name of the bucket to use as an access logs
+  destination.
 - `zone_id`: The id of the Route53 zone to create redirect records in.
 - `redirect_to`: The website to redirect to, should be of the format
   `https://example.com/`.
