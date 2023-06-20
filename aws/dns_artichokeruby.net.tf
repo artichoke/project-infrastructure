@@ -19,7 +19,7 @@ resource "aws_route53_zone" "artichokeruby_net" {
 
 module "artichokeruby_net_github_challenge" {
   source   = "../modules/github-domain-verification"
-  for_each = {for conf in local.artichokeruby_net_github_challenges : "${conf.org}_${conf.domain}" => conf}
+  for_each = { for conf in local.artichokeruby_net_github_challenges : "${conf.org}_${conf.domain}" => conf }
 
   zone_id             = aws_route53_zone.artichokeruby_net.zone_id
   github_organization = each.value.org
