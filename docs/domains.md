@@ -4,11 +4,11 @@
 
 | Domain            | Registrar      | DNS            | DNSSEC? | MX Records[^1]? |
 | ----------------- | -------------- | -------------- | ------- | --------------- |
-| artichoke.run     | Google Domains | Google Domains | ✅      | ❌              |
-| artichokeruby.com | Google Domains | Google Domains | ✅      | ❌              |
-| artichokeruby.net | Google Domains | Google Domains | ✅      | ❌              |
-| artichokeruby.org | Google Domains | Google Domains | ✅      | ✅              |
-| artichokeruby.run | Google Domains | Google Domains | ✅      | ❌              |
+| artichoke.run     | Google Domains | Google Domains | ❌      | ❌              |
+| artichokeruby.com | Google Domains | Google Domains | ❌      | ❌              |
+| artichokeruby.net | Google Domains | Google Domains | ❌      | ❌              |
+| artichokeruby.org | Google Domains | Google Domains | ❌      | ✅              |
+| artichokeruby.run | Google Domains | Google Domains | ❌      | ❌              |
 
 [^1]: MX records are also linked to a Google Workspace account.
 
