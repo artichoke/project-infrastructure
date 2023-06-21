@@ -1,54 +1,29 @@
 locals {
-  domain = data.aws_route53_zone.zone.name
+  apex_domain      = data.aws_route53_zone.zone.name
+  redirect_domains = [local.apex_domain, "www.${local.apex_domain}"]
+  safe_name        = replace(local.apex_domain, ".", "-")
+  bucket           = "artichoke-domain-redirect-${local.safe_name}"
 }
 
 data "aws_route53_zone" "zone" {
   zone_id = var.zone_id
 }
 
-resource "aws_acm_certificate" "this" {
-  provider = aws.us_east_1
+module "cert" {
+  source = "../acm-cert-with-dns-verification"
 
-  domain_name               = local.domain
-  subject_alternative_names = ["www.${local.domain}"]
-  validation_method         = "DNS"
+  zone_id = data.aws_route53_zone.zone.zone_id
+  domains = local.redirect_domains
 
-  options {
-    certificate_transparency_logging_preference = "ENABLED"
+  providers = {
+    aws           = aws
+    aws.us_east_1 = aws.us_east_1
   }
-
-  lifecycle {
-    create_before_destroy = true
-  }
-}
-
-resource "aws_acm_certificate_validation" "this" {
-  provider = aws.us_east_1
-
-  certificate_arn         = aws_acm_certificate.this.arn
-  validation_record_fqdns = [for record in aws_route53_record.cert_validation : record.fqdn]
-}
-
-resource "aws_route53_record" "cert_validation" {
-  for_each = {
-    for dvo in aws_acm_certificate.this.domain_validation_options : dvo.domain_name => {
-      name   = dvo.resource_record_name
-      record = dvo.resource_record_value
-      type   = dvo.resource_record_type
-    }
-  }
-
-  allow_overwrite = true
-  name            = each.value.name
-  records         = [each.value.record]
-  ttl             = 60
-  type            = each.value.type
-  zone_id         = data.aws_route53_zone.zone.zone_id
 }
 
 resource "aws_route53_record" "apex_ipv4" {
   zone_id = data.aws_route53_zone.zone.zone_id
-  name    = local.domain
+  name    = data.aws_route53_zone.zone.name
   type    = "A"
 
   alias {
@@ -60,7 +35,7 @@ resource "aws_route53_record" "apex_ipv4" {
 
 resource "aws_route53_record" "apex_ipv6" {
   zone_id = data.aws_route53_zone.zone.zone_id
-  name    = local.domain
+  name    = data.aws_route53_zone.zone.name
   type    = "AAAA"
 
   alias {
@@ -95,16 +70,7 @@ resource "aws_route53_record" "www_ipv6" {
 }
 
 resource "aws_s3_bucket" "this" {
-  bucket = "artichoke-domain-redirect-${replace(local.domain, ".", "-")}"
-
-  lifecycle {
-    prevent_destroy = true
-  }
-}
-
-resource "aws_s3_bucket_acl" "this" {
-  bucket = aws_s3_bucket.this.id
-  acl    = "private"
+  bucket = local.bucket
 
   lifecycle {
     prevent_destroy = true
@@ -132,7 +98,7 @@ resource "aws_s3_bucket_lifecycle_configuration" "this" {
 resource "aws_s3_bucket_logging" "this" {
   bucket        = aws_s3_bucket.this.id
   target_bucket = var.access_logs_bucket
-  target_prefix = "v2/${var.bucket}/"
+  target_prefix = "v2/${local.bucket}/"
 
   lifecycle {
     prevent_destroy = true
@@ -183,8 +149,8 @@ resource "aws_s3_bucket_versioning" "this" {
 }
 
 resource "aws_cloudfront_origin_access_control" "this" {
-  name                              = "oac-domain-redirect-${replace(local.domain, ".", "-")}"
-  description                       = "OAC for S3 bucket backing domain redirect from ${local.domain} to ${var.redirect_to}"
+  name                              = "oac-domain-redirect-${local.safe_name}"
+  description                       = "OAC for S3 bucket backing domain redirect from ${local.apex_domain} to ${var.redirect_to}"
   origin_access_control_origin_type = "s3"
   signing_behavior                  = "always"
   signing_protocol                  = "sigv4"
@@ -196,7 +162,7 @@ resource "aws_cloudfront_origin_access_control" "this" {
 # tfsec:ignore:aws-cloudfront-enable-waf
 # tfsec:ignore:aws-cloudfront-enable-logging
 resource "aws_cloudfront_distribution" "this" {
-  comment = "domain redirect ${local.domain} to ${var.redirect_to}"
+  comment = "domain redirect ${local.apex_domain} to ${var.redirect_to}"
 
   enabled             = true
   wait_for_deployment = false
@@ -204,10 +170,10 @@ resource "aws_cloudfront_distribution" "this" {
   http_version        = "http2and3"
   price_class         = "PriceClass_All"
 
-  aliases = [local.domain, "www.${local.domain}"]
+  aliases = local.redirect_domains
 
   viewer_certificate {
-    acm_certificate_arn = aws_acm_certificate.this.arn
+    acm_certificate_arn = module.cert.cert_arn
     ssl_support_method  = "sni-only"
     # https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/secure-connections-supported-viewer-protocols-ciphers.html
     minimum_protocol_version = "TLSv1.2_2021"
@@ -244,7 +210,7 @@ resource "aws_cloudfront_distribution" "this" {
     domain_name = aws_s3_bucket.this.bucket_regional_domain_name
     origin_id   = "main"
 
-    origin_access_control_id = aws_cloudfront_origin_access_control.this.cloudfront_s3_oac.id
+    origin_access_control_id = aws_cloudfront_origin_access_control.this.id
   }
 
   restrictions {
@@ -255,16 +221,16 @@ resource "aws_cloudfront_distribution" "this" {
 }
 
 resource "aws_cloudfront_function" "request_handler" {
-  name    = "cloudfront-${replace(local.domain, ".", "-")}-request-handler"
+  name    = "cloudfront-${local.safe_name}-request-handler"
   runtime = "cloudfront-js-1.0"
-  comment = "redirect request handler from ${local.domain} to ${var.redirect_to}"
+  comment = "redirect request handler from ${local.apex_domain} to ${var.redirect_to}"
   publish = true
   code    = templatefile("${path.module}/request-handler.js", { redirect_to = var.redirect_to })
 }
 
 resource "aws_cloudfront_response_headers_policy" "this" {
-  name    = "cloudfront-${replace(local.domain, ".", "-")}-response-headers"
-  comment = "redirect domain from ${local.domain} to ${var.redirect_to}"
+  name    = "cloudfront-${local.safe_name}-response-headers"
+  comment = "redirect domain from ${local.apex_domain} to ${var.redirect_to}"
 
   security_headers_config {
     # https://infosec.mozilla.org/guidelines/web_security#content-security-policy
