@@ -4,10 +4,8 @@
 
 | Domain            | Registrar      | DNS            | DNSSEC? | MX Records[^1]? |
 | ----------------- | -------------- | -------------- | ------- | --------------- |
-| artichoke.dev     | Google Domains | None           | ✅      | ❌              |
 | artichoke.run     | Google Domains | Google Domains | ✅      | ❌              |
 | artichokeruby.com | Google Domains | Google Domains | ✅      | ❌              |
-| artichokeruby.dev | Google Domains | None           | ✅      | ❌              |
 | artichokeruby.net | Google Domains | Google Domains | ✅      | ❌              |
 | artichokeruby.org | Google Domains | Google Domains | ✅      | ✅              |
 | artichokeruby.run | Google Domains | Google Domains | ✅      | ❌              |
