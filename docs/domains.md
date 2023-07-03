@@ -2,13 +2,13 @@
 
 ## Domain Names
 
-| Domain            | Registrar      | DNS            | DNSSEC? | MX Records[^1]? |
-| ----------------- | -------------- | -------------- | ------- | --------------- |
-| artichoke.run     | Google Domains | Google Domains | ❌      | ❌              |
-| artichokeruby.com | Google Domains | Google Domains | ❌      | ❌              |
-| artichokeruby.net | Google Domains | Google Domains | ❌      | ❌              |
-| artichokeruby.org | Google Domains | Google Domains | ❌      | ✅              |
-| artichokeruby.run | Google Domains | Google Domains | ❌      | ❌              |
+| Domain            | Registrar      | DNS             | DNSSEC? | MX Records[^1]? |
+| ----------------- | -------------- | --------------- | ------- | --------------- |
+| artichoke.run     | Google Domains | Google Domains  | ❌      | ❌              |
+| artichokeruby.com | Google Domains | Amazon Route 53 | ❌      | ❌              |
+| artichokeruby.net | Google Domains | Amazon Route 53 | ❌      | ❌              |
+| artichokeruby.org | Google Domains | Google Domains  | ❌      | ✅              |
+| artichokeruby.run | Google Domains | Amazon Route 53 | ❌      | ❌              |
 
 [^1]: MX records are also linked to a Google Workspace account.
 
@@ -18,25 +18,25 @@
 | ---------------------------- | ---------------------------------- | ----------------------------------- | ------ | --------- |
 | [artichoke.run]              | A and AAAA records to GitHub Pages | Wasm playground                     | ✅     | ❌        |
 | [www.artichoke.run]          | CNAME to GitHub Pages              | Wasm playground redirect            | ✅     | ❌        |
-| [artichokeruby.com]          | Google-managed redirect            | Project website redirect            | ✅     | ❌        |
-| [www.artichokeruby.com]      | Google-managed redirect            | Project website redirect            | ✅     | ❌        |
 | [rubyconf2019.artichoke.run] | CNAME to GitHub Pages              | Snapshot of the Wasm playground[^3] | ✅     | ❌        |
+| [artichokeruby.com]          | CloudFront domain redirect         | Project website redirect            | ✅     | ✅        |
+| [www.artichokeruby.com]      | CloudFront domain redirect         | Project website redirect            | ✅     | ✅        |
 | [artichokeruby.org]          | Google-managed redirect            | Project website redirect            | ✅     | ❌        |
-| [codecov.artichokeruby.org]  | CNAME to CloudFront distribution   | Code coverage reports               | ✅     | ✅        |
 | [www.artichokeruby.org]      | CNAME to GitHub Pages              | Project website                     | ✅     | ❌        |
-| [artichokeruby.net]          | Google-managed redirect            | Project website redirect            | ✅     | ❌        |
-| [www.artichokeruby.net]      | Google-managed redirect            | Project website redirect            | ✅     | ❌        |
-| [artichokeruby.run]          | Google-managed redirect            | Wasm playground website redirect    | ✅     | ❌        |
-| [www.artichokeruby.run]      | Google-managed redirect            | Wasm playground website redirect    | ✅     | ❌        |
+| [codecov.artichokeruby.org]  | CNAME to CloudFront distribution   | Code coverage reports               | ✅     | ✅        |
+| [artichokeruby.net]          | CloudFront domain redirect         | Project website redirect            | ✅     | ✅        |
+| [www.artichokeruby.net]      | CloudFront domain redirect         | Project website redirect            | ✅     | ✅        |
+| [artichokeruby.run]          | CloudFront domain redirect         | Wasm playground website redirect    | ✅     | ✅        |
+| [www.artichokeruby.run]      | CloudFront domain redirect         | Wasm playground website redirect    | ✅     | ✅        |
 
 [artichoke.run]: https://artichoke.run/
 [www.artichoke.run]: https://www.artichoke.run/
+[rubyconf2019.artichoke.run]: https://rubyconf2019.artichoke.run/
 [artichokeruby.com]: https://artichokeruby.com/
 [www.artichokeruby.com]: https://www.artichokeruby.com/
-[rubyconf2019.artichoke.run]: https://rubyconf2019.artichoke.run/
 [artichokeruby.org]: https://artichokeruby.org/
-[codecov.artichokeruby.org]: https://codecov.artichokeruby.org/
 [www.artichokeruby.org]: https://www.artichokeruby.org/
+[codecov.artichokeruby.org]: https://codecov.artichokeruby.org/
 [artichokeruby.net]: https://artichokeruby.net/
 [www.artichokeruby.net]: https://www.artichokeruby.net/
 [artichokeruby.run]: https://artichokeruby.run/
