@@ -30,7 +30,7 @@ updates:
     schedule:
       interval: monthly
     groups:
-      tf-deps-aws:
+      tf-deps:
         patterns:
           - "*"
     assignees:
@@ -43,7 +43,7 @@ updates:
     schedule:
       interval: monthly
     groups:
-      tf-deps-gh-artichoke:
+      tf-deps:
         patterns:
           - "*"
     assignees:
@@ -56,7 +56,7 @@ updates:
     schedule:
       interval: monthly
     groups:
-      tf-deps-gh-artichokeruby:
+      tf-deps:
         patterns:
           - "*"
     assignees:
@@ -69,7 +69,7 @@ updates:
     schedule:
       interval: monthly
     groups:
-      tf-deps-gh-artichoke-ruby:
+      tf-deps:
         patterns:
           - "*"
     assignees:
@@ -82,7 +82,7 @@ updates:
     schedule:
       interval: monthly
     groups:
-      tf-deps-remote-state:
+      tf-deps:
         patterns:
           - "*"
     assignees:
