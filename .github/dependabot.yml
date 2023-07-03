@@ -5,6 +5,10 @@ updates:
     directory: "/"
     schedule:
       interval: "monthly"
+    groups:
+      gha-deps:
+        patterns:
+          - "*"
     assignees:
       - lopopolo
     labels:
@@ -13,7 +17,10 @@ updates:
     directory: "/"
     schedule:
       interval: monthly
-    open-pull-requests-limit: 10
+    groups:
+      bundler-deps:
+        patterns:
+          - "*"
     assignees:
       - lopopolo
     labels:
@@ -22,7 +29,10 @@ updates:
     directory: "/aws"
     schedule:
       interval: monthly
-    open-pull-requests-limit: 10
+    groups:
+      tf-deps-aws:
+        patterns:
+          - "*"
     assignees:
       - lopopolo
     labels:
@@ -32,7 +42,10 @@ updates:
     directory: "/github-org-artichoke"
     schedule:
       interval: monthly
-    open-pull-requests-limit: 10
+    groups:
+      tf-deps-gh-artichoke:
+        patterns:
+          - "*"
     assignees:
       - lopopolo
     labels:
@@ -42,7 +55,10 @@ updates:
     directory: "/github-org-artichokeruby"
     schedule:
       interval: monthly
-    open-pull-requests-limit: 10
+    groups:
+      tf-deps-gh-artichokeruby:
+        patterns:
+          - "*"
     assignees:
       - lopopolo
     labels:
@@ -52,7 +68,10 @@ updates:
     directory: "/github-org-artichoke-ruby"
     schedule:
       interval: monthly
-    open-pull-requests-limit: 10
+    groups:
+      tf-deps-gh-artichoke-ruby:
+        patterns:
+          - "*"
     assignees:
       - lopopolo
     labels:
@@ -62,7 +81,10 @@ updates:
     directory: "/remote-state"
     schedule:
       interval: monthly
-    open-pull-requests-limit: 10
+    groups:
+      tf-deps-remote-state:
+        patterns:
+          - "*"
     assignees:
       - lopopolo
     labels:
