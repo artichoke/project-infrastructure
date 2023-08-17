@@ -1,4 +1,4 @@
-data "aws_route53_zone" "zone" {
+data "aws_route53_zone" "this" {
   zone_id = var.zone_id
 }
 
@@ -10,8 +10,8 @@ data "aws_route53_zone" "zone" {
 # https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site
 
 resource "aws_route53_record" "apex_ipv4" {
-  zone_id = aws_route53_zone.this.zone_id
-  name    = aws_route53_zone.this.name
+  zone_id = data.aws_route53_zone.this.zone_id
+  name    = data.aws_route53_zone.this.name
   type    = "A"
   ttl     = "300"
 
@@ -28,8 +28,8 @@ resource "aws_route53_record" "apex_ipv4" {
 }
 
 resource "aws_route53_record" "apex_ipv6" {
-  zone_id = aws_route53_zone.this.zone_id
-  name    = aws_route53_zone.this.name
+  zone_id = data.aws_route53_zone.this.zone_id
+  name    = data.aws_route53_zone.this.name
   type    = "AAAA"
   ttl     = "300"
 
@@ -46,7 +46,7 @@ resource "aws_route53_record" "apex_ipv6" {
 }
 
 resource "aws_route53_record" "www_cname" {
-  zone_id = aws_route53_zone.this.zone_id
+  zone_id = data.aws_route53_zone.this.zone_id
   name    = "www"
   type    = "CNAME"
   ttl     = "300"

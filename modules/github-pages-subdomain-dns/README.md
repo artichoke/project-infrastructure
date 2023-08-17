@@ -7,7 +7,7 @@ Route53 zone to setup GitHub pages for the given subdomain.
 
 ```terraform
 module "codecov_artichokeruby_org_github_pages" {
-  source = "../modules/github-pages-domain-dns"
+  source = "../modules/github-pages-subdomain-dns"
 
   zone_id             = aws_route53_zone.this.zone_id
   subdomain           = "codecov"
