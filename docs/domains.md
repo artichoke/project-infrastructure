@@ -4,7 +4,7 @@
 
 | Domain            | Registrar               | DNS             | DNSSEC? | MX Records[^1]? |
 | ----------------- | ----------------------- | --------------- | ------- | --------------- |
-| artichoke.run     | Google Domains          | Amazon Route 53 | ❌      | ❌              |
+| artichoke.run     | Amazon Route 53 Domains | Amazon Route 53 | ❌      | ❌              |
 | artichokeruby.com | Amazon Route 53 Domains | Amazon Route 53 | ❌      | ❌              |
 | artichokeruby.net | Amazon Route 53 Domains | Amazon Route 53 | ❌      | ❌              |
 | artichokeruby.org | Google Domains          | Google Domains  | ❌      | ✅              |
