@@ -1,0 +1,37 @@
+{
+  "name": "@artichokeruby/project-infrastructure",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Artichoke project infrastructure",
+  "keywords": [
+    "iac",
+    "infrastructure as code",
+    "terraform"
+  ],
+  "homepage": "https://github.com/artichoke/project-infrastructure",
+  "bugs": "https://github.com/artichoke/project-infrastructure/issues",
+  "license": "MIT",
+  "author": "Ryan Lopopolo <rjl@hyperbo.la> (https://hyperbo.la/)",
+  "contributors": [
+    "Ryan Lopopolo <rjl@hyperbo.la> (https://hyperbo.la/)"
+  ],
+  "repository": "github:artichoke/project-infrastructure",
+  "devDependencies": {
+    "prettier": "^3.1.1"
+  },
+  "eslintConfig": {
+    "env": {
+      "browser": true,
+      "commonjs": true,
+      "es6": true,
+      "node": true
+    },
+    "parserOptions": {
+      "ecmaVersion": 2020,
+      "sourceType": "module"
+    }
+  },
+  "scripts": {
+    "fmt": "prettier --write \"**/*\""
+  }
+}
