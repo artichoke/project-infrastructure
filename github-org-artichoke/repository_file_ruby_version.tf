@@ -6,12 +6,13 @@ locals {
 
   ruby_version_repos = [
     "artichoke",                // https://github.com/artichoke/artichoke
-    "artichoke.github.io",      // https://github.com/artichoke/artichoke.github.io
     "boba",                     // https://github.com/artichoke/boba
     "cactusref",                // https://github.com/artichoke/cactusref
     "docker-artichoke-nightly", // https://github.com/artichoke/docker-artichoke-nightly
     "focaccia",                 // https://github.com/artichoke/focaccia
+    "generate_third_party",     // https://github.com/artichoke/generate_third_party
     "intaglio",                 // https://github.com/artichoke/intaglio
+    "known-folders-rs",         // https://github.com/artichoke/known-folders-rs
     "nightly",                  // https://github.com/artichoke/nightly
     "playground",               // https://github.com/artichoke/playground
     "posix-space",              // https://github.com/artichoke/posix-space
@@ -22,8 +23,10 @@ locals {
     "roe",                      // https://github.com/artichoke/roe
     "rubyconf",                 // https://github.com/artichoke/rubyconf
     "ruby-file-expand-path",    // https://github.com/artichoke/ruby-file-expand-path
+    "setup-rust",               // https://github.com/artichoke/setup-rust
     "strftime-ruby",            // https://github.com/artichoke/strftime-ruby
     "strudel",                  // https://github.com/artichoke/strudel
+    "sysdir-rs",                // https://github.com/artichoke/sysdir-rs
   ]
 }
 
