@@ -1,5 +1,5 @@
 locals {
-  force_bump_ruby_version = false
+  force_bump_ruby_version = true
 
   // https://github.com/ruby/ruby/tree/v3_3_0
   ruby_version = "3.3.0"
