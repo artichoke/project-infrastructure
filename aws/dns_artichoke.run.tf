@@ -53,3 +53,13 @@ module "rubyconf2019_artichoke_run_github_pages" {
   subdomain           = "rubyconf2019"
   github_organization = "artichoke"
 }
+
+module "artichoke_run_google" {
+  source = "../modules/google-site-verification"
+
+  zone_id = aws_route53_zone.artichoke_run.zone_id
+
+  site_verification_keys = [
+    "Ro-ABr2TIv3obx8csab8E3NC43BrANBdXimBKg2Jcxc", # Google Search Console
+  ]
+}
