@@ -22,7 +22,7 @@ jobs:
         uses: actions/checkout@v4.1.1
 
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@010d0da01d0b5a38af31e9c3470dbfdabdecca3a # v4.0.1
+        uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v4.0.2
         with:
           aws-region: us-west-2
           role-to-assume: arn:aws:iam::447522982029:role/gha-project-infrastructure-s3-ro-20220212013048188700000001
@@ -77,7 +77,7 @@ jobs:
         uses: actions/checkout@v4.1.1
 
       - name: Install Ruby toolchain
-        uses: ruby/setup-ruby@22fdc77bf4148f810455b226c90fb81b5cbc00a7 # v1.171.0
+        uses: ruby/setup-ruby@d4526a55538b775af234ba4af27118ed6f8f6677 # v1.172.0
         with:
           ruby-version: ".ruby-version"
           bundler-cache: true
@@ -93,7 +93,7 @@ jobs:
         uses: actions/checkout@v4.1.1
 
       - name: Setup Node.js runtime
-        uses: actions/setup-node@v4.0.1
+        uses: actions/setup-node@v4.0.2
         with:
           node-version: "lts/*"
 
