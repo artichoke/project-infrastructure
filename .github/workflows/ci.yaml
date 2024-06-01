@@ -19,7 +19,7 @@ jobs:
     # https://www.terraform.io/docs/github-actions/getting-started.html
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4.1.4
+        uses: actions/checkout@v4.1.6
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v4.0.2
@@ -32,7 +32,7 @@ jobs:
         run: aws sts get-caller-identity
 
       - name: "Setup Terraform"
-        uses: hashicorp/setup-terraform@97f030cf6dc0b4f5e0da352c7bca9cca34579800 # v3.1.0
+        uses: hashicorp/setup-terraform@651471c36a6092792c552e8b1bef71e592b462d8 # v3.1.1
         with:
           terraform_version: 1.x
 
@@ -74,10 +74,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4.1.4
+        uses: actions/checkout@v4.1.6
 
       - name: Install Ruby toolchain
-        uses: ruby/setup-ruby@1198b074305f9356bd56dd4b311757cc0dab2f1c # v1.175.1
+        uses: ruby/setup-ruby@0cde4689ba33c09f1b890c1725572ad96751a3fc # v1.178.0
         with:
           ruby-version: ".ruby-version"
           bundler-cache: true
@@ -90,7 +90,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4.1.4
+        uses: actions/checkout@v4.1.6
 
       - name: Setup Node.js runtime
         uses: actions/setup-node@v4.0.2
