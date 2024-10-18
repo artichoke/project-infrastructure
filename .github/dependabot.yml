@@ -37,62 +37,13 @@ updates:
       - lopopolo
     labels:
       - A-deps
-  - package-ecosystem: terraform
-    directory: "/aws"
+  - package-ecosystem: "terraform"
+    directories:
+      - /aws
+      - /github-org-*
+      - /remote-state
     schedule:
-      interval: monthly
-    groups:
-      tf-deps:
-        patterns:
-          - "*"
-    assignees:
-      - lopopolo
-    labels:
-      - A-deps
-      - A-terraform
-  - package-ecosystem: terraform
-    directory: "/github-org-artichoke"
-    schedule:
-      interval: monthly
-    groups:
-      tf-deps:
-        patterns:
-          - "*"
-    assignees:
-      - lopopolo
-    labels:
-      - A-deps
-      - A-terraform
-  - package-ecosystem: terraform
-    directory: "/github-org-artichokeruby"
-    schedule:
-      interval: monthly
-    groups:
-      tf-deps:
-        patterns:
-          - "*"
-    assignees:
-      - lopopolo
-    labels:
-      - A-deps
-      - A-terraform
-  - package-ecosystem: terraform
-    directory: "/github-org-artichoke-ruby"
-    schedule:
-      interval: monthly
-    groups:
-      tf-deps:
-        patterns:
-          - "*"
-    assignees:
-      - lopopolo
-    labels:
-      - A-deps
-      - A-terraform
-  - package-ecosystem: terraform
-    directory: "/remote-state"
-    schedule:
-      interval: monthly
+      interval: "monthly"
     groups:
       tf-deps:
         patterns:
