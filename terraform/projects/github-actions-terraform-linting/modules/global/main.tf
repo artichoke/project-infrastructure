@@ -1,3 +1,13 @@
+locals {
+  remote_state_bucket = "artichoke-forge-project-infrastructure-terraform-state"
+  github_organization = "artichoke"
+  github_repository   = "project-infrastructure"
+}
+
+data "aws_iam_openid_connect_provider" "github" {
+  url = "https://token.actions.githubusercontent.com"
+}
+
 # GitHub OpenID Connect with cloud providers
 #
 # https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/configuring-openid-connect-in-cloud-providers
@@ -9,24 +19,24 @@ data "aws_iam_policy_document" "github_allow" {
 
     principals {
       type        = "Federated"
-      identifiers = [var.github_oidc_provider_arn]
+      identifiers = [data.aws_iam_openid_connect_provider.github.arn]
     }
 
     condition {
       test     = "StringLike"
       variable = "token.actions.githubusercontent.com:sub"
-      values   = ["repo:${var.github_organization}/${var.github_repository}:*"]
+      values   = ["repo:${local.github_organization}/${local.github_repository}:*"]
     }
   }
 }
 
 resource "aws_iam_role" "github_role" {
-  name_prefix        = "gha-${var.github_repository}-s3-ro-"
+  name_prefix        = "${var.plan}-${local.github_organization}-s3-ro-"
   assume_role_policy = data.aws_iam_policy_document.github_allow.json
 }
 
 data "aws_s3_bucket" "bucket" {
-  bucket = var.s3_bucket_name
+  bucket = local.remote_state_bucket
 }
 
 data "aws_iam_policy_document" "bucket_read_only" {
@@ -54,7 +64,7 @@ data "aws_iam_policy_document" "bucket_read_only" {
 }
 
 resource "aws_iam_policy" "bucket_read_only" {
-  name_prefix = "${var.github_organization}-${var.github_repository}-${var.s3_bucket_name}-s3-ro-"
+  name_prefix = "${var.plan}-${local.github_organization}-${local.github_repository}-s3-ro-"
   policy      = data.aws_iam_policy_document.bucket_read_only.json
 }
 

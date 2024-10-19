@@ -25,7 +25,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v4.0.2
         with:
           aws-region: us-west-2
-          role-to-assume: arn:aws:iam::447522982029:role/gha-project-infrastructure-s3-ro-20220212013048188700000001
+          role-to-assume: arn:aws:iam::447522982029:role/gha-tf-lint-artichoke-s3-ro-20241019065142842900000002
           role-session-name: GitHubActionsSession@ci-terraform
 
       - name: Show AWS caller identity
@@ -63,11 +63,20 @@ jobs:
       - name: "Validate github-org-artichoke-ruby environment"
         run: terraform -chdir=github-org-artichoke-ruby validate -no-color
 
-      - name: "Initialize remote-state environment"
-        run: terraform -chdir=remote-state init
+      - name: "Init and validate github-actions-oidc-provider project"
+        run: |
+          terraform -chdir=terraform/projects/github-actions-oidc-provider init
+          terraform -chdir=terraform/projects/github-actions-oidc-provider validate -no-color
 
-      - name: "Validate remote-state environment"
-        run: terraform -chdir=remote-state validate -no-color
+      - name: "Init and validate github-actions-terraform-linting project"
+        run: |
+          terraform -chdir=terraform/projects/github-actions-terraform-linting init
+          terraform -chdir=terraform/projects/github-actions-terraform-linting validate -no-color
+
+      - name: "Init and validate remote-state project"
+        run: |
+          terraform -chdir=terraform/projects/remote-state init
+          terraform -chdir=terraform/projects/remote-state validate -no-color
 
   ruby:
     name: Lint and format Ruby
