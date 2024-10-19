@@ -63,11 +63,10 @@ jobs:
       - name: "Validate github-org-artichoke-ruby environment"
         run: terraform -chdir=github-org-artichoke-ruby validate -no-color
 
-      - name: "Initialize remote-state environment"
-        run: terraform -chdir=remote-state init
-
-      - name: "Validate remote-state environment"
-        run: terraform -chdir=remote-state validate -no-color
+      - name: "Init and validate remote-state project"
+        run: |
+          terraform -chdir=terraform/projects/remote-state init
+          terraform -chdir=terraform/projects/remote-state validate -no-color
 
   ruby:
     name: Lint and format Ruby

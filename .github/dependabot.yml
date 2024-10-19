@@ -41,7 +41,7 @@ updates:
     directories:
       - /aws
       - /github-org-*
-      - /remote-state
+      - /terraform/projects/*
     schedule:
       interval: "monthly"
     groups:
