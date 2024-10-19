@@ -42,7 +42,9 @@ jobs:
           terraform -chdir=github-org-artichoke init
           terraform -chdir=github-org-artichokeruby init
           terraform -chdir=github-org-artichoke-ruby init
-          terraform -chdir=remote-state init
+          terraform -chdir=terraform/projects/github-actions-oidc-provider init
+          terraform -chdir=terraform/projects/github-actions-terraform-linting init
+          terraform -chdir=terraform/projects/remote-state init
 
       - name: "tfsec aws"
         uses: docker://aquasec/tfsec:latest
@@ -76,13 +78,29 @@ jobs:
           entrypoint: tfsec
           args: github-org-artichoke-ruby
 
+      - name: "tfsec github-actions-oidc-provider"
+        uses: docker://aquasec/tfsec:latest
+        id: tfsec_gha_oidc
+        continue-on-error: true
+        with:
+          entrypoint: tfsec
+          args: terraform/projects/github-actions-oidc-provider
+
+      - name: "tfsec github-actions-terraform-linting"
+        uses: docker://aquasec/tfsec:latest
+        id: tfsec_gha_tf_lint
+        continue-on-error: true
+        with:
+          entrypoint: tfsec
+          args: terraform/projects/github-actions-terraform-linting
+
       - name: "tfsec remote-state"
         uses: docker://aquasec/tfsec:latest
         id: tfsec_remote_state
         continue-on-error: true
         with:
           entrypoint: tfsec
-          args: remote-state
+          args: terraform/projects/remote-state
 
       - name: "Check on failures"
         run: |
@@ -103,9 +121,17 @@ jobs:
             failed="y"
             echo >&2 "tfsec github-org-artichoke-ruby failed"
           fi
+          if [[ ${{ steps.tfsec_gha_oidc.outcome }} != "success" ]]; then
+            failed="y"
+            echo >&2 "tfsec terraform/projects/github-actions-oidc-provider failed"
+          fi
+          if [[ ${{ steps.tfsec_gha_tf_lint.outcome }} != "success" ]]; then
+            failed="y"
+            echo >&2 "tfsec terraform/projects/github-actions-terraform-linting failed"
+          fi
           if [[ ${{ steps.tfsec_remote_state.outcome }} != "success" ]]; then
             failed="y"
-            echo >&2 "tfsec remote-state failed"
+            echo >&2 "tfsec terraform/projects/remote-state failed"
           fi
           if [[ -n "$failed" ]]; then
             exit 1

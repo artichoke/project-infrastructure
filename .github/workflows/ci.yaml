@@ -63,6 +63,16 @@ jobs:
       - name: "Validate github-org-artichoke-ruby environment"
         run: terraform -chdir=github-org-artichoke-ruby validate -no-color
 
+      - name: "Init and validate github-actions-oidc-provider project"
+        run: |
+          terraform -chdir=terraform/projects/github-actions-oidc-provider init
+          terraform -chdir=terraform/projects/github-actions-oidc-provider validate -no-color
+
+      - name: "Init and validate github-actions-terraform-linting project"
+        run: |
+          terraform -chdir=terraform/projects/github-actions-terraform-linting init
+          terraform -chdir=terraform/projects/github-actions-terraform-linting validate -no-color
+
       - name: "Init and validate remote-state project"
         run: |
           terraform -chdir=terraform/projects/remote-state init
