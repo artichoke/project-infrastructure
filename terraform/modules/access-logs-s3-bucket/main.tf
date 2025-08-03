@@ -13,6 +13,9 @@ resource "aws_s3_bucket_lifecycle_configuration" "this" {
     id     = "archive"
     status = "Enabled"
 
+    # match every object in the bucket
+    filter {}
+
     transition {
       days          = 14
       storage_class = "DEEP_ARCHIVE"

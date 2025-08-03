@@ -66,3 +66,15 @@ variable "topics" {
   description = "The list of topics of the repository"
   type        = list(string)
 }
+
+variable "no_default_topics" {
+  description = "Set to true to prevent the creation of default topics"
+  default     = false
+  type        = bool
+}
+
+variable "visibility" {
+  description = "The visibility of the repository, either 'public' or 'private'"
+  default     = "public"
+  type        = string
+}
