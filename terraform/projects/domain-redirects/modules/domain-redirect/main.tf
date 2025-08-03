@@ -22,7 +22,7 @@ data "aws_route53_zone" "zone" {
 }
 
 module "cert" {
-  source = "../acm-cert-with-dns-verification"
+  source = "../../../../modules/acm-cert-with-dns-verification"
 
   zone_id = data.aws_route53_zone.zone.zone_id
   domains = local.redirect_domains

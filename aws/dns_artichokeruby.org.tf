@@ -32,30 +32,6 @@ module "artichokeruby_org_github_pages_challenge" {
   challenge           = "35fc238d3171df6cf54e3c2b07c195"
 }
 
-resource "aws_route53_record" "artichokeruby_org_codecov_ipv4" {
-  zone_id = data.aws_route53_zone.artichokeruby_org.zone_id
-  name    = "codecov.artichokeruby.org"
-  type    = "A"
-
-  alias {
-    name                   = module.code_coverage.cloudfront_domain_name
-    zone_id                = module.code_coverage.cloudfront_zone_id
-    evaluate_target_health = false
-  }
-}
-
-resource "aws_route53_record" "artichokeruby_org_codecov_ipv6" {
-  zone_id = data.aws_route53_zone.artichokeruby_org.zone_id
-  name    = "codecov.artichokeruby.org"
-  type    = "AAAA"
-
-  alias {
-    name                   = module.code_coverage.cloudfront_domain_name
-    zone_id                = module.code_coverage.cloudfront_zone_id
-    evaluate_target_health = false
-  }
-}
-
 module "artichokeruby_org_google_workspace" {
   source = "../modules/google-workspace"
 

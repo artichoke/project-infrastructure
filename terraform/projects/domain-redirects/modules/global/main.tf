@@ -11,7 +11,7 @@ module "redirect_bucket_access_logs" {
 
 module "domain_redirect" {
   for_each = { for conf in module.domain_data.domain_redirects : substr(md5("${conf.domain}-redirect-to-${conf.redirect_to}"), 0, 8) => conf }
-  source   = "../../../../../modules/domain-redirect"
+  source   = "../domain-redirect"
 
   access_logs_bucket = module.redirect_bucket_access_logs.name
   zone_id            = data.aws_route53_zone.zone[each.value.domain].zone_id
