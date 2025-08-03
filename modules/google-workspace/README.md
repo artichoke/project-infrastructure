@@ -11,11 +11,6 @@ module "google_workspace" {
 
   zone_id     = aws_route53_zone.this.zone_id
   dkim_record = "v=DKIM1; k=rsa; p=..."
-
-  site_verification_keys = [
-    "abc...",
-    "xyz...",
-  ]
 }
 ```
 

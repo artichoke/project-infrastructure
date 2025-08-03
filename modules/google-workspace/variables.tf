@@ -12,8 +12,3 @@ variable "dkim_record" {
     error_message = "Include the full DKIM TXT record including 'v=DKIM1; k=rsa; p='."
   }
 }
-
-variable "site_verification_keys" {
-  description = "Google site verification keys"
-  type        = list(string)
-}

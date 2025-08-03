@@ -17,3 +17,7 @@ output "domain_redirects" {
 output "github_pages_config" {
   value = local.github_pages_config
 }
+
+output "google_site_verification_keys" {
+  value = local.google_site_verification_keys
+}

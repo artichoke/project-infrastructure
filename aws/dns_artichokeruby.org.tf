@@ -37,8 +37,4 @@ module "artichokeruby_org_google_workspace" {
 
   zone_id     = data.aws_route53_zone.artichokeruby_org.zone_id
   dkim_record = "v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAk3sMJuaFn/1lBZYWTc33CVQXtP8DAzP95vvwsN9V9iyU5Wyar7wUl514QSBzbDJgxF+VVfODy0KX/IcaelPsK67LxIfwk6HWVSfniUXbta5XPm5HTSFssNNoDuGRujdT3hFzecoMF/aWYR5TXjcM1ICt1U6kmfWB03quZXyZ0Y2YnaNGlv3hb+dWr58IZGuvA48TOmNVuFcQKsuz7sLOdkAA9AxCnDCkiMuV72SMbUq7Da0afLxObiYl9CN3J52qDp1qaxaGYU+2yie8+45IzihudYCEBuw8J8HXgRfcnqfmSscywlOPMk6HH8HYqZqPkKqd7mAmksWkDixY6rVMHQIDAQAB"
-
-  site_verification_keys = [
-    "WNbmzcJDc3Umb4SquyIhK5k-juY5IQj7RUe0ulAbrGY",
-  ]
 }
