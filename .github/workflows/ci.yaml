@@ -9,6 +9,7 @@ name: CI
       - trunk
   schedule:
     - cron: "0 0 * * TUE"
+permissions: {}
 jobs:
   terraform:
     name: Lint and format terraform
@@ -19,7 +20,9 @@ jobs:
     # https://www.terraform.io/docs/github-actions/getting-started.html
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@b47578312673ae6fa5b5096b330d9fbac3d116df # v4.2.1
@@ -39,29 +42,30 @@ jobs:
       - name: "Format terraform sources"
         run: terraform fmt -recursive -check -diff
 
-      - name: "Initialize aws environment"
-        run: terraform -chdir=aws init
+      - name: "Init and validate aws environment"
+        run: |-
+          terraform -chdir=aws init
+          terraform -chdir=aws validate -no-color
 
-      - name: "Validate aws environment"
-        run: terraform -chdir=aws validate -no-color
+      - name: "Init and validate github-org-artichoke environment"
+        run: |-
+          terraform -chdir=github-org-artichoke init
+          terraform -chdir=github-org-artichoke validate -no-color
 
-      - name: "Initialize github-org-artichoke environment"
-        run: terraform -chdir=github-org-artichoke init
+      - name: "Init and validate github-org-artichokeruby environment"
+        run: |-
+          terraform -chdir=github-org-artichokeruby init
+          terraform -chdir=github-org-artichokeruby validate -no-color
 
-      - name: "Validate github-org-artichoke environment"
-        run: terraform -chdir=github-org-artichoke validate -no-color
+      - name: "Init and validate github-org-artichoke-ruby environment"
+        run: |-
+          terraform -chdir=github-org-artichoke-ruby init
+          terraform -chdir=github-org-artichoke-ruby validate -no-color
 
-      - name: "Initialize github-org-artichokeruby environment"
-        run: terraform -chdir=github-org-artichokeruby init
-
-      - name: "Validate github-org-artichokeruby environment"
-        run: terraform -chdir=github-org-artichokeruby validate -no-color
-
-      - name: "Initialize github-org-artichoke-ruby environment"
-        run: terraform -chdir=github-org-artichoke-ruby init
-
-      - name: "Validate github-org-artichoke-ruby environment"
-        run: terraform -chdir=github-org-artichoke-ruby validate -no-color
+      - name: "Init and validate domain-redirects project"
+        run: |
+          terraform -chdir=terraform/projects/domain-redirects init
+          terraform -chdir=terraform/projects/domain-redirects validate -no-color
 
       - name: "Init and validate github-actions-oidc-provider project"
         run: |
@@ -73,17 +77,29 @@ jobs:
           terraform -chdir=terraform/projects/github-actions-terraform-linting init
           terraform -chdir=terraform/projects/github-actions-terraform-linting validate -no-color
 
+      - name: "Init and validate github-pages project"
+        run: |
+          terraform -chdir=terraform/projects/github-pages init
+          terraform -chdir=terraform/projects/github-pages validate -no-color
+
       - name: "Init and validate remote-state project"
         run: |
           terraform -chdir=terraform/projects/remote-state init
           terraform -chdir=terraform/projects/remote-state validate -no-color
+
+      - name: "Init and validate reserved-s3-buckets project"
+        run: |
+          terraform -chdir=terraform/projects/reserved-s3-buckets init
+          terraform -chdir=terraform/projects/reserved-s3-buckets validate -no-color
 
   ruby:
     name: Lint and format Ruby
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
 
       - name: Install Ruby toolchain
         uses: ruby/setup-ruby@2a7b30092b0caf9c046252510f9273b4875f3db9 # v1.254.0
@@ -99,10 +115,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
 
       - name: Setup Node.js runtime
-        uses: actions/setup-node@v4.4.0
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
           node-version: "lts/*"
 
