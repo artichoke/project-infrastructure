@@ -1,3 +1,7 @@
+locals {
+  safe_name = replace(var.domains[0], ".", "-")
+}
+
 resource "aws_s3_bucket" "this" {
   bucket = var.bucket
 
@@ -145,63 +149,12 @@ resource "aws_acm_certificate_validation" "cert" {
   }
 }
 
-data "aws_iam_roles" "admin" {
-  path_prefix = "/aws-reserved/sso.amazonaws.com/"
-  name_regex  = ".*AWSAdministratorAccess.*"
-}
-
-resource "aws_cloudfront_origin_access_identity" "website" {
-  comment = "static website ${var.domains[0]} access"
-}
-
-data "aws_iam_policy_document" "this" {
-  statement {
-    sid    = "CloudFrontAccess"
-    effect = "Allow"
-
-    principals {
-      type        = "AWS"
-      identifiers = [aws_cloudfront_origin_access_identity.website.iam_arn]
-    }
-
-    actions = [
-      "s3:GetObject",
-      "s3:ListBucket"
-    ]
-
-    resources = [
-      "${aws_s3_bucket.this.arn}",
-      "${aws_s3_bucket.this.arn}/*"
-    ]
-  }
-
-  statement {
-    sid    = "AdminAccess"
-    effect = "Allow"
-
-    principals {
-      type        = "AWS"
-      identifiers = data.aws_iam_roles.admin.arns
-    }
-
-    actions = [
-      "s3:DeleteObject",
-      "s3:GetObject",
-      "s3:PutObject",
-      "s3:ListBucket"
-    ]
-
-    resources = [
-      "${aws_s3_bucket.this.arn}",
-      "${aws_s3_bucket.this.arn}/*"
-    ]
-  }
-}
-
-resource "aws_s3_bucket_policy" "this" {
-  bucket = aws_s3_bucket.this.id
-
-  policy = data.aws_iam_policy_document.this.json
+resource "aws_cloudfront_origin_access_control" "this" {
+  name                              = "oac-static-site-${local.safe_name}"
+  description                       = "OAC for S3 bucket backing static website ${var.domains[0]}"
+  origin_access_control_origin_type = "s3"
+  signing_behavior                  = "always"
+  signing_protocol                  = "sigv4"
 }
 
 # The below lints are disabled for cost reasons and because the site deployed
@@ -258,9 +211,7 @@ resource "aws_cloudfront_distribution" "website" {
     domain_name = aws_s3_bucket.this.bucket_regional_domain_name
     origin_id   = "main"
 
-    s3_origin_config {
-      origin_access_identity = aws_cloudfront_origin_access_identity.website.cloudfront_access_identity_path
-    }
+    origin_access_control_id = aws_cloudfront_origin_access_control.this.id
   }
 
   restrictions {
