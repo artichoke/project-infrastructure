@@ -1,18 +1,11 @@
-locals {
-  pages = [
-    { org = "artichoke", domain = "artichoke.run", include_apex = true, subdomains = ["rubyconf2019"] },
-    { org = "artichoke", domain = "artichokeruby.org", include_apex = false, subdomains = ["www"] },
-  ]
-}
-
 data "aws_route53_zone" "zone" {
-  for_each = { for conf in local.pages : conf.domain => conf }
+  for_each = { for conf in module.domain_data.github_pages_config : conf.domain => conf }
   name     = each.key
 }
 
 
 module "github_pages" {
-  for_each = { for conf in local.pages : conf.domain => conf }
+  for_each = { for conf in module.domain_data.github_pages_config : conf.domain => conf }
   source   = "../../../../../modules/github-pages-domain-dns"
 
   zone_id             = data.aws_route53_zone.zone[each.key].zone_id
