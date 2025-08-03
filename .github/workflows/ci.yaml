@@ -67,6 +67,11 @@ jobs:
           terraform -chdir=terraform/projects/aws-account-bootstrapping init
           terraform -chdir=terraform/projects/aws-account-bootstrapping validate -no-color
 
+      - name: "Init and validate codecov-website project"
+        run: |
+          terraform -chdir=terraform/projects/codecov-website init
+          terraform -chdir=terraform/projects/codecov-website validate -no-color
+
       - name: "Init and validate domain-redirects project"
         run: |
           terraform -chdir=terraform/projects/domain-redirects init
@@ -82,10 +87,15 @@ jobs:
           terraform -chdir=terraform/projects/github-actions-terraform-linting init
           terraform -chdir=terraform/projects/github-actions-terraform-linting validate -no-color
 
-      - name: "Init and validate github-pages project"
+      - name: "Init and validate github-pages-dns project"
         run: |
-          terraform -chdir=terraform/projects/github-pages init
-          terraform -chdir=terraform/projects/github-pages validate -no-color
+          terraform -chdir=terraform/projects/github-pages-dns init
+          terraform -chdir=terraform/projects/github-pages-dns validate -no-color
+
+      - name: "Init and validate google-site-verification project"
+        run: |
+          terraform -chdir=terraform/projects/google-site-verification init
+          terraform -chdir=terraform/projects/google-site-verification validate -no-color
 
       - name: "Init and validate remote-state project"
         run: |
@@ -96,6 +106,11 @@ jobs:
         run: |
           terraform -chdir=terraform/projects/reserved-s3-buckets init
           terraform -chdir=terraform/projects/reserved-s3-buckets validate -no-color
+
+      - name: "Init and validate route53-dns project"
+        run: |
+          terraform -chdir=terraform/projects/route53-dns init
+          terraform -chdir=terraform/projects/route53-dns validate -no-color
 
   ruby:
     name: Lint and format Ruby

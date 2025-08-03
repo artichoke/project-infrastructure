@@ -6,7 +6,7 @@ data "aws_route53_zone" "zone" {
 
 module "github_pages" {
   for_each = { for conf in module.domain_data.github_pages_config : conf.domain => conf }
-  source   = "../../../../../modules/github-pages-domain-dns"
+  source   = "../github-pages-domain-dns"
 
   zone_id             = data.aws_route53_zone.zone[each.key].zone_id
   github_organization = each.value.org
