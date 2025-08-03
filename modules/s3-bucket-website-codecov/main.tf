@@ -352,7 +352,7 @@ resource "aws_cloudfront_response_headers_policy" "website" {
   }
 }
 
-resource "aws_s3_object" "robots_txt" {
+resource "aws_s3_object" "robots" {
   bucket = aws_s3_bucket.this.id
   key    = "robots.txt"
   source = "${path.module}/robots.txt"
@@ -363,7 +363,7 @@ resource "aws_s3_object" "robots_txt" {
   server_side_encryption = "AES256"
 }
 
-resource "aws_s3_object" "index_html" {
+resource "aws_s3_object" "index" {
   bucket = aws_s3_bucket.this.id
   key    = "index.html"
   source = "${path.module}/code-coverage-index.html"
@@ -374,47 +374,55 @@ resource "aws_s3_object" "index_html" {
   server_side_encryption = "AES256"
 }
 
-resource "aws_s3_object" "favicon_png" {
+resource "aws_s3_object" "favicon" {
+  for_each = {
+    "png" = "${path.module}/favicon-32x32.png",
+    "ico" = "${path.module}/favicon.ico",
+  }
+
   bucket = aws_s3_bucket.this.id
-  key    = "favicon.png"
-  source = "${path.module}/favicon-32x32.png"
+  key    = "favicon.${each.key}"
+  source = each.value
 
-  etag         = filemd5("${path.module}/favicon-32x32.png")
-  content_type = "image/png"
-
-  server_side_encryption = "AES256"
-}
-
-resource "aws_s3_object" "favicon_ico" {
-  bucket = aws_s3_bucket.this.id
-  key    = "favicon.ico"
-  source = "${path.module}/favicon.ico"
-
-  etag         = filemd5("${path.module}/favicon.ico")
-  content_type = "image/x-icon"
-
-  server_side_encryption = "AES256"
-}
-
-# Upload Artichoke logo
-resource "aws_s3_object" "artichoke_logo" {
-  bucket = aws_s3_bucket.this.id
-  key    = "artichoke-logo.svg"
-  source = "${path.module}/artichoke-logo.svg"
-
-  etag         = filemd5("${path.module}/artichoke-logo.svg")
-  content_type = "image/svg+xml"
+  etag         = filemd5(each.value)
+  content_type = each.key == "png" ? "image/png" : "image/x-icon"
 
   server_side_encryption = "AES256"
 }
 
 # Upload Artichoke wordmark
-resource "aws_s3_object" "artichoke_wordmark" {
-  bucket = aws_s3_bucket.this.id
-  key    = "wordmark-color.svg"
-  source = "${path.module}/wordmark-color.svg"
+resource "aws_s3_object" "brand_asset" {
+  for_each = {
+    "artichoke-logo" = "${path.module}/artichoke-logo.svg"
+    "wordmark-color" = "${path.module}/wordmark-color.svg"
+  }
 
-  etag         = filemd5("${path.module}/wordmark-color.svg")
+  bucket = aws_s3_bucket.this.id
+  key    = "${each.key}.svg"
+  source = each.value
+
+  etag         = filemd5(each.value)
+  content_type = "image/svg+xml"
+
+  server_side_encryption = "AES256"
+}
+
+
+# Font Awesome icons
+resource "aws_s3_object" "icon" {
+  for_each = {
+    "code"          = "${path.module}/icon-code.svg",
+    "file-code"     = "${path.module}/icon-file-code.svg",
+    "github"        = "${path.module}/icon-github.svg",
+    "list"          = "${path.module}/icon-list.svg",
+    "square-github" = "${path.module}/icon-square-github.svg",
+  }
+
+  bucket = aws_s3_bucket.this.id
+  key    = "icon-${each.key}.svg"
+  source = each.value
+
+  etag         = filemd5(each.value)
   content_type = "image/svg+xml"
 
   server_side_encryption = "AES256"
