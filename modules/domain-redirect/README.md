@@ -39,11 +39,14 @@ module "redirect" {
 - `zone_id`: The id of the Route53 zone to create redirect records in.
 - `redirect_to`: The website to redirect to, should be of the format
   `https://example.com/`.
-- `apex_only`: Whether the redirect is only for the apex domain in the given
-  zone.
+- `subdomains`: The set of subdomains to redirect. Defaults to `["www"]`.
+- `include_apex`: Whether to include the apex domain in the given zone. Defaults
+  to `true`.
 
 ## Outputs
 
+- `bucket_arn`: The ARN of the created S3 bucket.
+- `bucket_name`: The name of the created S3 bucket.
 - `cert_arn`: The ARN of the created ACM certificate.
 - `cloudfront_domain_name`: The domain name corresponding to the CloudFront
   distribution.

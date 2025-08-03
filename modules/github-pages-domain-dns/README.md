@@ -17,9 +17,13 @@ module "artichokeruby_org_github_pages" {
 
 ## Parameters
 
-- `zone_id`: The id of the Route53 zone to create TXT records in.
+- `include_apex`: Whether to create A and AAAA records for the apex domain.
+  Defaults to `true`.
 - `github_organization`: The GitHub organization slug, e.g. `artichoke`.
+- `subdomains`: The list of subdomains to create CNAME records for. Defaults to
+  `["www"]`.
+- `zone_id`: The id of the Route53 zone to create TXT records in.
 
 ## Outputs
 
-This module has no outputs.
+- `domains`: The list of FQDNs that records were created for.

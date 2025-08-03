@@ -1,6 +1,6 @@
 variable "plan" {
   description = "Plan name"
-  default     = "reserved-s3-buckets"
+  default     = "domain-redirects"
   type        = string
 }
 

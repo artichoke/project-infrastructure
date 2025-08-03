@@ -31,17 +31,3 @@ module "artichokeruby_net_github_pages_challenge" {
   domain              = "artichokeruby.net"
   challenge           = "7da729a45019ca339d0cedce912c2e"
 }
-
-module "artichokeruby_net_redirect" {
-  source = "../modules/domain-redirect"
-
-  access_logs_bucket = module.forge_access_logs.name
-
-  zone_id     = data.aws_route53_zone.artichokeruby_net.zone_id
-  redirect_to = "https://www.artichokeruby.org"
-
-  providers = {
-    aws           = aws
-    aws.us_east_1 = aws.us_east_1
-  }
-}

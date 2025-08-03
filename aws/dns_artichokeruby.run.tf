@@ -31,17 +31,3 @@ module "artichokeruby_run_github_pages_challenge" {
   domain              = "artichokeruby.run"
   challenge           = "50369d1a13ec11c0d9899705388810"
 }
-
-module "artichokeruby_run_redirect" {
-  source = "../modules/domain-redirect"
-
-  access_logs_bucket = module.forge_access_logs.name
-
-  zone_id     = data.aws_route53_zone.artichokeruby_run.zone_id
-  redirect_to = "https://artichoke.run"
-
-  providers = {
-    aws           = aws
-    aws.us_east_1 = aws.us_east_1
-  }
-}

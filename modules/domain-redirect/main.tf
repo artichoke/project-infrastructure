@@ -1,8 +1,20 @@
 locals {
   apex_domain      = data.aws_route53_zone.zone.name
-  redirect_domains = var.apex_only ? [local.apex_domain] : [local.apex_domain, "www.${local.apex_domain}"]
-  safe_name        = replace(local.apex_domain, ".", "-")
+  subdomain_fqnds  = [for subdomain in var.subdomains : "${subdomain}.${local.apex_domain}"]
+  redirect_domains = var.include_apex ? concat([local.apex_domain], local.subdomain_fqnds) : local.subdomain_fqnds
+  suffix           = var.suffix == "" ? random_string.suffix["enabled"].result : var.suffix
+  safe_name        = "${replace(local.apex_domain, ".", "-")}-${local.suffix}"
   bucket           = "artichoke-domain-redirect-${local.safe_name}"
+}
+
+resource "random_string" "suffix" {
+  for_each = var.suffix == "" ? toset(["enabled"]) : toset([])
+
+  length  = 8
+  lower   = true
+  upper   = false
+  numeric = true
+  special = false
 }
 
 data "aws_route53_zone" "zone" {
@@ -22,6 +34,8 @@ module "cert" {
 }
 
 resource "aws_route53_record" "apex_ipv4" {
+  for_each = var.include_apex ? toset(["enabled"]) : toset([])
+
   zone_id = data.aws_route53_zone.zone.zone_id
   name    = data.aws_route53_zone.zone.name
   type    = "A"
@@ -34,6 +48,8 @@ resource "aws_route53_record" "apex_ipv4" {
 }
 
 resource "aws_route53_record" "apex_ipv6" {
+  for_each = var.include_apex ? toset(["enabled"]) : toset([])
+
   zone_id = data.aws_route53_zone.zone.zone_id
   name    = data.aws_route53_zone.zone.name
   type    = "AAAA"
@@ -45,11 +61,11 @@ resource "aws_route53_record" "apex_ipv6" {
   }
 }
 
-resource "aws_route53_record" "www_ipv4" {
-  for_each = var.apex_only ? toset([]) : toset(["enabled"])
+resource "aws_route53_record" "subdomain_ipv4" {
+  for_each = toset(local.subdomain_fqnds)
 
   zone_id = data.aws_route53_zone.zone.zone_id
-  name    = "www"
+  name    = each.key
   type    = "A"
 
   alias {
@@ -59,11 +75,11 @@ resource "aws_route53_record" "www_ipv4" {
   }
 }
 
-resource "aws_route53_record" "www_ipv6" {
-  for_each = var.apex_only ? toset([]) : toset(["enabled"])
+resource "aws_route53_record" "subdomain_ipv6" {
+  for_each = toset(local.subdomain_fqnds)
 
   zone_id = data.aws_route53_zone.zone.zone_id
-  name    = "www"
+  name    = each.key
   type    = "AAAA"
 
   alias {
@@ -96,20 +112,12 @@ resource "aws_s3_bucket_lifecycle_configuration" "this" {
       storage_class   = "GLACIER_IR"
     }
   }
-
-  lifecycle {
-    prevent_destroy = true
-  }
 }
 
 resource "aws_s3_bucket_logging" "this" {
   bucket        = aws_s3_bucket.this.id
   target_bucket = var.access_logs_bucket
   target_prefix = "v2/${local.bucket}/"
-
-  lifecycle {
-    prevent_destroy = true
-  }
 }
 
 resource "aws_s3_bucket_public_access_block" "this" {
@@ -121,10 +129,6 @@ resource "aws_s3_bucket_public_access_block" "this" {
   ignore_public_acls = true
 
   restrict_public_buckets = true
-
-  lifecycle {
-    prevent_destroy = true
-  }
 }
 
 # tfsec:ignore:aws-s3-encryption-customer-key
@@ -136,10 +140,6 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "this" {
       sse_algorithm = "AES256"
     }
   }
-
-  lifecycle {
-    prevent_destroy = true
-  }
 }
 
 resource "aws_s3_bucket_versioning" "this" {
@@ -149,15 +149,11 @@ resource "aws_s3_bucket_versioning" "this" {
     status     = "Enabled"
     mfa_delete = "Disabled"
   }
-
-  lifecycle {
-    prevent_destroy = true
-  }
 }
 
 resource "aws_cloudfront_origin_access_control" "this" {
   name                              = "oac-domain-redirect-${local.safe_name}"
-  description                       = "OAC for S3 bucket backing domain redirect from ${local.apex_domain} to ${var.redirect_to}"
+  description                       = "OAC for ${local.bucket} bucket backing domain redirect"
   origin_access_control_origin_type = "s3"
   signing_behavior                  = "always"
   signing_protocol                  = "sigv4"
@@ -169,7 +165,7 @@ resource "aws_cloudfront_origin_access_control" "this" {
 # tfsec:ignore:aws-cloudfront-enable-waf
 # tfsec:ignore:aws-cloudfront-enable-logging
 resource "aws_cloudfront_distribution" "this" {
-  comment = "domain redirect ${local.apex_domain} to ${var.redirect_to}"
+  comment = "domain redirect using ${local.bucket} bucket"
 
   enabled             = true
   wait_for_deployment = false

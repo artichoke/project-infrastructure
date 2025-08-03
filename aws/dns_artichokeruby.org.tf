@@ -32,31 +32,6 @@ module "artichokeruby_org_github_pages_challenge" {
   challenge           = "35fc238d3171df6cf54e3c2b07c195"
 }
 
-module "artichokeruby_org_redirect" {
-  source = "../modules/domain-redirect"
-
-  access_logs_bucket = module.forge_access_logs.name
-
-  zone_id     = data.aws_route53_zone.artichokeruby_org.zone_id
-  redirect_to = "https://www.artichokeruby.org"
-  apex_only   = true
-
-  providers = {
-    aws           = aws
-    aws.us_east_1 = aws.us_east_1
-  }
-}
-
-resource "aws_route53_record" "artichokeruby_org_www" {
-  zone_id = data.aws_route53_zone.artichokeruby_org.zone_id
-  name    = "www.artichokeruby.org"
-  type    = "CNAME"
-  ttl     = 300
-  records = [
-    "artichoke.github.io",
-  ]
-}
-
 resource "aws_route53_record" "artichokeruby_org_codecov_ipv4" {
   zone_id = data.aws_route53_zone.artichokeruby_org.zone_id
   name    = "codecov.artichokeruby.org"

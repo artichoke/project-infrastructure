@@ -12,3 +12,20 @@ variable "github_organization" {
     error_message = "GitHub organization must not be empty."
   }
 }
+
+variable "include_apex" {
+  description = "Whether to include an apex record for the domain"
+  type        = bool
+  default     = true
+}
+
+variable "subdomains" {
+  description = "List of subdomains to create records for"
+  type        = list(string)
+  default     = ["www"]
+
+  validation {
+    condition     = alltrue([for subdomain in var.subdomains : length(subdomain) > 0])
+    error_message = "Subdomains must not be empty."
+  }
+}
