@@ -165,30 +165,35 @@ locals {
     "artichokeruby.run" = "50369d1a13ec11c0d9899705388810"
   }
 
-  zones_with_redirect = [
-    {
-      zone        = "artichokeruby.com"
-      apex        = true
-      names       = ["www"]
-      redirect_to = "https://www.artichokeruby.org"
-    },
-    {
-      zone        = "artichokeruby.net"
-      apex        = true
-      names       = ["www"]
-      redirect_to = "https://www.artichokeruby.org"
-    },
-    {
-      zone        = "artichokeruby.org"
-      apex        = true
-      names       = []
-      redirect_to = "https://www.artichokeruby.org"
-    },
-    {
-      zone        = "artichokeruby.run"
-      apex        = true
-      names       = ["www"]
-      redirect_to = "https://artichoke.run"
-    },
+  github_pages_config = [
+    { org = "artichoke", domain = "artichoke.run", include_apex = true, subdomains = ["rubyconf2019"] },
+    { org = "artichoke", domain = "artichokeruby.org", include_apex = false, subdomains = ["www"] },
   ]
+
+  project_website_redirect_domains = [
+    { domain = "artichokeruby.com", redirect_to = "https://www.artichokeruby.org", include_apex = true, subdomains = ["www"] },
+    { domain = "artichokeruby.net", redirect_to = "https://www.artichokeruby.org", include_apex = true, subdomains = ["www"] },
+    { domain = "artichokeruby.org", redirect_to = "https://www.artichokeruby.org", include_apex = true, subdomains = [] },
+  ]
+
+  codecov_redirect_domains = [
+    { domain = "artichoke.run", redirect_to = "https://codecov.artichokeruby.org", include_apex = false, subdomains = ["codecov"] },
+    { domain = "artichokeruby.com", redirect_to = "https://codecov.artichokeruby.org", include_apex = false, subdomains = ["codecov"] },
+    { domain = "artichokeruby.net", redirect_to = "https://codecov.artichokeruby.org", include_apex = false, subdomains = ["codecov"] },
+    { domain = "artichokeruby.run", redirect_to = "https://codecov.artichokeruby.org", include_apex = false, subdomains = ["codecov"] },
+  ]
+
+  playground_redirect_domains = [
+    { domain = "artichokeruby.com", redirect_to = "https://artichoke.run", include_apex = false, subdomains = ["play"] },
+    { domain = "artichokeruby.net", redirect_to = "https://artichoke.run", include_apex = false, subdomains = ["play"] },
+    { domain = "artichokeruby.org", redirect_to = "https://artichoke.run", include_apex = false, subdomains = ["play"] },
+    { domain = "artichokeruby.run", redirect_to = "https://artichoke.run", include_apex = true, subdomains = ["play", "www"] },
+    { domain = "artichoke.run", redirect_to = "https://artichoke.run", include_apex = false, subdomains = ["play", "www"] },
+  ]
+
+  domain_redirects = concat(
+    local.project_website_redirect_domains,
+    local.codecov_redirect_domains,
+    local.playground_redirect_domains,
+  )
 }

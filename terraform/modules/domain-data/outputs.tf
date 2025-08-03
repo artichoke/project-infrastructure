@@ -10,6 +10,10 @@ output "domain_to_github_pages_challenge" {
   value = local.domain_to_github_pages_challenge
 }
 
-output "zones_with_redirect" {
-  value = local.zones_with_redirect
+output "domain_redirects" {
+  value = local.domain_redirects
+}
+
+output "github_pages_config" {
+  value = local.github_pages_config
 }
