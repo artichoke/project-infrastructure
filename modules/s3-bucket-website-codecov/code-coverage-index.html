@@ -2,237 +2,276 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, viewport-fit=cover"
-    />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Artichoke Ruby Code Coverage</title>
-
     <meta name="description" content="Artichoke Ruby code coverage reports." />
-
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css"
-    />
-    <style nonce="b77e5ce9ed">
-      .artichoke-valign-middle {
+    <style>
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+          Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: #f9f9f9;
+        color: #333;
+      }
+      header {
+        background: #fff;
+        border-bottom: 1px solid #eaeaea;
+        padding: 1rem;
+        display: flex;
+        align-items: center;
+      }
+      header .logo {
+        height: 48px;
+      }
+      header .brand {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-left: 0.75rem;
+      }
+      main {
+        max-width: 960px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+      }
+      h1 {
+        text-align: center;
+        margin-bottom: 1.5rem;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        background: #fff;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        overflow: hidden;
+      }
+      th,
+      td {
+        padding: 0.75rem 1rem;
+        text-align: left;
+        border-bottom: 1px solid #eaeaea;
+      }
+      th {
+        background: #f5f5f5;
+        font-weight: 600;
+      }
+      tr:last-child td {
+        border-bottom: none;
+      }
+      img.badge {
         vertical-align: middle;
+      }
+      a {
+        color: #0067c5;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
       }
     </style>
   </head>
   <body>
-    <div class="container p-3">
-      <h1 class="title has-text-centered">Artichoke Ruby Code Coverage</h1>
-      <h2 class="subtitle">Reports</h2>
-      <table class="table">
-        <tr class="row-item">
-          <td>
-            <code>boba</code>
-          </td>
-          <td>
-            <img
-              src="https://codecov.artichokeruby.org/boba/badges/flat.svg"
-              alt="boba coverage"
-              class="artichoke-valign-middle"
-            />
-          </td>
-          <td>
-            <a href="https://codecov.artichokeruby.org/boba/index.html">
-              Coverage Report
-            </a>
-          </td>
-          <td>
-            <a href="https://codecov.artichokeruby.org/boba/coverage.json">
-              Coverage Summary
-            </a>
-          </td>
-          <td>
-            <a href="https://github.com/artichoke/boba">GitHub</a>
-          </td>
-        </tr>
-        <tr class="row-item">
-          <td>
-            <code>focaccia</code>
-          </td>
-          <td>
-            <img
-              src="https://codecov.artichokeruby.org/focaccia/badges/flat.svg"
-              alt="focaccia coverage"
-              class="artichoke-valign-middle"
-            />
-          </td>
-          <td>
-            <a href="https://codecov.artichokeruby.org/focaccia/index.html">
-              Coverage Report
-            </a>
-          </td>
-          <td>
-            <a href="https://codecov.artichokeruby.org/focaccia/coverage.json">
-              Coverage Summary
-            </a>
-          </td>
-          <td>
-            <a href="https://github.com/artichoke/focaccia">GitHub</a>
-          </td>
-        </tr>
-        <tr class="row-item">
-          <td>
-            <code>intaglio</code>
-          </td>
-          <td>
-            <img
-              src="https://codecov.artichokeruby.org/intaglio/badges/flat.svg"
-              alt="intaglio coverage"
-              class="artichoke-valign-middle"
-            />
-          </td>
-          <td>
-            <a href="https://codecov.artichokeruby.org/intaglio/index.html">
-              Coverage Report
-            </a>
-          </td>
-          <td>
-            <a href="https://codecov.artichokeruby.org/intaglio/coverage.json">
-              Coverage Summary
-            </a>
-          </td>
-          <td>
-            <a href="https://github.com/artichoke/intaglio">GitHub</a>
-          </td>
-        </tr>
-        <tr class="row-item">
-          <td>
-            <code>posix-space</code>
-          </td>
-          <td>
-            <img
-              src="https://codecov.artichokeruby.org/posix-space/badges/flat.svg"
-              alt="posix-space coverage"
-              class="artichoke-valign-middle"
-            />
-          </td>
-          <td>
-            <a href="https://codecov.artichokeruby.org/posix-space/index.html">
-              Coverage Report
-            </a>
-          </td>
-          <td>
-            <a
-              href="https://codecov.artichokeruby.org/posix-space/coverage.json"
-            >
-              Coverage Summary
-            </a>
-          </td>
-          <td>
-            <a href="https://github.com/artichoke/posix-space">GitHub</a>
-          </td>
-        </tr>
-        <tr class="row-item">
-          <td>
-            <code>rand_mt</code>
-          </td>
-          <td>
-            <img
-              src="https://codecov.artichokeruby.org/rand_mt/badges/flat.svg"
-              alt="rand_mt coverage"
-              class="artichoke-valign-middle"
-            />
-          </td>
-          <td>
-            <a href="https://codecov.artichokeruby.org/rand_mt/index.html">
-              Coverage Report
-            </a>
-          </td>
-          <td>
-            <a href="https://codecov.artichokeruby.org/rand_mt/coverage.json">
-              Coverage Summary
-            </a>
-          </td>
-          <td>
-            <a href="https://github.com/artichoke/rand_mt">GitHub</a>
-          </td>
-        </tr>
-        <tr class="row-item">
-          <td>
-            <code>raw-parts</code>
-          </td>
-          <td>
-            <img
-              src="https://codecov.artichokeruby.org/raw-parts/badges/flat.svg"
-              alt="raw-parts coverage"
-              class="artichoke-valign-middle"
-            />
-          </td>
-          <td>
-            <a href="https://codecov.artichokeruby.org/raw-parts/index.html">
-              Coverage Report
-            </a>
-          </td>
-          <td>
-            <a href="https://codecov.artichokeruby.org/raw-parts/coverage.json">
-              Coverage Summary
-            </a>
-          </td>
-          <td>
-            <a href="https://github.com/artichoke/raw-parts">GitHub</a>
-          </td>
-        </tr>
-        <tr class="row-item">
-          <td>
-            <code>roe</code>
-          </td>
-          <td>
-            <img
-              src="https://codecov.artichokeruby.org/roe/badges/flat.svg"
-              alt="roe coverage"
-              class="artichoke-valign-middle"
-            />
-          </td>
-          <td>
-            <a href="https://codecov.artichokeruby.org/roe/index.html">
-              Coverage Report
-            </a>
-          </td>
-          <td>
-            <a href="https://codecov.artichokeruby.org/roe/coverage.json">
-              Coverage Summary
-            </a>
-          </td>
-          <td>
-            <a href="https://github.com/artichoke/roe">GitHub</a>
-          </td>
-        </tr>
-        <tr class="row-item">
-          <td>
-            <code>strftime-ruby</code>
-          </td>
-          <td>
-            <img
-              src="https://codecov.artichokeruby.org/strftime-ruby/badges/flat.svg"
-              alt="strftime-ruby coverage"
-              class="artichoke-valign-middle"
-            />
-          </td>
-          <td>
-            <a
-              href="https://codecov.artichokeruby.org/strftime-ruby/index.html"
-            >
-              Coverage Report
-            </a>
-          </td>
-          <td>
-            <a
-              href="https://codecov.artichokeruby.org/strftime-ruby/coverage.json"
-            >
-              Coverage Summary
-            </a>
-          </td>
-          <td>
-            <a href="https://github.com/artichoke/strftime-ruby">GitHub</a>
-          </td>
-        </tr>
+    <header>
+      <img
+        class="logo"
+        src="https://www.artichokeruby.org/artichoke-logo.svg"
+        alt="Artichoke logo"
+      />
+      <span class="brand">Artichoke Ruby</span>
+    </header>
+    <main>
+      <h1>Code Coverage Reports</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Project</th>
+            <th>Coverage</th>
+            <th>Report</th>
+            <th>Summary</th>
+            <th>GitHub</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>boba</code></td>
+            <td>
+              <img
+                class="badge"
+                src="https://codecov.artichokeruby.org/boba/badges/flat.svg"
+                alt="boba coverage"
+              />
+            </td>
+            <td>
+              <a href="https://codecov.artichokeruby.org/boba/index.html"
+                >Report</a
+              >
+            </td>
+            <td>
+              <a href="https://codecov.artichokeruby.org/boba/coverage.json"
+                >Summary</a
+              >
+            </td>
+            <td><a href="https://github.com/artichoke/boba">GitHub</a></td>
+          </tr>
+          <tr>
+            <td><code>focaccia</code></td>
+            <td>
+              <img
+                class="badge"
+                src="https://codecov.artichokeruby.org/focaccia/badges/flat.svg"
+                alt="focaccia coverage"
+              />
+            </td>
+            <td>
+              <a href="https://codecov.artichokeruby.org/focaccia/index.html"
+                >Report</a
+              >
+            </td>
+            <td>
+              <a href="https://codecov.artichokeruby.org/focaccia/coverage.json"
+                >Summary</a
+              >
+            </td>
+            <td><a href="https://github.com/artichoke/focaccia">GitHub</a></td>
+          </tr>
+          <tr>
+            <td><code>intaglio</code></td>
+            <td>
+              <img
+                class="badge"
+                src="https://codecov.artichokeruby.org/intaglio/badges/flat.svg"
+                alt="intaglio coverage"
+              />
+            </td>
+            <td>
+              <a href="https://codecov.artichokeruby.org/intaglio/index.html"
+                >Report</a
+              >
+            </td>
+            <td>
+              <a href="https://codecov.artichokeruby.org/intaglio/coverage.json"
+                >Summary</a
+              >
+            </td>
+            <td><a href="https://github.com/artichoke/intaglio">GitHub</a></td>
+          </tr>
+          <tr>
+            <td><code>posix-space</code></td>
+            <td>
+              <img
+                class="badge"
+                src="https://codecov.artichokeruby.org/posix-space/badges/flat.svg"
+                alt="posix-space coverage"
+              />
+            </td>
+            <td>
+              <a href="https://codecov.artichokeruby.org/posix-space/index.html"
+                >Report</a
+              >
+            </td>
+            <td>
+              <a
+                href="https://codecov.artichokeruby.org/posix-space/coverage.json"
+                >Summary</a
+              >
+            </td>
+            <td>
+              <a href="https://github.com/artichoke/posix-space">GitHub</a>
+            </td>
+          </tr>
+          <tr>
+            <td><code>rand_mt</code></td>
+            <td>
+              <img
+                class="badge"
+                src="https://codecov.artichokeruby.org/rand_mt/badges/flat.svg"
+                alt="rand_mt coverage"
+              />
+            </td>
+            <td>
+              <a href="https://codecov.artichokeruby.org/rand_mt/index.html"
+                >Report</a
+              >
+            </td>
+            <td>
+              <a href="https://codecov.artichokeruby.org/rand_mt/coverage.json"
+                >Summary</a
+              >
+            </td>
+            <td><a href="https://github.com/artichoke/rand_mt">GitHub</a></td>
+          </tr>
+          <tr>
+            <td><code>raw-parts</code></td>
+            <td>
+              <img
+                class="badge"
+                src="https://codecov.artichokeruby.org/raw-parts/badges/flat.svg"
+                alt="raw-parts coverage"
+              />
+            </td>
+            <td>
+              <a href="https://codecov.artichokeruby.org/raw-parts/index.html"
+                >Report</a
+              >
+            </td>
+            <td>
+              <a
+                href="https://codecov.artichokeruby.org/raw-parts/coverage.json"
+                >Summary</a
+              >
+            </td>
+            <td><a href="https://github.com/artichoke/raw-parts">GitHub</a></td>
+          </tr>
+          <tr>
+            <td><code>roe</code></td>
+            <td>
+              <img
+                class="badge"
+                src="https://codecov.artichokeruby.org/roe/badges/flat.svg"
+                alt="roe coverage"
+              />
+            </td>
+            <td>
+              <a href="https://codecov.artichokeruby.org/roe/index.html"
+                >Report</a
+              >
+            </td>
+            <td>
+              <a href="https://codecov.artichokeruby.org/roe/coverage.json"
+                >Summary</a
+              >
+            </td>
+            <td><a href="https://github.com/artichoke/roe">GitHub</a></td>
+          </tr>
+          <tr>
+            <td><code>strftime-ruby</code></td>
+            <td>
+              <img
+                class="badge"
+                src="https://codecov.artichokeruby.org/strftime-ruby/badges/flat.svg"
+                alt="strftime-ruby coverage"
+              />
+            </td>
+            <td>
+              <a
+                href="https://codecov.artichokeruby.org/strftime-ruby/index.html"
+                >Report</a
+              >
+            </td>
+            <td>
+              <a
+                href="https://codecov.artichokeruby.org/strftime-ruby/coverage.json"
+                >Summary</a
+              >
+            </td>
+            <td>
+              <a href="https://github.com/artichoke/strftime-ruby">GitHub</a>
+            </td>
+          </tr>
+        </tbody>
       </table>
-    </div>
+    </main>
   </body>
 </html>
