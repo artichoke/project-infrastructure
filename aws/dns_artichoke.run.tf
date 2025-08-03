@@ -12,19 +12,15 @@ locals {
   ]
 }
 
-resource "aws_route53_zone" "artichoke_run" {
+data "aws_route53_zone" "artichoke_run" {
   name = "artichoke.run"
-
-  lifecycle {
-    prevent_destroy = true
-  }
 }
 
 module "artichoke_run_github_challenge" {
   source   = "../modules/github-domain-verification"
   for_each = { for conf in local.artichoke_run_github_challenges : "${conf.org}_${conf.domain}" => conf }
 
-  zone_id             = aws_route53_zone.artichoke_run.zone_id
+  zone_id             = data.aws_route53_zone.artichoke_run.zone_id
   github_organization = each.value.org
   domain              = each.value.domain
   challenge           = each.value.challenge
@@ -33,7 +29,7 @@ module "artichoke_run_github_challenge" {
 module "artichoke_run_github_pages_challenge" {
   source = "../modules/github-pages-domain-verification"
 
-  zone_id             = aws_route53_zone.artichoke_run.zone_id
+  zone_id             = data.aws_route53_zone.artichoke_run.zone_id
   github_organization = "artichoke"
   domain              = "artichoke.run"
   challenge           = "485977220be94c7ea6d333d5011d0c"
@@ -42,14 +38,14 @@ module "artichoke_run_github_pages_challenge" {
 module "artichoke_run_github_pages" {
   source = "../modules/github-pages-domain-dns"
 
-  zone_id             = aws_route53_zone.artichoke_run.zone_id
+  zone_id             = data.aws_route53_zone.artichoke_run.zone_id
   github_organization = "artichoke"
 }
 
 module "rubyconf2019_artichoke_run_github_pages" {
   source = "../modules/github-pages-subdomain-dns"
 
-  zone_id             = aws_route53_zone.artichoke_run.zone_id
+  zone_id             = data.aws_route53_zone.artichoke_run.zone_id
   subdomain           = "rubyconf2019"
   github_organization = "artichoke"
 }
@@ -57,7 +53,7 @@ module "rubyconf2019_artichoke_run_github_pages" {
 module "artichoke_run_google" {
   source = "../modules/google-site-verification"
 
-  zone_id = aws_route53_zone.artichoke_run.zone_id
+  zone_id = data.aws_route53_zone.artichoke_run.zone_id
 
   site_verification_keys = [
     "Ro-ABr2TIv3obx8csab8E3NC43BrANBdXimBKg2Jcxc", # Google Search Console

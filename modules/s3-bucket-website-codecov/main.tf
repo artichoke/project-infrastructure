@@ -22,6 +22,9 @@ resource "aws_s3_bucket_lifecycle_configuration" "this" {
     id     = "archive"
     status = "Enabled"
 
+    # match every object in the bucket
+    filter {}
+
     noncurrent_version_transition {
       noncurrent_days = 30
       storage_class   = "GLACIER_IR"
@@ -91,16 +94,51 @@ resource "aws_acm_certificate" "cert" {
 
   domain_name               = var.domains[0]
   subject_alternative_names = slice(var.domains, 1, length(var.domains))
-  validation_method         = "EMAIL"
-
-  validation_option {
-    domain_name       = var.domains[0]
-    validation_domain = "artichokeruby.org"
-  }
+  validation_method         = "DNS"
 
   options {
     certificate_transparency_logging_preference = "ENABLED"
   }
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+data "aws_route53_zone" "cert" {
+  zone_id      = var.zone_id
+  private_zone = false
+}
+
+resource "aws_route53_record" "cert_validation" {
+  for_each = {
+    for dvo in aws_acm_certificate.cert.domain_validation_options :
+    dvo.domain_name => {
+      name    = dvo.resource_record_name
+      type    = dvo.resource_record_type
+      record  = dvo.resource_record_value
+      zone_id = data.aws_route53_zone.cert.zone_id
+    }
+  }
+
+  name    = each.value.name
+  type    = each.value.type
+  zone_id = each.value.zone_id
+  records = [each.value.record]
+  ttl     = 300
+
+  lifecycle {
+    create_before_destroy = false
+  }
+}
+
+resource "aws_acm_certificate_validation" "cert" {
+  provider        = aws.us_east_1
+  certificate_arn = aws_acm_certificate.cert.arn
+
+  validation_record_fqdns = [
+    for rec in aws_route53_record.cert_validation : rec.fqdn
+  ]
 
   lifecycle {
     create_before_destroy = true

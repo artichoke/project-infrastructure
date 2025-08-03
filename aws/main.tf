@@ -72,6 +72,7 @@ module "code_coverage" {
   access_logs_bucket = module.forge_access_logs.name
 
   domains = ["codecov.artichokeruby.org"]
+  zone_id = data.aws_route53_zone.artichokeruby_org.zone_id
 
   providers = {
     aws           = aws

@@ -1,6 +1,6 @@
 locals {
   apex_domain      = data.aws_route53_zone.zone.name
-  redirect_domains = [local.apex_domain, "www.${local.apex_domain}"]
+  redirect_domains = var.apex_only ? [local.apex_domain] : [local.apex_domain, "www.${local.apex_domain}"]
   safe_name        = replace(local.apex_domain, ".", "-")
   bucket           = "artichoke-domain-redirect-${local.safe_name}"
 }
@@ -46,6 +46,8 @@ resource "aws_route53_record" "apex_ipv6" {
 }
 
 resource "aws_route53_record" "www_ipv4" {
+  for_each = var.apex_only ? toset([]) : toset(["enabled"])
+
   zone_id = data.aws_route53_zone.zone.zone_id
   name    = "www"
   type    = "A"
@@ -58,6 +60,8 @@ resource "aws_route53_record" "www_ipv4" {
 }
 
 resource "aws_route53_record" "www_ipv6" {
+  for_each = var.apex_only ? toset([]) : toset(["enabled"])
+
   zone_id = data.aws_route53_zone.zone.zone_id
   name    = "www"
   type    = "AAAA"
@@ -83,6 +87,9 @@ resource "aws_s3_bucket_lifecycle_configuration" "this" {
   rule {
     id     = "archive"
     status = "Enabled"
+
+    # match every object in the bucket
+    filter {}
 
     noncurrent_version_transition {
       noncurrent_days = 30

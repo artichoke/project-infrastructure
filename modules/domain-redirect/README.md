@@ -39,6 +39,8 @@ module "redirect" {
 - `zone_id`: The id of the Route53 zone to create redirect records in.
 - `redirect_to`: The website to redirect to, should be of the format
   `https://example.com/`.
+- `apex_only`: Whether the redirect is only for the apex domain in the given
+  zone.
 
 ## Outputs
 
