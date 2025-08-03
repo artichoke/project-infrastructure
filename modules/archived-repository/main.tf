@@ -13,7 +13,7 @@ resource "github_repository" "this" {
   homepage_url = var.homepage_url
 
   archived   = true
-  visibility = "public"
+  visibility = var.visibility
 
   has_downloads = var.has_downloads
   has_issues    = var.has_issues
@@ -28,7 +28,7 @@ resource "github_repository" "this" {
   squash_merge_commit_title   = "PR_TITLE"
   squash_merge_commit_message = "PR_BODY"
 
-  topics = toset(concat(var.topics, ["artichoke"]))
+  topics = toset(concat(var.topics, var.no_default_topics ? [] : ["artichoke"]))
 
   dynamic "pages" {
     for_each = range(var.has_github_pages ? 1 : 0)

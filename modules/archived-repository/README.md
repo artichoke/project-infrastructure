@@ -49,6 +49,10 @@ module "archived_ferrocarril" {
 - `github_pages_cname`: CNAME record for GitHub Pages deployment, defaults to
   `null`, only has an effect if `has_github_pages` is `true`.
 - `topics`: The list of topics of the repository.
+- `no_default_topics`: Set to `true` to skip creating default topics (e.g.
+  `artichoke`).
+- `visibility`: The visibility of the repo, either `public` or `private`
+  (defaults to `public`).
 
 ## Outputs
 

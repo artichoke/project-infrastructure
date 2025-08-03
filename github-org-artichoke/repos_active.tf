@@ -165,26 +165,6 @@ module "github_intaglio" {
   ]
 }
 
-module "github_jasper" {
-  source = "../modules/github-repository"
-
-  name         = "jasper"
-  description  = "🧳 Single-binary packaging for Ruby applications that supports native and Wasm targets"
-  homepage_url = null
-
-  has_github_pages = false
-
-  topics = [
-    "bundler",
-    "packaging",
-    "ruby",
-    "rust",
-    "rust-application",
-    "wasm",
-    "webassembly",
-  ]
-}
-
 module "github_known_folders" {
   source = "../modules/github-repository"
 

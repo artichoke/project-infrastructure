@@ -17,6 +17,20 @@ module "archived_artichoke_ci" {
   ]
 }
 
+module "archived_artichoke_onigmo" {
+  source = "../modules/archived-repository"
+
+  name        = "artichoke-onigmo"
+  description = "Rust port / transpilation of Onigmo"
+  visibility  = "private"
+
+  delete_branch_on_merge = false
+  has_wiki               = false
+
+  topics            = []
+  no_default_topics = true
+}
+
 module "archived_ferrocarril" {
   source = "../modules/archived-repository"
 
@@ -37,6 +51,26 @@ module "archived_ferrocarril" {
   ]
 }
 
+module "archived_jasper" {
+  source = "../modules/archived-repository"
+
+  name         = "jasper"
+  description  = "🧳 Single-binary packaging for Ruby applications that supports native and Wasm targets"
+  homepage_url = null
+
+  has_github_pages = false
+
+  topics = [
+    "bundler",
+    "packaging",
+    "ruby",
+    "rust",
+    "rust-application",
+    "wasm",
+    "webassembly",
+  ]
+}
+
 module "archived_rust_mersenne_twister" {
   source = "../modules/archived-repository"
 
@@ -50,7 +84,8 @@ module "archived_rust_mersenne_twister" {
   has_wiki               = true
 
 
-  topics = []
+  topics            = []
+  no_default_topics = true
 }
 
 module "archived_rubyconf2019_artichoke_run" {
