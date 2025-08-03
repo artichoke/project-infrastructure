@@ -314,7 +314,7 @@ resource "aws_cloudfront_response_headers_policy" "website" {
     # https://infosec.mozilla.org/guidelines/web_security#content-security-policy
     # https://infosec.mozilla.org/guidelines/web_security#x-frame-options
     content_security_policy {
-      content_security_policy = "frame-ancestors 'none'; style-src 'self' https://cdn.jsdelivr.net/ 'nonce-b77e5ce9ed'; img-src 'self'; object-src 'none'; script-src 'none'; trusted-types; require-trusted-types-for 'script';"
+      content_security_policy = "frame-ancestors 'none'; style-src 'self' 'nonce-b77e5ce9ed'; img-src 'self'; object-src 'none'; script-src 'none'; trusted-types; require-trusted-types-for 'script';"
       override                = true
     }
 
@@ -392,6 +392,30 @@ resource "aws_s3_object" "favicon_ico" {
 
   etag         = filemd5("${path.module}/favicon.ico")
   content_type = "image/x-icon"
+
+  server_side_encryption = "AES256"
+}
+
+# Upload Artichoke logo
+resource "aws_s3_object" "artichoke_logo" {
+  bucket = aws_s3_bucket.this.id
+  key    = "artichoke-logo.svg"
+  source = "${path.module}/artichoke-logo.svg"
+
+  etag         = filemd5("${path.module}/artichoke-logo.svg")
+  content_type = "image/svg+xml"
+
+  server_side_encryption = "AES256"
+}
+
+# Upload Artichoke wordmark
+resource "aws_s3_object" "artichoke_wordmark" {
+  bucket = aws_s3_bucket.this.id
+  key    = "wordmark-color.svg"
+  source = "${path.module}/wordmark-color.svg"
+
+  etag         = filemd5("${path.module}/wordmark-color.svg")
+  content_type = "image/svg+xml"
 
   server_side_encryption = "AES256"
 }
