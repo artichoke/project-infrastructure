@@ -149,12 +149,75 @@ resource "aws_acm_certificate_validation" "cert" {
   }
 }
 
+data "aws_iam_roles" "admin" {
+  path_prefix = "/aws-reserved/sso.amazonaws.com/"
+  name_regex  = ".*AWSAdministratorAccess.*"
+}
+
 resource "aws_cloudfront_origin_access_control" "this" {
   name                              = "oac-static-site-${local.safe_name}"
   description                       = "OAC for S3 bucket backing static website ${var.domains[0]}"
   origin_access_control_origin_type = "s3"
   signing_behavior                  = "always"
   signing_protocol                  = "sigv4"
+}
+
+data "aws_iam_policy_document" "this" {
+  statement {
+    sid    = "AllowCloudFrontServicePrincipalReadOnly"
+    effect = "Allow"
+
+    principals {
+      type        = "Service"
+      identifiers = ["cloudfront.amazonaws.com"]
+    }
+
+    actions = [
+      "s3:GetObject",
+      "s3:ListBucket"
+    ]
+
+    resources = [
+      "${aws_s3_bucket.this.arn}",
+      "${aws_s3_bucket.this.arn}/*"
+    ]
+
+    condition {
+      test     = "StringEquals"
+      variable = "AWS:SourceArn"
+      values = [
+        aws_cloudfront_distribution.website.arn,
+      ]
+    }
+  }
+
+  statement {
+    sid    = "AdminAccess"
+    effect = "Allow"
+
+    principals {
+      type        = "AWS"
+      identifiers = data.aws_iam_roles.admin.arns
+    }
+
+    actions = [
+      "s3:DeleteObject",
+      "s3:GetObject",
+      "s3:PutObject",
+      "s3:ListBucket"
+    ]
+
+    resources = [
+      "${aws_s3_bucket.this.arn}",
+      "${aws_s3_bucket.this.arn}/*"
+    ]
+  }
+}
+
+resource "aws_s3_bucket_policy" "this" {
+  bucket = aws_s3_bucket.this.id
+
+  policy = data.aws_iam_policy_document.this.json
 }
 
 # The below lints are disabled for cost reasons and because the site deployed
