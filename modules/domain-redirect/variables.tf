@@ -27,8 +27,25 @@ variable "redirect_to" {
   }
 }
 
-variable "apex_only" {
-  description = "Whether the redirect is only for the apex domain"
+variable "subdomains" {
+  description = "The list of subdomains to redirect"
+  type        = list(string)
+  default     = ["www"]
+
+  validation {
+    condition     = alltrue([for subdomain in var.subdomains : length(subdomain) > 0])
+    error_message = "All subdomains must be non-empty strings."
+  }
+}
+
+variable "include_apex" {
+  description = "Whether to redirect the apex domain as well as the given subdomains"
   type        = bool
-  default     = false
+  default     = true
+}
+
+variable "suffix" {
+  description = "A suffix to append to the bucket name to ensure uniqueness"
+  type        = string
+  default     = ""
 }

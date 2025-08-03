@@ -35,21 +35,6 @@ module "artichoke_run_github_pages_challenge" {
   challenge           = "485977220be94c7ea6d333d5011d0c"
 }
 
-module "artichoke_run_github_pages" {
-  source = "../modules/github-pages-domain-dns"
-
-  zone_id             = data.aws_route53_zone.artichoke_run.zone_id
-  github_organization = "artichoke"
-}
-
-module "rubyconf2019_artichoke_run_github_pages" {
-  source = "../modules/github-pages-subdomain-dns"
-
-  zone_id             = data.aws_route53_zone.artichoke_run.zone_id
-  subdomain           = "rubyconf2019"
-  github_organization = "artichoke"
-}
-
 module "artichoke_run_google" {
   source = "../modules/google-site-verification"
 
