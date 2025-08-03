@@ -2,15 +2,15 @@
 #
 # https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site
 
-data "aws_route53_zone" "this" {
+data "aws_route53_zone" "zone" {
   zone_id = var.zone_id
 }
 
 resource "aws_route53_record" "ipv4" {
   for_each = var.include_apex ? toset(["apex"]) : toset([])
 
-  zone_id = data.aws_route53_zone.this.zone_id
-  name    = data.aws_route53_zone.this.name
+  zone_id = data.aws_route53_zone.zone.zone_id
+  name    = data.aws_route53_zone.zone.name
   type    = "A"
   ttl     = "300"
 
@@ -29,8 +29,8 @@ resource "aws_route53_record" "ipv4" {
 resource "aws_route53_record" "ipv6" {
   for_each = var.include_apex ? toset(["apex"]) : toset([])
 
-  zone_id = data.aws_route53_zone.this.zone_id
-  name    = data.aws_route53_zone.this.name
+  zone_id = data.aws_route53_zone.zone.zone_id
+  name    = data.aws_route53_zone.zone.name
   type    = "AAAA"
   ttl     = "300"
 
@@ -49,7 +49,7 @@ resource "aws_route53_record" "ipv6" {
 resource "aws_route53_record" "cname" {
   for_each = toset(var.subdomains)
 
-  zone_id = data.aws_route53_zone.this.zone_id
+  zone_id = data.aws_route53_zone.zone.zone_id
   name    = each.key
   type    = "CNAME"
   ttl     = "300"

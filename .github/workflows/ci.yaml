@@ -82,10 +82,10 @@ jobs:
           terraform -chdir=terraform/projects/github-actions-terraform-linting init
           terraform -chdir=terraform/projects/github-actions-terraform-linting validate -no-color
 
-      - name: "Init and validate github-pages project"
+      - name: "Init and validate github-pages-dns project"
         run: |
-          terraform -chdir=terraform/projects/github-pages init
-          terraform -chdir=terraform/projects/github-pages validate -no-color
+          terraform -chdir=terraform/projects/github-pages-dns init
+          terraform -chdir=terraform/projects/github-pages-dns validate -no-color
 
       - name: "Init and validate remote-state project"
         run: |
