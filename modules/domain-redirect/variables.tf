@@ -26,3 +26,9 @@ variable "redirect_to" {
     error_message = "Redirect target must be a URL that does not end in `/`."
   }
 }
+
+variable "apex_only" {
+  description = "Whether the redirect is only for the apex domain"
+  type        = bool
+  default     = false
+}

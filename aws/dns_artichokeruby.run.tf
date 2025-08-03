@@ -9,19 +9,15 @@ locals {
   ]
 }
 
-resource "aws_route53_zone" "artichokeruby_run" {
+data "aws_route53_zone" "artichokeruby_run" {
   name = "artichokeruby.run"
-
-  lifecycle {
-    prevent_destroy = true
-  }
 }
 
 module "artichokeruby_run_github_challenge" {
   source   = "../modules/github-domain-verification"
   for_each = { for conf in local.artichokeruby_run_github_challenges : "${conf.org}_${conf.domain}" => conf }
 
-  zone_id             = aws_route53_zone.artichokeruby_run.zone_id
+  zone_id             = data.aws_route53_zone.artichokeruby_run.zone_id
   github_organization = each.value.org
   domain              = each.value.domain
   challenge           = each.value.challenge
@@ -30,7 +26,7 @@ module "artichokeruby_run_github_challenge" {
 module "artichokeruby_run_github_pages_challenge" {
   source = "../modules/github-pages-domain-verification"
 
-  zone_id             = aws_route53_zone.artichokeruby_run.zone_id
+  zone_id             = data.aws_route53_zone.artichokeruby_run.zone_id
   github_organization = "artichoke"
   domain              = "artichokeruby.run"
   challenge           = "50369d1a13ec11c0d9899705388810"
@@ -41,7 +37,7 @@ module "artichokeruby_run_redirect" {
 
   access_logs_bucket = module.forge_access_logs.name
 
-  zone_id     = aws_route53_zone.artichokeruby_run.zone_id
+  zone_id     = data.aws_route53_zone.artichokeruby_run.zone_id
   redirect_to = "https://artichoke.run"
 
   providers = {

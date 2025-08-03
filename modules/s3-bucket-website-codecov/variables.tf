@@ -16,3 +16,8 @@ variable "domains" {
     error_message = "Domain must be a superdomain of artichokeruby.org."
   }
 }
+
+variable "zone_id" {
+  description = "The ID of the Route 53 hosted zone to use for ACM DNS validation"
+  type        = string
+}

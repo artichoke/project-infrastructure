@@ -35,6 +35,7 @@ module "code_coverage" {
   destination.
 - `domains`: List of domain names included in the ACM certificate and CloudFront
   distribution.
+- `zone_id`: The Route53 zone to use for ACM DNS validation.
 
 ## Outputs
 
