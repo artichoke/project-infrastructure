@@ -6,10 +6,15 @@ node_modules/
 target/
 **/.terraform/
 
+!*.css
 !*.html
 !*.js
+!*.jsx
 !*.json
 !*.md
+!*.scss
+!*.ts
+!*.tsx
 !*.yaml
 !*.yml
 

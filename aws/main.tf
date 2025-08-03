@@ -65,21 +65,6 @@ module "github_actions_s3_backups_assume_role" {
   s3_bucket_name = module.repo_backups.name
 }
 
-module "code_coverage" {
-  source = "../modules/s3-bucket-website-codecov"
-
-  bucket             = "artichoke-forge-code-coverage-${var.region}"
-  access_logs_bucket = module.forge_access_logs.name
-
-  domains = ["codecov.artichokeruby.org"]
-  zone_id = data.aws_route53_zone.artichokeruby_org.zone_id
-
-  providers = {
-    aws           = aws
-    aws.us_east_1 = aws.us_east_1
-  }
-}
-
 module "github_actions_code_coverage_assume_role" {
   source   = "../modules/github-actions-s3-code-coverage-sync-access"
   for_each = toset(local.code_coverage_repositories)
@@ -88,5 +73,5 @@ module "github_actions_code_coverage_assume_role" {
   github_organization      = "artichoke"
   github_repository        = each.value
 
-  s3_bucket_name = module.code_coverage.name
+  s3_bucket_name = "artichoke-forge-code-coverage-${var.region}"
 }

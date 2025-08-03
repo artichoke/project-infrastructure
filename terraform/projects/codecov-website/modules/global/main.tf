@@ -1,9 +1,27 @@
 locals {
-  safe_name = replace(var.domains[0], ".", "-")
+  bucket             = "artichoke-forge-code-coverage-${data.aws_region.current.name}"
+  access_logs_bucket = "artichoke-codecov-logs-${data.aws_region.current.name}"
+  zone               = "artichokeruby.org."
+  domain             = "codecov.artichokeruby.org"
+  safe_name          = replace(local.domain, ".", "-")
+}
+
+# load current region
+data "aws_region" "current" {}
+
+data "aws_route53_zone" "main" {
+  name         = local.zone
+  private_zone = false
+}
+
+module "access_logs" {
+  source = "../../../../modules/access-logs-s3-bucket"
+
+  bucket = local.access_logs_bucket
 }
 
 resource "aws_s3_bucket" "this" {
-  bucket = var.bucket
+  bucket = local.bucket
 
   lifecycle {
     prevent_destroy = true
@@ -42,8 +60,8 @@ resource "aws_s3_bucket_lifecycle_configuration" "this" {
 
 resource "aws_s3_bucket_logging" "this" {
   bucket        = aws_s3_bucket.this.id
-  target_bucket = var.access_logs_bucket
-  target_prefix = "v2/${var.bucket}/"
+  target_bucket = module.access_logs.name
+  target_prefix = "v2/${aws_s3_bucket.this.id}/"
 
   lifecycle {
     prevent_destroy = true
@@ -93,59 +111,15 @@ resource "aws_s3_bucket_versioning" "this" {
   }
 }
 
-resource "aws_acm_certificate" "cert" {
-  provider = aws.us_east_1
+module "cert" {
+  source = "../../../../modules/acm-cert-with-dns-verification"
 
-  domain_name               = var.domains[0]
-  subject_alternative_names = slice(var.domains, 1, length(var.domains))
-  validation_method         = "DNS"
+  zone_id = data.aws_route53_zone.main.zone_id
+  domains = [local.domain]
 
-  options {
-    certificate_transparency_logging_preference = "ENABLED"
-  }
-
-  lifecycle {
-    create_before_destroy = true
-  }
-}
-
-data "aws_route53_zone" "cert" {
-  zone_id      = var.zone_id
-  private_zone = false
-}
-
-resource "aws_route53_record" "cert_validation" {
-  for_each = {
-    for dvo in aws_acm_certificate.cert.domain_validation_options :
-    dvo.domain_name => {
-      name    = dvo.resource_record_name
-      type    = dvo.resource_record_type
-      record  = dvo.resource_record_value
-      zone_id = data.aws_route53_zone.cert.zone_id
-    }
-  }
-
-  name    = each.value.name
-  type    = each.value.type
-  zone_id = each.value.zone_id
-  records = [each.value.record]
-  ttl     = 300
-
-  lifecycle {
-    create_before_destroy = false
-  }
-}
-
-resource "aws_acm_certificate_validation" "cert" {
-  provider        = aws.us_east_1
-  certificate_arn = aws_acm_certificate.cert.arn
-
-  validation_record_fqdns = [
-    for rec in aws_route53_record.cert_validation : rec.fqdn
-  ]
-
-  lifecycle {
-    create_before_destroy = true
+  providers = {
+    aws           = aws
+    aws.us_east_1 = aws.us_east_1
   }
 }
 
@@ -156,7 +130,7 @@ data "aws_iam_roles" "admin" {
 
 resource "aws_cloudfront_origin_access_control" "this" {
   name                              = "oac-static-site-${local.safe_name}"
-  description                       = "OAC for S3 bucket backing static website ${var.domains[0]}"
+  description                       = "OAC for S3 bucket backing static website ${local.domain}"
   origin_access_control_origin_type = "s3"
   signing_behavior                  = "always"
   signing_protocol                  = "sigv4"
@@ -226,7 +200,7 @@ resource "aws_s3_bucket_policy" "this" {
 # tfsec:ignore:aws-cloudfront-enable-waf
 # tfsec:ignore:aws-cloudfront-enable-logging
 resource "aws_cloudfront_distribution" "website" {
-  comment = "static website ${var.domains[0]}"
+  comment = "static website ${local.domain}"
 
   enabled             = true
   wait_for_deployment = false
@@ -235,9 +209,9 @@ resource "aws_cloudfront_distribution" "website" {
   default_root_object = "index.html"
   price_class         = "PriceClass_All"
 
-  aliases = var.domains
+  aliases = [local.domain]
   viewer_certificate {
-    acm_certificate_arn = aws_acm_certificate.cert.arn
+    acm_certificate_arn = module.cert.cert_arn
     ssl_support_method  = "sni-only"
     # https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/secure-connections-supported-viewer-protocols-ciphers.html
     minimum_protocol_version = "TLSv1.2_2021"
@@ -285,16 +259,16 @@ resource "aws_cloudfront_distribution" "website" {
 }
 
 resource "aws_cloudfront_function" "request_handler" {
-  name    = "cloudfront-${replace(var.domains[0], ".", "-")}-request-handler"
+  name    = "cloudfront-${local.safe_name}-request-handler"
   runtime = "cloudfront-js-1.0"
-  comment = "static website request handler ${var.domains[0]}"
+  comment = "static website request handler ${local.domain}"
   publish = true
   code    = file("${path.module}/request-handler.js")
 }
 
 resource "aws_cloudfront_response_headers_policy" "website" {
-  name    = "cloudfront-${replace(var.domains[0], ".", "-")}-response-headers"
-  comment = "static website ${var.domains[0]}"
+  name    = "cloudfront-${local.safe_name}-response-headers"
+  comment = "static website ${local.domain} response headers policy"
 
   custom_headers_config {
     # Prevent user agents from caching responses from this CloudFront
@@ -314,7 +288,7 @@ resource "aws_cloudfront_response_headers_policy" "website" {
     # https://infosec.mozilla.org/guidelines/web_security#content-security-policy
     # https://infosec.mozilla.org/guidelines/web_security#x-frame-options
     content_security_policy {
-      content_security_policy = "frame-ancestors 'none'; style-src 'self' 'nonce-b77e5ce9ed'; img-src 'self'; object-src 'none'; script-src 'none'; trusted-types; require-trusted-types-for 'script';"
+      content_security_policy = "frame-ancestors 'none'; style-src 'self' 'nonce-YZZiQ284gYBRM/ZNSOQZvA=='; img-src 'self'; object-src 'none'; script-src 'none'; trusted-types; require-trusted-types-for 'script';"
       override                = true
     }
 
@@ -352,78 +326,26 @@ resource "aws_cloudfront_response_headers_policy" "website" {
   }
 }
 
-resource "aws_s3_object" "robots" {
-  bucket = aws_s3_bucket.this.id
-  key    = "robots.txt"
-  source = "${path.module}/robots.txt"
+resource "aws_route53_record" "a" {
+  zone_id = data.aws_route53_zone.main.zone_id
+  name    = local.domain
+  type    = "A"
 
-  etag         = filemd5("${path.module}/robots.txt")
-  content_type = "text/plain"
-
-  server_side_encryption = "AES256"
-}
-
-resource "aws_s3_object" "index" {
-  bucket = aws_s3_bucket.this.id
-  key    = "index.html"
-  source = "${path.module}/code-coverage-index.html"
-
-  etag         = filemd5("${path.module}/code-coverage-index.html")
-  content_type = "text/html"
-
-  server_side_encryption = "AES256"
-}
-
-resource "aws_s3_object" "favicon" {
-  for_each = {
-    "png" = "${path.module}/favicon-32x32.png",
-    "ico" = "${path.module}/favicon.ico",
+  alias {
+    name                   = aws_cloudfront_distribution.website.domain_name
+    zone_id                = aws_cloudfront_distribution.website.hosted_zone_id
+    evaluate_target_health = false
   }
-
-  bucket = aws_s3_bucket.this.id
-  key    = "favicon.${each.key}"
-  source = each.value
-
-  etag         = filemd5(each.value)
-  content_type = each.key == "png" ? "image/png" : "image/x-icon"
-
-  server_side_encryption = "AES256"
 }
 
-# Upload Artichoke wordmark
-resource "aws_s3_object" "brand_asset" {
-  for_each = {
-    "artichoke-logo" = "${path.module}/artichoke-logo.svg"
-    "wordmark-color" = "${path.module}/wordmark-color.svg"
+resource "aws_route53_record" "aaaa" {
+  zone_id = data.aws_route53_zone.main.zone_id
+  name    = local.domain
+  type    = "AAAA"
+
+  alias {
+    name                   = aws_cloudfront_distribution.website.domain_name
+    zone_id                = aws_cloudfront_distribution.website.hosted_zone_id
+    evaluate_target_health = false
   }
-
-  bucket = aws_s3_bucket.this.id
-  key    = "${each.key}.svg"
-  source = each.value
-
-  etag         = filemd5(each.value)
-  content_type = "image/svg+xml"
-
-  server_side_encryption = "AES256"
-}
-
-
-# Font Awesome icons
-resource "aws_s3_object" "icon" {
-  for_each = {
-    "code"          = "${path.module}/icon-code.svg",
-    "file-code"     = "${path.module}/icon-file-code.svg",
-    "github"        = "${path.module}/icon-github.svg",
-    "list"          = "${path.module}/icon-list.svg",
-    "square-github" = "${path.module}/icon-square-github.svg",
-  }
-
-  bucket = aws_s3_bucket.this.id
-  key    = "icon-${each.key}.svg"
-  source = each.value
-
-  etag         = filemd5(each.value)
-  content_type = "image/svg+xml"
-
-  server_side_encryption = "AES256"
 }
