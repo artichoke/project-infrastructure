@@ -62,6 +62,11 @@ jobs:
           terraform -chdir=github-org-artichoke-ruby init
           terraform -chdir=github-org-artichoke-ruby validate -no-color
 
+      - name: "Init and validate aws-account-bootstrapping project"
+        run: |
+          terraform -chdir=terraform/projects/aws-account-bootstrapping init
+          terraform -chdir=terraform/projects/aws-account-bootstrapping validate -no-color
+
       - name: "Init and validate domain-redirects project"
         run: |
           terraform -chdir=terraform/projects/domain-redirects init
