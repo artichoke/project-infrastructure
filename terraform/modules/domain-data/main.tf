@@ -196,4 +196,19 @@ locals {
     local.codecov_redirect_domains,
     local.playground_redirect_domains,
   )
+
+  google_site_verification_keys = {
+    "artichoke.run" = {
+      domain = "artichoke.run"
+      site_verification_keys = [
+        "Ro-ABr2TIv3obx8csab8E3NC43BrANBdXimBKg2Jcxc", # Google Search Console
+      ]
+    }
+    "artichokeruby.org" = {
+      domain = "artichokeruby.org"
+      site_verification_keys = [
+        "WNbmzcJDc3Umb4SquyIhK5k-juY5IQj7RUe0ulAbrGY", # Google Workspace
+      ]
+    }
+  }
 }

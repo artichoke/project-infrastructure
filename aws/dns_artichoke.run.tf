@@ -34,13 +34,3 @@ module "artichoke_run_github_pages_challenge" {
   domain              = "artichoke.run"
   challenge           = "485977220be94c7ea6d333d5011d0c"
 }
-
-module "artichoke_run_google" {
-  source = "../modules/google-site-verification"
-
-  zone_id = data.aws_route53_zone.artichoke_run.zone_id
-
-  site_verification_keys = [
-    "Ro-ABr2TIv3obx8csab8E3NC43BrANBdXimBKg2Jcxc", # Google Search Console
-  ]
-}

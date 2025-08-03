@@ -1,4 +1,3 @@
-# Reserved S3 Buckets
+# GitHub Pages DNS
 
-Reserve S3 buckets which are used in documentation in this repo to ensure they
-are not squatted.
+Set DNS records to serve GitHub Pages sites via either CNAME or A/AAAA (apex).
