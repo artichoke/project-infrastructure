@@ -7,7 +7,7 @@
 | artichoke.run     | Amazon Route 53 Domains | Amazon Route 53 | ❌      | ❌              |
 | artichokeruby.com | Amazon Route 53 Domains | Amazon Route 53 | ❌      | ❌              |
 | artichokeruby.net | Amazon Route 53 Domains | Amazon Route 53 | ❌      | ❌              |
-| artichokeruby.org | Google Domains          | Amazon Route 53 | ❌      | ✅              |
+| artichokeruby.org | Amazon Route 53 Domains | Amazon Route 53 | ❌      | ✅              |
 | artichokeruby.run | Amazon Route 53 Domains | Amazon Route 53 | ❌      | ❌              |
 
 [^1]: MX records are also linked to a Google Workspace account.
