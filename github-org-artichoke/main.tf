@@ -52,50 +52,6 @@ resource "github_organization_settings" "this" {
   secret_scanning_push_protection_enabled_for_new_repositories = true
 }
 
-module "git_events_webhook" {
-  source = "../modules/github-discord-webhook"
-
-  webhook_id    = var.discord_git_events_webhook_id
-  webhook_token = var.discord_git_events_webhook_token
-
-  # https://docs.github.com/en/developers/webhooks-and-events/webhooks/webhook-events-and-payloads
-  github_events = [
-    "commit_comment",
-    "create",
-    "delete",
-    "issues",
-    "issue_comment",
-    "pull_request",
-    "pull_request_review",
-    "pull_request_review_comment",
-  ]
-}
-
-module "security_events_webhook" {
-  source = "../modules/github-discord-webhook"
-
-  webhook_id    = var.discord_security_events_webhook_id
-  webhook_token = var.discord_security_events_webhook_token
-
-  # https://docs.github.com/en/developers/webhooks-and-events/webhooks/webhook-events-and-payloads
-  github_events = [
-    "branch_protection_rule",
-    "code_scanning_alert",
-    "deploy_key",
-    "member",
-    "membership",
-    "organization",
-    "org_block",
-    "public",
-    "repository",
-    "repository_import",
-    "repository_vulnerability_alert",
-    "secret_scanning_alert",
-    "team",
-    "team_add",
-  ]
-}
-
 module "org_members" {
   source = "../modules/github-organization-members"
 
