@@ -21,11 +21,6 @@ issue that looks interesting and leave a comment that you're beginning to
 investigate. If there is no issue, please file one before beginning to work on a
 PR. [Good first issues are labeled `E-easy`].
 
-## Discussion
-
-If you'd like to engage in a discussion outside of GitHub, you can [join
-Artichoke's public Discord server].
-
 ## Setup
 
 project-infrastructure includes Ruby, Terraform, and Text sources. Developing on
@@ -135,7 +130,6 @@ Regular dependency bumps are handled by [@dependabot].
   https://github.com/artichoke/project-infrastructure/issues/new
 [good first issues are labeled `e-easy`]:
   https://github.com/artichoke/project-infrastructure/labels/E-easy
-[join artichoke's public discord server]: https://discord.gg/QCe2tp2
 [terraform]: https://www.terraform.io/downloads
 [homebrew]: https://docs.brew.sh/Installation
 [bundler]: https://bundler.io/
